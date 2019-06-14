@@ -1,0 +1,14 @@
+{
+  "editor.formatOnSave": true,
+  "prettier.eslintIntegration": true,
+  "eslint.enable": true,
+  "prettier.useTabs": false,
+  "prettier.tabWidth": 2,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "html",
+    "typescript",
+    "typescriptreact"
+  ]
+}
