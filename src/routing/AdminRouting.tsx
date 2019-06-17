@@ -1,20 +1,39 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {
   AdminOrdersScreen,
   AdminProductsScreen,
   ProductCreateScreen,
   ProductEditScreen,
 } from '../screens';
+import { LinksList, LinkItemModel } from '../shared';
+
+const links: LinkItemModel[] = [
+  {
+    id: 'orders',
+    link: '/orders',
+    title: 'Orders',
+  },
+  {
+    id: 'products',
+    link: '/products',
+    title: 'Products',
+  },
+  {
+    id: 'product-create',
+    link: '/product',
+    title: 'Product create (temp)',
+  },
+  {
+    id: 'product-edit',
+    link: '/product/5',
+    title: 'Product 5 edit (temp)',
+  },
+];
 
 const AdminRouting = (): JSX.Element => (
   <Router>
-    <div>
-      <Link to="/orders">Orders</Link>
-      <Link to="/products">Products</Link>
-      <Link to="/product">Create</Link>
-      <Link to="/product/5">Edit</Link>
-    </div>
+    <LinksList items={links} />
     <div>
       <Route path="/orders" component={AdminOrdersScreen} />
       <Route path="/products" component={AdminProductsScreen} />
@@ -24,4 +43,4 @@ const AdminRouting = (): JSX.Element => (
   </Router>
 );
 
-export { AdminRouting };
+export default AdminRouting;

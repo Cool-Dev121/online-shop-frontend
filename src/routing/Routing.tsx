@@ -1,12 +1,11 @@
-import * as React from 'react';
-import { UserType } from '../shared';
-import { AdminRouting } from './AdminRouting';
-import { CustomerRouting } from './CustomerRouting';
+import React, { Suspense } from 'react';
+import { UserType, Loading } from '../shared';
 
-const getUserType = (): UserType => UserType.Admin;
+const AdminRouting = React.lazy(() => import('./AdminRouting'));
+const CustomerRouting = React.lazy(() => import('./CustomerRouting'));
 
-export const Routing = (): JSX.Element => {
-  const type = getUserType();
+const RoutingInner = (props: { type: UserType }): JSX.Element => {
+  const { type } = props;
   switch (type) {
     case UserType.Admin:
       return <AdminRouting />;
@@ -14,4 +13,21 @@ export const Routing = (): JSX.Element => {
     case UserType.Customer:
       return <CustomerRouting />;
   }
+};
+
+const getUserType = (): UserType => UserType.Admin;
+
+export const Routing = (): JSX.Element => {
+  const type = getUserType();
+  return (
+    <Suspense
+      fallback={(
+        <div>
+          <Loading />
+        </div>
+)}
+    >
+      <RoutingInner type={type} />
+    </Suspense>
+  );
 };

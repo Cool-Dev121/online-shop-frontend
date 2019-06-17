@@ -17,4 +17,4 @@ const CustomerRouting = (): JSX.Element => (
   </Router>
 );
 
-export { CustomerRouting };
+export default CustomerRouting;
