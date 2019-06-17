@@ -6,7 +6,9 @@ import {
   ProductCreateScreen,
   ProductEditScreen,
 } from '../screens';
-import { LinksList, LinkItemModel } from '../shared';
+import {
+  LinksList, LinkItemModel, MainLayout, Toolbar,
+} from '../shared';
 
 const links: LinkItemModel[] = [
   {
@@ -31,15 +33,30 @@ const links: LinkItemModel[] = [
   },
 ];
 
+const styles = {
+  listContainer: {
+    padding: 10,
+  },
+};
+
 const AdminRouting = (): JSX.Element => (
   <Router>
-    <LinksList items={links} />
-    <div>
-      <Route path="/orders" component={AdminOrdersScreen} />
-      <Route path="/products" component={AdminProductsScreen} />
-      <Route path="/product" exact component={ProductCreateScreen} />
-      <Route path="/product/:id" component={ProductEditScreen} />
-    </div>
+    <MainLayout
+      renderToolbar={() => <Toolbar />}
+      renderSidebar={() => (
+        <div style={styles.listContainer}>
+          <LinksList items={links} />
+        </div>
+      )}
+      renderContent={() => (
+        <div>
+          <Route path="/orders" component={AdminOrdersScreen} />
+          <Route path="/products" component={AdminProductsScreen} />
+          <Route path="/product" exact component={ProductCreateScreen} />
+          <Route path="/product/:id" component={ProductEditScreen} />
+        </div>
+      )}
+    />
   </Router>
 );
 

@@ -1,16 +1,23 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { LinkItemModel } from './models';
+import { Button } from '../../components';
 
 interface Props {
   item: LinkItemModel;
 }
 
-export const LinkItem = (props: Props) => {
-  const { item } = props;
+export const LinkItemInner = (props: Props & RouteComponentProps) => {
+  const { item, history } = props;
+
   return (
-    <Fragment>
-      <Link to={item.link}>{item.title}</Link>
-    </Fragment>
+    <Button
+      onClick={() => history.push(item.link)}
+      isActive={history.location.pathname === item.link}
+    >
+      {item.title}
+    </Button>
   );
 };
+
+export const LinkItem = withRouter(LinkItemInner);

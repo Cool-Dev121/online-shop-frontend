@@ -9,5 +9,18 @@ interface Props {
 
 export const LinksList = (props: Props): JSX.Element => {
   const { items } = props;
-  return <List renderItem={(item: LinkItemModel) => <LinkItem item={item} />} items={items} />;
+  return (
+    <List
+      renderItem={(item: LinkItemModel, index: number) => (
+        <div
+          style={{
+            marginBottom: index === items.length - 1 ? 0 : '5px',
+          }}
+        >
+          <LinkItem item={item} />
+        </div>
+      )}
+      items={items}
+    />
+  );
 };

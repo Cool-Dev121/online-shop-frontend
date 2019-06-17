@@ -1,0 +1,3 @@
+export enum ThemeType {
+  Default,
+}

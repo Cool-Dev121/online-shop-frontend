@@ -1,14 +1,14 @@
 import React from 'react';
-
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider } from 'styled-components';
 import { Routing } from './routing';
+import { getTheme, ThemeType } from './components';
+
+const theme = ThemeType.Default;
 
 const App: React.FC = (): JSX.Element => (
-  <div className="App">
-    <img src={logo} className="App-logo" alt="logo" />
+  <ThemeProvider theme={getTheme(theme)}>
     <Routing />
-  </div>
+  </ThemeProvider>
 );
 
 export default App;
