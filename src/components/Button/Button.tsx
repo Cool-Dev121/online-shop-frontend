@@ -5,7 +5,7 @@ interface ButtonProps {
 }
 
 const Button = styled.button<ButtonProps>`
-  border-radius: 5px;
+  border-radius: ${props => props.theme.borderRadius}px;
   border-width: 1px;
   border-style: solid;
   border-color: ${props => (props.isActive ? props.theme.borderColor1 : props.theme.borderColor2)};

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table, TableColumnsDefinition } from '../../components';
+import { Identifiable } from '../../components/shared';
 
 enum OrdersColumnKey {
   Id,
@@ -10,7 +11,7 @@ enum OrdersColumnKey {
   Sum,
 }
 
-interface CustomerOrderItemModel {
+interface CustomerOrderItemModel extends Identifiable {
   id: string;
   userName: string;
   createdAt: string;
@@ -65,7 +66,7 @@ const ordersMock: CustomerOrderItemModel[] = [
   },
   {
     id: '2',
-    userName: 'User 2',
+    userName: 'sdfg sdg sdfgsdfgsdfgsdfgs',
     createdAt: '19.06.2019',
     items: [4, 5, 6],
     status: 'created',
@@ -73,7 +74,7 @@ const ordersMock: CustomerOrderItemModel[] = [
   },
   {
     id: '3',
-    userName: 'User 3',
+    userName: 'sdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg',
     createdAt: '20.06.2019',
     items: [7, 8, 9],
     status: 'created',

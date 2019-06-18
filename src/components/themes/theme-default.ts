@@ -9,6 +9,17 @@ const theme: Theme = {
 
   borderColor1: '#21ba45',
   borderColor2: '#0d4a1b',
+
+  borderRadius: 2,
+
+  table: {
+    borderColor: '#6e8e7f',
+    borderRadius: 5,
+    borderWidth: 2,
+    headerBgColor: '#bf7c7a',
+    evenRowBgColor: '#aec1ae',
+    oddRowBgColor: '#e2eadb',
+  },
 };
 
 export { theme };

@@ -7,4 +7,15 @@ export interface Theme {
 
   borderColor1: string;
   borderColor2: string;
+
+  borderRadius: number;
+
+  table: {
+    borderColor: string;
+    borderRadius: number;
+    borderWidth: number;
+    headerBgColor: string;
+    evenRowBgColor: string;
+    oddRowBgColor: string;
+  };
 }

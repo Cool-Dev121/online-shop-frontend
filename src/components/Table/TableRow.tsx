@@ -2,12 +2,26 @@ import React from 'react';
 import { ChildrenAcceptable } from '../shared';
 import { styled } from '../themes';
 
-const MainContainer = styled.div`
+interface MainContainerProps {
+  isOdd?: boolean;
+}
+
+const MainContainer = styled.div<MainContainerProps>`
   display: flex;
   flex-direction: row;
+  background-color: ${props => (props.isOdd !== undefined
+    ? props.isOdd
+      ? props.theme.table.oddRowBgColor
+      : props.theme.table.evenRowBgColor
+    : 'transparent')};
+  overflow: hidden;
 `;
 
-export const TableRow = (props: ChildrenAcceptable): JSX.Element => {
-  const { children } = props;
-  return <MainContainer>{children}</MainContainer>;
+interface Props extends ChildrenAcceptable {
+  isOdd?: boolean;
+}
+
+export const TableRow = (props: Props): JSX.Element => {
+  const { children, isOdd } = props;
+  return <MainContainer isOdd={isOdd}>{children}</MainContainer>;
 };

@@ -7,7 +7,8 @@ interface MainContainerProps {
 }
 
 const MainContainer = styled.div<MainContainerProps>`
-  flex: ${props => props.width}; /* its parent TableHeader has diaplay: flex; */
+  flex: ${props => props.width};
+  word-break: break-all;
 `;
 
 interface Props extends ChildrenAcceptable {
