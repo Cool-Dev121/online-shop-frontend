@@ -1,6 +1,12 @@
 import React from 'react';
-import './styles.scss';
+import { styled } from '../../components';
 
-const Toolbar = (): JSX.Element => <div className="toolbar-main-container">Toolbar</div>;
+const MainContainer = styled.div`
+  background-color: azure;
+  height: 70px;
+  width: 100%;
+`;
+
+const Toolbar = (): JSX.Element => <MainContainer>Toolbar</MainContainer>;
 
 export { Toolbar };

@@ -1,16 +1,13 @@
 import React from 'react';
 import './styles.scss';
+import { Identifiable } from '../shared';
 
-interface Item {
-  id: string | number;
-}
-
-interface Props<TItem extends Item> {
+interface Props<TItem extends Identifiable> {
   items: TItem[];
   renderItem: (item: TItem, index: number) => JSX.Element;
 }
 
-function List<TItem extends Item>(props: Props<TItem>): JSX.Element {
+function List<TItem extends Identifiable>(props: Props<TItem>): JSX.Element {
   const { items, renderItem } = props;
   return (
     <div className="list-container">

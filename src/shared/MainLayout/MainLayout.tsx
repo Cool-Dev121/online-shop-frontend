@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './styles.scss';
+import { styled } from '../../components';
 
 interface Props {
   renderToolbar: () => JSX.Element;
@@ -7,18 +7,38 @@ interface Props {
   renderContent: () => JSX.Element;
 }
 
-const MainLayout = (props: Props): JSX.Element => {
-  const { renderToolbar, renderSidebar, renderContent } = props;
+const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+`;
 
+const ToolbarContainer = styled.div``;
+
+const SidebarContentContainer = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+`;
+
+const SidebarContainer = styled.div`
+  flex: 1 0 180px;
+`;
+
+const ContentContainer = styled.div`
+  flex: 9 1;
+`;
+
+export const MainLayout = (props: Props): JSX.Element => {
+  const { renderToolbar, renderSidebar, renderContent } = props;
   return (
-    <div className="main-layout__main-container">
-      <div className="toolbar-container">{renderToolbar()}</div>
-      <div className="sidebar-content-container">
-        <div className="sidebar-container">{renderSidebar()}</div>
-        <div className="content-container">{renderContent()}</div>
-      </div>
-    </div>
+    <MainContainer>
+      <ToolbarContainer>{renderToolbar()}</ToolbarContainer>
+      <SidebarContentContainer>
+        <SidebarContainer>{renderSidebar()}</SidebarContainer>
+        <ContentContainer>{renderContent()}</ContentContainer>
+      </SidebarContentContainer>
+    </MainContainer>
   );
 };
-
-export { MainLayout };

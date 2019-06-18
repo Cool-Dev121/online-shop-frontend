@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {
   AdminOrdersScreen,
@@ -49,12 +49,12 @@ const AdminRouting = (): JSX.Element => (
         </div>
       )}
       renderContent={() => (
-        <div>
+        <React.Fragment>
           <Route path="/orders" component={AdminOrdersScreen} />
           <Route path="/products" component={AdminProductsScreen} />
           <Route path="/product" exact component={ProductCreateScreen} />
           <Route path="/product/:id" component={ProductEditScreen} />
-        </div>
+        </React.Fragment>
       )}
     />
   </Router>
