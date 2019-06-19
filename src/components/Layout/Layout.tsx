@@ -13,6 +13,7 @@ const MainContainer = styled.div`
   flex-direction: column;
   height: 100%;
   width: 100%;
+  overflow-y: hidden;
 `;
 
 const SidebarContentContainer = styled.div`
@@ -29,6 +30,8 @@ const SidebarContainer = styled.div`
 const ContentContainer = styled.div`
   flex: 9 1;
   padding: ${props => props.theme.padding.md}px;
+  overflow-y: auto;
+  max-height: 100%;
 `;
 
 export const Layout = (props: Props): JSX.Element => {

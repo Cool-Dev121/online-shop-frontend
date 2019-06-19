@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Table, TableColumnsDefinition, Identifiable, Paginator, styled,
 } from '../../components';
+import { apiHub } from '../../api';
+import { PagedModel, TableOrderModel } from '../../api/models';
 
 enum OrdersColumnKey {
   Id,
@@ -16,7 +18,7 @@ interface CustomerOrderItemModel extends Identifiable {
   id: string;
   userName: string;
   createdAt: string;
-  items: number[];
+  items: string[];
   status: string;
   sum: number;
 }
@@ -56,41 +58,45 @@ const ordersColumnsDefenition: TableColumnsDefinition<CustomerOrderItemModel> = 
   },
 };
 
-const ordersMock: CustomerOrderItemModel[] = [
-  {
-    id: '1',
-    userName: 'User 1',
-    createdAt: '18.06.2019',
-    items: [1, 2, 3],
-    status: 'created',
-    sum: 101,
-  },
-  {
-    id: '2',
-    userName: 'sdfg sdg sdfgsdfgsdfgsdfgs',
-    createdAt: '19.06.2019',
-    items: [4, 5, 6],
-    status: 'created',
-    sum: 102,
-  },
-  {
-    id: '3',
-    userName: 'sdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfgsdfg',
-    createdAt: '20.06.2019',
-    items: [7, 8, 9],
-    status: 'created',
-    sum: 103,
-  },
-];
-
 const Space = styled.div`
   height: 50px;
 `;
 
-export const OrdersScreen = (): JSX.Element => (
-  <React.Fragment>
-    <Table tableColumnsDefinition={ordersColumnsDefenition} items={ordersMock} />
-    <Space />
-    <Paginator visiblePagesCount={8} pagesCount={16} />
-  </React.Fragment>
-);
+const PAGE_SIZE = 10;
+
+function onPageChange(page: number): Promise<PagedModel<TableOrderModel>> {
+  return apiHub.orders.getOrders(PAGE_SIZE * (page - 1), PAGE_SIZE);
+}
+
+export const OrdersScreen = (): JSX.Element => {
+  const [items, setItems] = useState<CustomerOrderItemModel[]>([]);
+  const [pagesCount, setPagesCount] = useState<number>(0);
+
+  return (
+    <React.Fragment>
+      <Table tableColumnsDefinition={ordersColumnsDefenition} items={items} />
+      <Space />
+      <Paginator
+        visiblePagesCount={8}
+        pagesCount={pagesCount}
+        onPageChange={(page: number) => {
+          onPageChange(page).then((result: PagedModel<TableOrderModel>) => {
+            setItems(
+              result.items.map(
+                (item: TableOrderModel) => ({
+                  id: item.id,
+                  userName: item.userId,
+                  createdAt: item.createdAt,
+                  items: item.items.map(i => i.name),
+                  status: item.status,
+                  sum: 103,
+                } as CustomerOrderItemModel),
+              ),
+            );
+            setPagesCount(Math.round(result.totalItems / PAGE_SIZE));
+          });
+        }}
+      />
+    </React.Fragment>
+  );
+};

@@ -7,5 +7,6 @@ export const ToolbarContainer = styled.div`
   border-bottom-left-radius: ${props => props.theme.toolbar.borderRadius}px;
   border-bottom-right-radius: ${props => props.theme.toolbar.borderRadius}px;
   height: 50px;
+  z-index: 1;
   ${shadowed}
 `;

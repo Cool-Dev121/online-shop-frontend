@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withTheme } from 'styled-components';
 import { styled, Themable } from '../themes';
 import { PageButton } from './PageButton';
@@ -11,6 +11,7 @@ interface Props extends Themable {
   visiblePagesCount: number;
   pagesCount: number;
   currentPage?: number;
+  onPageChange: (page: number) => void;
 }
 
 const MainContainer = styled.div`
@@ -36,11 +37,16 @@ const validateCurrentPage = (currentPage: number, pagesCount: number) => {
 };
 
 export const PaginatorInner = (props: Props): JSX.Element => {
-  const { visiblePagesCount, pagesCount, theme } = props;
+  const {
+    visiblePagesCount, pagesCount, theme, onPageChange,
+  } = props;
   const [currentPage, setCurrentPage] = useState(
     // eslint-disable-next-line react/destructuring-assignment
     props.currentPage !== undefined ? props.currentPage : FIRST_PAGE,
   );
+  useEffect(() => {
+    onPageChange(currentPage);
+  }, [currentPage]);
   return (
     <MainContainer>
       <PageButton onClick={() => setCurrentPage(validateCurrentPage(0, pagesCount))}>
