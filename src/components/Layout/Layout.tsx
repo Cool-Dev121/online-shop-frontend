@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { styled } from '../../components';
+import { ToolbarContainer } from './ToolbarContainer';
 
 interface Props {
   renderToolbar: () => JSX.Element;
@@ -12,10 +13,6 @@ const MainContainer = styled.div`
   flex-direction: column;
   height: 100%;
   width: 100%;
-`;
-
-const ToolbarContainer = styled.div`
-  padding: ${props => props.theme.padding.md}px;
 `;
 
 const SidebarContentContainer = styled.div`

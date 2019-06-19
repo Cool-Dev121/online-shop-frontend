@@ -13,6 +13,11 @@ const theme: Theme = {
     lg: 16,
   },
 
+  toolbar: {
+    bgColor: '#aec1ae',
+    borderRadius: 5,
+  },
+
   button: {
     borderColor: '#6e8e7f',
     borderRadius: 5,

@@ -11,6 +11,11 @@ export interface Theme {
     lg: number;
   };
 
+  toolbar: {
+    bgColor: string;
+    borderRadius: number;
+  };
+
   button: {
     borderColor: string;
     borderRadius: number;
