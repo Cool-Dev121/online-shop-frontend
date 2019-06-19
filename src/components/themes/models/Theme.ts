@@ -1,14 +1,19 @@
 export interface Theme {
-  bgColor1: string;
-  bgColor2: string;
+  fontSize: {
+    sm: number;
+    md: number;
+    lg: number;
+  };
 
-  fontColor1: string;
-  fontColor2: string;
-
-  borderColor1: string;
-  borderColor2: string;
-
-  borderRadius: number;
+  button: {
+    borderColor: string;
+    borderRadius: number;
+    borderWidth: number;
+    bgColor: string;
+    fontColor: string;
+    activeBgColor: string;
+    activeFontColor: string;
+  };
 
   table: {
     borderColor: string;
@@ -24,6 +29,8 @@ export interface Theme {
     borderRadius: number;
     borderWidth: number;
     bgColor: string;
+    fontColor: string;
     activeBgColor: string;
+    activeFontColor: string;
   };
 }

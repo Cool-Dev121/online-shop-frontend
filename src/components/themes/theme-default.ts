@@ -1,16 +1,21 @@
 import { Theme } from './models';
 
 const theme: Theme = {
-  bgColor1: 'white',
-  bgColor2: 'green',
+  fontSize: {
+    sm: 12,
+    md: 14,
+    lg: 16,
+  },
 
-  fontColor1: '#21ba45',
-  fontColor2: '#0d4a1b',
-
-  borderColor1: '#21ba45',
-  borderColor2: '#0d4a1b',
-
-  borderRadius: 2,
+  button: {
+    borderColor: '#6e8e7f',
+    borderRadius: 5,
+    borderWidth: 2,
+    bgColor: 'white',
+    fontColor: '#6e8e7f',
+    activeBgColor: '#6e8e7f',
+    activeFontColor: 'white',
+  },
 
   table: {
     borderColor: '#6e8e7f',
@@ -25,8 +30,10 @@ const theme: Theme = {
     borderColor: '#6e8e7f',
     borderRadius: 5,
     borderWidth: 2,
-    bgColor: '#e2eadb',
-    activeBgColor: '#aec1ae',
+    bgColor: 'white',
+    fontColor: '#6e8e7f',
+    activeBgColor: '#6e8e7f',
+    activeFontColor: 'white',
   },
 };
 

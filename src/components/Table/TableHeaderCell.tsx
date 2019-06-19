@@ -14,6 +14,7 @@ const MainContainer = styled.div<MainContainerProps>`
   word-break: break-all;
   padding: 5px;
   font-weight: bold;
+  font-size: ${props => props.theme.fontSize.md}px;
 `;
 
 interface Props extends ChildrenAcceptable {

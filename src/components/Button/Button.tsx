@@ -1,22 +1,26 @@
 import { styled } from '../themes';
+import { Activatable, isSatisfiesSafely } from '../shared';
 
-interface ButtonProps {
-  isActive: boolean;
-}
-
-const Button = styled.button<ButtonProps>`
-  border-radius: ${props => props.theme.borderRadius}px;
-  border-width: 1px;
+const Button = styled.button<Activatable>`
+  border-radius: ${props => props.theme.button.borderRadius}px;
+  border-width: ${props => props.theme.button.borderWidth}px;
   border-style: solid;
-  border-color: ${props => (props.isActive ? props.theme.borderColor1 : props.theme.borderColor2)};
-
+  border-color: ${props => props.theme.button.borderColor};
   padding: 10px;
   width: 100%;
   outline: none;
   cursor: pointer;
-
-  color: ${props => (props.isActive ? props.theme.fontColor1 : props.theme.fontColor2)};
-  background-color: ${props => props.theme.bgColor1};
+  font-size: ${props => props.theme.fontSize.md}px;
+  color: ${props => (isSatisfiesSafely(props.isActive)
+    ? props.theme.button.activeFontColor
+    : props.theme.button.fontColor)};
+  background-color: ${props => (isSatisfiesSafely(props.isActive)
+    ? props.theme.button.activeBgColor
+    : props.theme.button.bgColor)};
+  &:hover {
+    background-color: ${props => props.theme.button.activeBgColor};
+    color: ${props => props.theme.button.activeFontColor};
+  }
 `;
 
 export { Button };

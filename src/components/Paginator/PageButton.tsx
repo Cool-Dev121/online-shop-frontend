@@ -1,19 +1,23 @@
 import { styled } from '../themes';
+import { Activatable, isSatisfiesSafely } from '../shared';
 
-interface Props {
-  isActive?: boolean;
-}
-
-export const PageButton = styled.div<Props>`
+export const PageButton = styled.div<Activatable>`
   height: 30px;
   width: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background-color: ${props => (props.isActive !== undefined && props.isActive !== false
+  background-color: ${props => (isSatisfiesSafely(props.isActive)
     ? props.theme.paginator.activeBgColor
-    : 'transparent')};
+    : props.theme.paginator.bgColor)};
   user-select: none;
-  font-size: 12px;
+  font-size: ${props => props.theme.fontSize.md}px;
+  color: ${props => (isSatisfiesSafely(props.isActive)
+    ? props.theme.paginator.activeFontColor
+    : props.theme.paginator.fontColor)};
+  &:hover {
+    background-color: ${props => props.theme.paginator.activeBgColor};
+    color: ${props => props.theme.paginator.activeFontColor};
+  }
 `;
