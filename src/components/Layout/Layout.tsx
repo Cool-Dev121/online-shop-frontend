@@ -14,7 +14,9 @@ const MainContainer = styled.div`
   width: 100%;
 `;
 
-const ToolbarContainer = styled.div``;
+const ToolbarContainer = styled.div`
+  padding: ${props => props.theme.padding.md}px;
+`;
 
 const SidebarContentContainer = styled.div`
   display: flex;
@@ -24,13 +26,15 @@ const SidebarContentContainer = styled.div`
 
 const SidebarContainer = styled.div`
   flex: 1 0 180px;
+  padding: ${props => props.theme.padding.md}px;
 `;
 
 const ContentContainer = styled.div`
   flex: 9 1;
+  padding: ${props => props.theme.padding.md}px;
 `;
 
-export const MainLayout = (props: Props): JSX.Element => {
+export const Layout = (props: Props): JSX.Element => {
   const { renderToolbar, renderSidebar, renderContent } = props;
   return (
     <MainContainer>

@@ -6,7 +6,7 @@ import { TableHeader } from './TableHeader';
 import { TableCell } from './TableCell';
 import { TableRow } from './TableRow';
 import { TableBody } from './TableBody';
-import { getKeysAsNumbers, Identifiable, isLast } from '../shared';
+import { getKeysAsNumbers, Identifiable, isLast, shadowed } from '../shared';
 import { styled, Themable } from '../themes';
 import { VerticalDivider } from '../VerticalDivider';
 
@@ -16,6 +16,7 @@ const MainContainer = styled.div`
   border-style: solid;
   border-color: ${props => props.theme.table.borderColor};
   overflow: hidden;
+  ${shadowed}
 `;
 
 interface Props<TItem> {

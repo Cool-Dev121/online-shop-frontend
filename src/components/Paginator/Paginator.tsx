@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { withTheme } from 'styled-components';
 import { styled, Themable } from '../themes';
 import { PageButton } from './PageButton';
-import { generatePages } from '../shared';
+import { generatePages, shadowed } from '../shared';
 import { VerticalDivider } from '../VerticalDivider';
 
 const FIRST_PAGE = 1;
@@ -22,6 +22,7 @@ const MainContainer = styled.div`
   border-style: solid;
   border-color: ${props => props.theme.paginator.borderColor};
   overflow: hidden;
+  ${shadowed}
 `;
 
 const validateCurrentPage = (currentPage: number, pagesCount: number) => {

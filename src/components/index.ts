@@ -5,3 +5,4 @@ export * from './Table';
 export * from './VerticalDivider';
 export * from './shared/models';
 export * from './Paginator';
+export * from './Layout';

@@ -1,7 +1,7 @@
 import { styled } from '../themes';
-import { Activatable, isSatisfiesSafely } from '../shared';
+import { Activatable, isSatisfiesSafely, shadowed } from '../shared';
 
-const Button = styled.button<Activatable>`
+export const Button = styled.button<Activatable>`
   border-radius: ${props => props.theme.button.borderRadius}px;
   border-width: ${props => props.theme.button.borderWidth}px;
   border-style: solid;
@@ -21,6 +21,5 @@ const Button = styled.button<Activatable>`
     background-color: ${props => props.theme.button.activeBgColor};
     color: ${props => props.theme.button.activeFontColor};
   }
+  ${shadowed}
 `;
-
-export { Button };

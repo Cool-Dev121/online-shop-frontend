@@ -1,6 +1,12 @@
 import { Theme } from './models';
 
 const theme: Theme = {
+  padding: {
+    sm: 5,
+    md: 10,
+    lg: 15,
+  },
+
   fontSize: {
     sm: 12,
     md: 14,

@@ -1,4 +1,10 @@
 export interface Theme {
+  padding: {
+    sm: number;
+    md: number;
+    lg: number;
+  };
+
   fontSize: {
     sm: number;
     md: number;

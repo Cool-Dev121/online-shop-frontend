@@ -6,9 +6,8 @@ import {
   ProductCreateScreen,
   ProductEditScreen,
 } from '../screens';
-import {
-  LinksList, LinkItemModel, MainLayout, Toolbar,
-} from '../shared';
+import { LinksList, LinkItemModel, Toolbar } from '../shared';
+import { Layout } from '../components';
 
 const links: LinkItemModel[] = [
   {
@@ -33,21 +32,11 @@ const links: LinkItemModel[] = [
   },
 ];
 
-const styles = {
-  listContainer: {
-    padding: 10,
-  },
-};
-
 const AdminRouting = (): JSX.Element => (
   <Router>
-    <MainLayout
+    <Layout
       renderToolbar={() => <Toolbar />}
-      renderSidebar={() => (
-        <div style={styles.listContainer}>
-          <LinksList items={links} />
-        </div>
-      )}
+      renderSidebar={() => <LinksList items={links} />}
       renderContent={() => (
         <React.Fragment>
           <Route path="/orders" component={AdminOrdersScreen} />
