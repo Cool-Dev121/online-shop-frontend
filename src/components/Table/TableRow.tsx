@@ -15,6 +15,7 @@ const MainContainer = styled.div<MainContainerProps>`
       : props.theme.table.evenRowBgColor
     : 'transparent')};
   overflow: hidden;
+  height: 100%;
 `;
 
 interface Props extends ChildrenAcceptable {

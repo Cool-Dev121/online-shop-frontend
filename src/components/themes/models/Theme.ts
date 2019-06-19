@@ -18,4 +18,12 @@ export interface Theme {
     evenRowBgColor: string;
     oddRowBgColor: string;
   };
+
+  paginator: {
+    borderColor: string;
+    borderRadius: number;
+    borderWidth: number;
+    bgColor: string;
+    activeBgColor: string;
+  };
 }

@@ -46,7 +46,7 @@ export function TableInner<TItem extends Identifiable>(
       </TableHeader>
       <TableBody>
         {items.map((item: TItem, rowIndex: number) => (
-          <TableRow key={item.id} isOdd={rowIndex % 2 == 1}>
+          <TableRow key={item.id} isOdd={rowIndex % 2 === 1}>
             {columnKeys.map((k, colIndex: number) => (
               <React.Fragment key={k}>
                 <TableCell width={tableColumnsDefinition[k].width}>

@@ -4,6 +4,7 @@ import { styled } from '../themes';
 
 const MainContainer = styled.div`
   background-color: ${props => props.theme.table.headerBgColor};
+  height: 50px;
 `;
 
 export const TableHeader = (props: ChildrenAcceptable): JSX.Element => {

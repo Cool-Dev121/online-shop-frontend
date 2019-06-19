@@ -10,7 +10,10 @@ const MainContainer = styled.div<MainContainerProps>`
   flex: ${props => props.width};
   display: flex;
   justify-content: center;
+  align-items: center;
   word-break: break-all;
+  padding: 5px;
+  font-weight: bold;
 `;
 
 interface Props extends ChildrenAcceptable {

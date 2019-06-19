@@ -9,6 +9,7 @@ interface MainContainerProps {
 const MainContainer = styled.div<MainContainerProps>`
   flex: ${props => props.width};
   word-break: break-all;
+  padding: 5px;
 `;
 
 interface Props extends ChildrenAcceptable {

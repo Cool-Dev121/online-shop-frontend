@@ -1,6 +1,7 @@
 import React from 'react';
-import { Table, TableColumnsDefinition } from '../../components';
-import { Identifiable } from '../../components/shared';
+import {
+  Table, TableColumnsDefinition, Identifiable, Paginator,
+} from '../../components';
 
 enum OrdersColumnKey {
   Id,
@@ -83,5 +84,8 @@ const ordersMock: CustomerOrderItemModel[] = [
 ];
 
 export const OrdersScreen = (): JSX.Element => (
-  <Table tableColumnsDefinition={ordersColumnsDefenition} items={ordersMock} />
+  <React.Fragment>
+    <Table tableColumnsDefinition={ordersColumnsDefenition} items={ordersMock} />
+    <Paginator visiblePagesCount={8} pagesCount={16} />
+  </React.Fragment>
 );

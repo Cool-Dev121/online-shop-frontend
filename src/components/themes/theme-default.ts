@@ -20,6 +20,14 @@ const theme: Theme = {
     evenRowBgColor: '#aec1ae',
     oddRowBgColor: '#e2eadb',
   },
+
+  paginator: {
+    borderColor: '#6e8e7f',
+    borderRadius: 5,
+    borderWidth: 2,
+    bgColor: '#e2eadb',
+    activeBgColor: '#aec1ae',
+  },
 };
 
 export { theme };
