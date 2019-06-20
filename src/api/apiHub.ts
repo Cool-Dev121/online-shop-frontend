@@ -5,6 +5,6 @@ interface ApiHub {
   orders: OrdersApi<PagedModel<TableOrderModel>, any, any>;
 }
 
-export const apiHub = {
+export const apiHub: ApiHub = {
   orders: ordersApiMock,
 };

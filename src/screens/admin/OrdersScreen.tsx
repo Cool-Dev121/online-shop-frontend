@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 import {
   Table, TableColumnsDefinition, Identifiable, Paginator, styled,
 } from '../../components';
-import { apiHub } from '../../api';
-import { PagedModel, TableOrderModel } from '../../api/models';
+import { AppState, TableOrdersStoreModel, requestTableOrdersPendingThunk } from '../../store';
 
 enum OrdersColumnKey {
   Id,
@@ -64,39 +65,54 @@ const Space = styled.div`
 
 const PAGE_SIZE = 10;
 
-function onPageChange(page: number): Promise<PagedModel<TableOrderModel>> {
-  return apiHub.orders.getOrders(PAGE_SIZE * (page - 1), PAGE_SIZE);
+interface Props {
+  orders: TableOrdersStoreModel[];
+  totalPagesCount: number;
+  onPageChange: (start: number, count: number) => void;
 }
 
-export const OrdersScreen = (): JSX.Element => {
-  const [items, setItems] = useState<CustomerOrderItemModel[]>([]);
-  const [pagesCount, setPagesCount] = useState<number>(0);
+const OrdersScreenInner = (props: Props): JSX.Element => {
+  const { orders, totalPagesCount, onPageChange } = props;
 
   return (
     <React.Fragment>
-      <Table tableColumnsDefinition={ordersColumnsDefenition} items={items} />
+      <Table
+        tableColumnsDefinition={ordersColumnsDefenition}
+        items={orders.map(o =>
+          // TODO: place mapping to dispatching success
+          ({
+            id: o.id,
+            userName: o.userId,
+            createdAt: o.createdAt,
+            items: o.items.map(i => i.name),
+            status: o.status,
+            sum: 103,
+          }))}
+      />
       <Space />
       <Paginator
         visiblePagesCount={8}
-        pagesCount={pagesCount}
+        pagesCount={Math.round(totalPagesCount / PAGE_SIZE)}
         onPageChange={(page: number) => {
-          onPageChange(page).then((result: PagedModel<TableOrderModel>) => {
-            setItems(
-              result.items.map(
-                (item: TableOrderModel) => ({
-                  id: item.id,
-                  userName: item.userId,
-                  createdAt: item.createdAt,
-                  items: item.items.map(i => i.name),
-                  status: item.status,
-                  sum: 103,
-                } as CustomerOrderItemModel),
-              ),
-            );
-            setPagesCount(Math.round(result.totalItems / PAGE_SIZE));
-          });
+          onPageChange(PAGE_SIZE * (page - 1), PAGE_SIZE);
         }}
       />
     </React.Fragment>
   );
 };
+
+const mapStateToProps = (state: AppState) => {
+  const { orders } = state;
+  return { orders: orders.items, totalPagesCount: orders.totalPagesCount };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  onPageChange: (page: number, count: number) => {
+    requestTableOrdersPendingThunk(dispatch)(page, count);
+  },
+});
+
+export const OrdersScreen = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(OrdersScreenInner);

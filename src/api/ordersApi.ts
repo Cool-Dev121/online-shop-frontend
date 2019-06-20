@@ -28,7 +28,9 @@ const generateOrders = (start: number, count: number): TableOrderModel[] => {
 
 export const ordersApiMock: OrdersApi<PagedModel<TableOrderModel>, any, any> = {
   getOrders: (start: number, count: number): Promise<PagedModel<TableOrderModel>> => new Promise((res) => {
-    const totalItems = 100;
-    res({ items: generateOrders(start, count), totalItems });
+    setTimeout(() => {
+      const totalItems = 100;
+      res({ items: generateOrders(start, count), totalItems });
+    }, 300);
   }),
 };
