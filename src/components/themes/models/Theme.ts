@@ -44,4 +44,11 @@ export interface Theme {
     activeBgColor: string;
     activeFontColor: string;
   };
+
+  card: {
+    borderColor: string;
+    borderRadius: number;
+    borderWidth: number;
+    bgColor: string;
+  };
 }

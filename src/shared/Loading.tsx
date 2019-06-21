@@ -1,5 +1,3 @@
 import * as React from 'react';
 
-const Loading = (): JSX.Element => <div>Loading</div>;
-
-export { Loading };
+export const Loading = (): JSX.Element => <div>Loading</div>;

@@ -46,6 +46,13 @@ const theme: Theme = {
     activeBgColor: '#6e8e7f',
     activeFontColor: 'white',
   },
+
+  card: {
+    borderColor: '#6e8e7f',
+    borderRadius: 5,
+    borderWidth: 2,
+    bgColor: 'white',
+  },
 };
 
 export { theme };

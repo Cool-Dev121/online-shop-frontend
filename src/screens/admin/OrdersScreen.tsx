@@ -9,7 +9,11 @@ import {
   OrdersDispatch,
   TableOrdersStoreModel,
 } from '../../store';
-import { AdminOrdersTableOrderModel, AdminOrdersTableOrderItemModel } from '../../shared';
+import {
+  AdminOrdersTableOrderModel,
+  AdminOrdersTableOrderItemModel,
+  OrderItemCard,
+} from '../../shared';
 
 enum OrdersColumnKey {
   Id,
@@ -19,6 +23,17 @@ enum OrdersColumnKey {
   Status,
   Sum,
 }
+
+const CardsCell = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const CardContainer = styled.div`
+  flex: 1 1 70px;
+  padding: ${props => props.theme.padding.md}px;
+  min-height: 130px;
+`;
 
 const ordersColumnsDefenition: TableColumnsDefinition<AdminOrdersTableOrderModel> = {
   [OrdersColumnKey.Id]: {
@@ -40,14 +55,19 @@ const ordersColumnsDefenition: TableColumnsDefinition<AdminOrdersTableOrderModel
     width: 5,
     title: 'Cart Items',
     renderCellItem: (item: AdminOrdersTableOrderModel): JSX.Element => (
-      <div>
-        {item.items.reduce(
-          (prev, curr: AdminOrdersTableOrderItemModel) => `${prev} [${curr.product.name}: $${curr.orderItemSum}(${curr.count}x$${
-            curr.product.price
-          })]`,
-          '',
-        )}
-      </div>
+      <CardsCell>
+        {item.items.map((orderItem: AdminOrdersTableOrderItemModel) => (
+          <CardContainer key={`${item.id}_${orderItem.product.id}`}>
+            <OrderItemCard
+              productName={orderItem.product.name}
+              productExtraData={`$${orderItem.orderItemSum}(${orderItem.count}x$${
+                orderItem.product.price
+              })`}
+              imgPath={orderItem.product.img}
+            />
+          </CardContainer>
+        ))}
+      </CardsCell>
     ),
   },
   [OrdersColumnKey.Status]: {

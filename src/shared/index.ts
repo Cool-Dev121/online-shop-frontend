@@ -5,3 +5,4 @@ export { LinksList, LinkItemModel } from './LinksList';
 export { Toolbar } from './Toolbar';
 export * from './models';
 export * from './FullscreenLoadingSign';
+export * from './OrderItemCard';

@@ -6,3 +6,4 @@ export * from './VerticalDivider';
 export * from './shared/models';
 export * from './Paginator';
 export * from './Layout';
+export * from './Card';
