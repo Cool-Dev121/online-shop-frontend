@@ -11,26 +11,40 @@ const MainContainer = styled.div`
   ${shadowed}
   padding: ${props => props.theme.padding.md}px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   height: 100%;
 `;
 
-const HeaderContainer = styled.div``;
-const ContentContainer = styled.div``;
-const FooterContainer = styled.div``;
+const HeaderContainer = styled.div`
+  flex: 0 0 30px;
+  font-size: ${props => props.theme.fontSize.lg}px;
+  display: flex;
+  align-items: center;
+`;
+const ContentContainer = styled.div`
+  flex: 1 1;
+`;
+const FooterContainer = styled.div`
+  flex: 0 0 30px;
+  font-size: ${props => props.theme.fontSize.md}px;
+  display: flex;
+  align-items: center;
+`;
 
 interface Props {
-  renderHeader: () => JSX.Element;
+  headerTitle: string;
   renderContent: () => JSX.Element;
-  renderFooter: () => JSX.Element;
+  footerTitle: string;
 }
 
 export const Card = (props: Props): JSX.Element => {
-  const { renderHeader, renderContent, renderFooter } = props;
+  const { headerTitle, renderContent, footerTitle } = props;
   return (
     <MainContainer>
-      <HeaderContainer>{renderHeader()}</HeaderContainer>
+      <HeaderContainer>{headerTitle}</HeaderContainer>
       <ContentContainer>{renderContent()}</ContentContainer>
-      <FooterContainer>{renderFooter()}</FooterContainer>
+      <FooterContainer>{footerTitle}</FooterContainer>
     </MainContainer>
   );
 };

@@ -12,7 +12,7 @@ const generateOrders = (start: number, count: number): AdminOrdersOrderResponseM
         {
           product: {
             id: '1',
-            img: 'path/to/image',
+            img: 'https://cdn.pixabay.com/photo/2014/10/15/22/06/apples-490474_1280.jpg',
             name: 'Product Name 1',
             price: 1,
           },
@@ -20,8 +20,8 @@ const generateOrders = (start: number, count: number): AdminOrdersOrderResponseM
         },
         {
           product: {
-            id: '1',
-            img: 'path/to/image',
+            id: '2',
+            img: 'https://cdn.pixabay.com/photo/2014/10/15/22/06/apples-490474_1280.jpg',
             name: 'Product Name 2',
             price: 2,
           },
@@ -29,8 +29,8 @@ const generateOrders = (start: number, count: number): AdminOrdersOrderResponseM
         },
         {
           product: {
-            id: '1',
-            img: 'path/to/image',
+            id: '3',
+            img: 'https://cdn.pixabay.com/photo/2014/10/15/22/06/apples-490474_1280.jpg',
             name: 'Product Name 3',
             price: 3,
           },
@@ -48,10 +48,7 @@ PagedModel<AdminOrdersOrderResponseModel>,
 any,
 any
 > = {
-  getOrders(
-    start: number,
-    count: number,
-  ): Promise<PagedModel<AdminOrdersOrderResponseModel>> {
+  getOrders(start: number, count: number): Promise<PagedModel<AdminOrdersOrderResponseModel>> {
     return new Promise((res) => {
       setTimeout(() => {
         const totalItems = 100;

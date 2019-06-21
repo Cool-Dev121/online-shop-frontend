@@ -27,12 +27,7 @@ enum OrdersColumnKey {
 const CardsCell = styled.div`
   display: flex;
   flex-direction: row;
-`;
-
-const CardContainer = styled.div`
-  flex: 1 1 70px;
-  padding: ${props => props.theme.padding.md}px;
-  min-height: 130px;
+  flex-wrap: wrap;
 `;
 
 const ordersColumnsDefenition: TableColumnsDefinition<AdminOrdersTableOrderModel> = {
@@ -57,15 +52,14 @@ const ordersColumnsDefenition: TableColumnsDefinition<AdminOrdersTableOrderModel
     renderCellItem: (item: AdminOrdersTableOrderModel): JSX.Element => (
       <CardsCell>
         {item.items.map((orderItem: AdminOrdersTableOrderItemModel) => (
-          <CardContainer key={`${item.id}_${orderItem.product.id}`}>
-            <OrderItemCard
-              productName={orderItem.product.name}
-              productExtraData={`$${orderItem.orderItemSum}(${orderItem.count}x$${
-                orderItem.product.price
-              })`}
-              imgPath={orderItem.product.img}
-            />
-          </CardContainer>
+          <OrderItemCard
+            key={`${item.id}_${orderItem.product.id}`}
+            productName={orderItem.product.name}
+            productExtraData={`$${orderItem.orderItemSum}(${orderItem.count}x$${
+              orderItem.product.price
+            })`}
+            imgPath={orderItem.product.img}
+          />
         ))}
       </CardsCell>
     ),

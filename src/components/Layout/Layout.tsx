@@ -23,7 +23,7 @@ const SidebarContentContainer = styled.div`
 `;
 
 const SidebarContainer = styled.div`
-  flex: 1 0 180px;
+  flex: 1 0 100px;
   padding: ${props => props.theme.padding.md}px;
 `;
 
