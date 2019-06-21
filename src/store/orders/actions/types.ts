@@ -1,4 +1,4 @@
-import { TableOrdersStoreModel } from '../models';
+import { AdminOrdersTableOrderModel } from '../../../shared';
 
 export const REQUEST_TABLE_ORDERS_SUCCESS = '[ORDERS] REQUEST_TABLE_ORDERS_SUCCESS';
 export const REQUEST_TABLE_ORDERS_ERROR = '[ORDERS] REQUEST_TABLE_ORDERS_ERROR';
@@ -6,7 +6,7 @@ export const REQUEST_TABLE_ORDERS_ERROR = '[ORDERS] REQUEST_TABLE_ORDERS_ERROR';
 interface RequestTableOrdersSuccessAction {
   type: typeof REQUEST_TABLE_ORDERS_SUCCESS;
   payload: {
-    items: TableOrdersStoreModel[];
+    items: AdminOrdersTableOrderModel[];
     totalPagesCount: number;
   };
 }

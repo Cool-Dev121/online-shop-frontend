@@ -1,6 +1,6 @@
-import { TableOrdersStoreModel } from './TableOrdersStoreModel';
+import { AdminOrdersTableOrderModel } from '../../../shared';
 
 export interface State {
-  items: TableOrdersStoreModel[];
+  items: AdminOrdersTableOrderModel[];
   totalPagesCount: number;
 }

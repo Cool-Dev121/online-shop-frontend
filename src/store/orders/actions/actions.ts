@@ -1,22 +1,16 @@
 import { ThunkAction } from 'redux-thunk';
 import { ActionCreator, Dispatch } from 'redux';
-import { TableOrdersStoreModel, State } from '../models';
+import { State } from '../models';
 import { REQUEST_TABLE_ORDERS_SUCCESS, REQUEST_TABLE_ORDERS_ERROR, ActionTypes } from './types';
-import { ThunkExtraArgument } from '../../../shared';
-import { TableOrderModel, TableOrderItemModel } from '../../../api/models';
-
-// export function requestTableOrders(start: number, count: number): ActionTypes {
-//   return {
-//     type: REQUEST_TABLE_ORDERS_PENDING,
-//     payload: {
-//       start,
-//       count,
-//     },
-//   };
-// }
+import {
+  ThunkExtraArgument,
+  AdminOrdersTableOrderModel,
+  AdminOrdersTableOrderItemModel,
+} from '../../../shared';
+import { AdminOrdersOrderItemResponseModel, AdminOrdersOrderResponseModel } from '../../../api';
 
 export function requestTableOrdersSuccess(
-  items: TableOrdersStoreModel[],
+  items: AdminOrdersTableOrderModel[],
   totalPagesCount: number,
 ): ActionTypes {
   return {
@@ -38,8 +32,12 @@ export function requestTableOrdersError(error: string): ActionTypes {
   };
 }
 
-function getOrderSum(orderItems: TableOrderItemModel[]) {
+function getOrderSum(orderItems: AdminOrdersOrderItemResponseModel[]) {
   return orderItems.map(i => i.product.price * i.count).reduce((acc, curr) => acc + curr, 0);
+}
+
+function getOrderItemSum(orderItem: AdminOrdersOrderItemResponseModel) {
+  return orderItem.count * orderItem.product.price;
 }
 
 export const requestTableOrdersActionCreator: ActionCreator<
@@ -49,15 +47,19 @@ ThunkAction<Promise<ActionTypes>, State, ThunkExtraArgument, ActionTypes>
   try {
     const result = await api.orders.getOrders(start, count);
 
-    const mappedResult: TableOrdersStoreModel[] = result.items.map(
-      (order: TableOrderModel) => ({
+    const mappedResult: AdminOrdersTableOrderModel[] = result.items.map(
+      (order: AdminOrdersOrderResponseModel) => ({
         id: order.id,
         userId: order.userId,
         createdAt: order.createdAt,
-        items: order.items,
+        items: order.items.map((orderItem: AdminOrdersOrderItemResponseModel) => ({
+          product: orderItem.product,
+          count: orderItem.count,
+          orderItemSum: getOrderItemSum(orderItem),
+        } as AdminOrdersTableOrderItemModel)),
         status: order.status,
-        sum: getOrderSum(order.items),
-      } as TableOrdersStoreModel),
+        orderSum: getOrderSum(order.items),
+      } as AdminOrdersTableOrderModel),
     );
 
     return dispatch(requestTableOrdersSuccess(mappedResult, result.totalItems));

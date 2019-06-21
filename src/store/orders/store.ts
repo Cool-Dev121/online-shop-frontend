@@ -1,5 +1,5 @@
-import { TableOrdersStoreModel } from './models';
+import { AdminOrdersTableOrderModel } from '../../shared';
 
 export interface OrdersStore {
-  orders: TableOrdersStoreModel[];
+  orders: AdminOrdersTableOrderModel[];
 }

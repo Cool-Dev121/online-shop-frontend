@@ -1,2 +1,2 @@
 export * from './PagedModel';
-export * from './TableOrderModel';
+export * from './admin';

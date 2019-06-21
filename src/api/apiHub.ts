@@ -1,8 +1,7 @@
-import { ordersApiMock, OrdersApi } from './ordersApi';
-import { PagedModel, TableOrderModel } from './models';
+import { ordersApiMock, OrdersApiConcrete } from './ordersApi';
 
 export interface ApiHub {
-  orders: OrdersApi<PagedModel<TableOrderModel>, any, any>;
+  orders: OrdersApiConcrete;
 }
 
 export const apiHub: ApiHub = {

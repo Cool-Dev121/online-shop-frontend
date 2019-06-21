@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  Table, TableColumnsDefinition, Identifiable, Paginator, styled,
+  Table, TableColumnsDefinition, Paginator, styled,
 } from '../../components';
 import {
   requestTableOrdersActionCreator,
@@ -9,7 +9,7 @@ import {
   OrdersDispatch,
   TableOrdersStoreModel,
 } from '../../store';
-import { TableOrderItemModel } from '../../api/models';
+import { AdminOrdersTableOrderModel, AdminOrdersTableOrderItemModel } from '../../shared';
 
 enum OrdersColumnKey {
   Id,
@@ -20,38 +20,31 @@ enum OrdersColumnKey {
   Sum,
 }
 
-interface CustomerOrderItemModel extends Identifiable {
-  id: string;
-  userId: string;
-  createdAt: string;
-  items: TableOrderItemModel[];
-  status: string;
-  sum: number;
-}
-
-const ordersColumnsDefenition: TableColumnsDefinition<CustomerOrderItemModel> = {
+const ordersColumnsDefenition: TableColumnsDefinition<AdminOrdersTableOrderModel> = {
   [OrdersColumnKey.Id]: {
     width: 1,
     title: 'Id',
-    renderCellItem: (item: CustomerOrderItemModel): JSX.Element => <div>{item.id}</div>,
+    renderCellItem: (item: AdminOrdersTableOrderModel): JSX.Element => <div>{item.id}</div>,
   },
   [OrdersColumnKey.UserId]: {
     width: 2,
     title: 'User Id',
-    renderCellItem: (item: CustomerOrderItemModel): JSX.Element => <div>{item.userId}</div>,
+    renderCellItem: (item: AdminOrdersTableOrderModel): JSX.Element => <div>{item.userId}</div>,
   },
   [OrdersColumnKey.CreatedAt]: {
     width: 2,
     title: 'Created at',
-    renderCellItem: (item: CustomerOrderItemModel): JSX.Element => <div>{item.createdAt}</div>,
+    renderCellItem: (item: AdminOrdersTableOrderModel): JSX.Element => <div>{item.createdAt}</div>,
   },
   [OrdersColumnKey.CartItems]: {
     width: 5,
     title: 'Cart Items',
-    renderCellItem: (item: CustomerOrderItemModel): JSX.Element => (
+    renderCellItem: (item: AdminOrdersTableOrderModel): JSX.Element => (
       <div>
         {item.items.reduce(
-          (prev, curr: TableOrderItemModel) => `${prev} [${curr.product.name}: ${curr.count}x$${curr.product.price}]`,
+          (prev, curr: AdminOrdersTableOrderItemModel) => `${prev} [${curr.product.name}: $${curr.orderItemSum}(${curr.count}x$${
+            curr.product.price
+          })]`,
           '',
         )}
       </div>
@@ -60,12 +53,12 @@ const ordersColumnsDefenition: TableColumnsDefinition<CustomerOrderItemModel> = 
   [OrdersColumnKey.Status]: {
     width: 2,
     title: 'Status',
-    renderCellItem: (item: CustomerOrderItemModel): JSX.Element => <div>{item.status}</div>,
+    renderCellItem: (item: AdminOrdersTableOrderModel): JSX.Element => <div>{item.status}</div>,
   },
   [OrdersColumnKey.Sum]: {
     width: 1,
     title: 'Sum',
-    renderCellItem: (item: CustomerOrderItemModel): JSX.Element => <div>{item.sum}</div>,
+    renderCellItem: (item: AdminOrdersTableOrderModel): JSX.Element => <div>{item.orderSum}</div>,
   },
 };
 
