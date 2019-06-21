@@ -16,9 +16,33 @@ const generateOrders = (start: number, count: number): TableOrderModel[] => {
       userId: 'sdfg sdg sdfgsdfgsdfgsdfgs',
       createdAt: '19.06.2019',
       items: [
-        { name: 'item 4', count: 2 },
-        { name: 'item 5', count: 2 },
-        { name: 'item 6', count: 2 },
+        {
+          product: {
+            id: '1',
+            img: 'path/to/image',
+            name: 'Product Name 1',
+            price: 1,
+          },
+          count: 2,
+        },
+        {
+          product: {
+            id: '1',
+            img: 'path/to/image',
+            name: 'Product Name 2',
+            price: 2,
+          },
+          count: 2,
+        },
+        {
+          product: {
+            id: '1',
+            img: 'path/to/image',
+            name: 'Product Name 3',
+            price: 3,
+          },
+          count: 2,
+        },
       ],
       status: 'created',
     });

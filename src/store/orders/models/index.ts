@@ -1,2 +1,3 @@
 export * from './TableOrdersStoreModel';
-export * from './OrdersState';
+export * from './State';
+export * from './Dispatch';

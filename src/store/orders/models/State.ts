@@ -1,6 +1,6 @@
 import { TableOrdersStoreModel } from './TableOrdersStoreModel';
 
-export interface OrdersState {
+export interface State {
   items: TableOrdersStoreModel[];
   totalPagesCount: number;
 }

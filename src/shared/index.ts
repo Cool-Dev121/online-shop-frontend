@@ -3,3 +3,4 @@ export { Loading } from './Loading';
 // @ts-ignore
 export { LinksList, LinkItemModel } from './LinksList';
 export { Toolbar } from './Toolbar';
+export * from './models';

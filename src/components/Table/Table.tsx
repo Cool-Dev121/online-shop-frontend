@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withTheme } from 'styled-components';
 import { TableColumnsDefinition } from './models';
 import { TableHeaderCell } from './TableHeaderCell';
@@ -6,7 +6,9 @@ import { TableHeader } from './TableHeader';
 import { TableCell } from './TableCell';
 import { TableRow } from './TableRow';
 import { TableBody } from './TableBody';
-import { getKeysAsNumbers, Identifiable, isLast, shadowed } from '../shared';
+import {
+  getKeysAsNumbers, Identifiable, isLast, shadowed,
+} from '../shared';
 import { styled, Themable } from '../themes';
 import { VerticalDivider } from '../VerticalDivider';
 

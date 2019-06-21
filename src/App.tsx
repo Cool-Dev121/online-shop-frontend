@@ -5,11 +5,20 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { Routing } from './routing';
 import { getTheme, ThemeType } from './components';
-import { rootReducer } from './store';
+import { rootReducer, logMiddleware } from './store';
+import { apiHub } from './api';
+import { ThunkExtraArgument } from './shared';
 
 const theme = ThemeType.Default;
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const thunkExtraArgument: ThunkExtraArgument = {
+  api: apiHub,
+};
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk.withExtraArgument(thunkExtraArgument), logMiddleware),
+);
 
 const App: React.FC = (): JSX.Element => (
   <ThemeProvider theme={getTheme(theme)}>

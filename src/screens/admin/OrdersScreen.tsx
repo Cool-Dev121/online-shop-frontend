@@ -1,14 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 import {
   Table, TableColumnsDefinition, Identifiable, Paginator, styled,
 } from '../../components';
-import { AppState, TableOrdersStoreModel, requestTableOrdersPendingThunk } from '../../store';
+import {
+  requestTableOrdersActionCreator,
+  AppState,
+  OrdersDispatch,
+  TableOrdersStoreModel,
+} from '../../store';
+import { TableOrderItemModel } from '../../api/models';
 
 enum OrdersColumnKey {
   Id,
-  UserName,
+  UserId,
   CreatedAt,
   CartItems,
   Status,
@@ -17,9 +22,9 @@ enum OrdersColumnKey {
 
 interface CustomerOrderItemModel extends Identifiable {
   id: string;
-  userName: string;
+  userId: string;
   createdAt: string;
-  items: string[];
+  items: TableOrderItemModel[];
   status: string;
   sum: number;
 }
@@ -30,10 +35,10 @@ const ordersColumnsDefenition: TableColumnsDefinition<CustomerOrderItemModel> = 
     title: 'Id',
     renderCellItem: (item: CustomerOrderItemModel): JSX.Element => <div>{item.id}</div>,
   },
-  [OrdersColumnKey.UserName]: {
+  [OrdersColumnKey.UserId]: {
     width: 2,
-    title: 'User Name',
-    renderCellItem: (item: CustomerOrderItemModel): JSX.Element => <div>{item.userName}</div>,
+    title: 'User Id',
+    renderCellItem: (item: CustomerOrderItemModel): JSX.Element => <div>{item.userId}</div>,
   },
   [OrdersColumnKey.CreatedAt]: {
     width: 2,
@@ -44,7 +49,12 @@ const ordersColumnsDefenition: TableColumnsDefinition<CustomerOrderItemModel> = 
     width: 5,
     title: 'Cart Items',
     renderCellItem: (item: CustomerOrderItemModel): JSX.Element => (
-      <div>{item.items.reduce((prev, curr) => `${prev} ${curr}`, '')}</div>
+      <div>
+        {item.items.reduce(
+          (prev, curr: TableOrderItemModel) => `${prev} [${curr.product.name}: ${curr.count}x$${curr.product.price}]`,
+          '',
+        )}
+      </div>
     ),
   },
   [OrdersColumnKey.Status]: {
@@ -65,30 +75,25 @@ const Space = styled.div`
 
 const PAGE_SIZE = 10;
 
-interface Props {
+interface OwnProps {}
+
+interface StateProps {
   orders: TableOrdersStoreModel[];
   totalPagesCount: number;
+}
+
+interface DispatchProps {
   onPageChange: (start: number, count: number) => void;
 }
+
+type Props = OwnProps & StateProps & DispatchProps;
 
 const OrdersScreenInner = (props: Props): JSX.Element => {
   const { orders, totalPagesCount, onPageChange } = props;
 
   return (
     <React.Fragment>
-      <Table
-        tableColumnsDefinition={ordersColumnsDefenition}
-        items={orders.map(o =>
-          // TODO: place mapping to dispatching success
-          ({
-            id: o.id,
-            userName: o.userId,
-            createdAt: o.createdAt,
-            items: o.items.map(i => i.name),
-            status: o.status,
-            sum: 103,
-          }))}
-      />
+      <Table tableColumnsDefinition={ordersColumnsDefenition} items={orders} />
       <Space />
       <Paginator
         visiblePagesCount={8}
@@ -106,9 +111,9 @@ const mapStateToProps = (state: AppState) => {
   return { orders: orders.items, totalPagesCount: orders.totalPagesCount };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  onPageChange: (page: number, count: number) => {
-    requestTableOrdersPendingThunk(dispatch)(page, count);
+const mapDispatchToProps = (dispatch: OrdersDispatch) => ({
+  onPageChange: (start: number, count: number) => {
+    dispatch(requestTableOrdersActionCreator(start, count));
   },
 });
 

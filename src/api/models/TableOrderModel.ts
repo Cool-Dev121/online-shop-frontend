@@ -1,5 +1,12 @@
-interface TableOrderItemModel {
+export interface TableOrderProduct {
+  id: string;
+  img: string;
   name: string;
+  price: number;
+}
+
+export interface TableOrderItemModel {
+  product: TableOrderProduct;
   count: number;
 }
 
