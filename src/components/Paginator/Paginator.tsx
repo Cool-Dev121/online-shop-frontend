@@ -45,7 +45,7 @@ export const PaginatorInner = (props: Props): JSX.Element => {
     props.currentPage !== undefined ? props.currentPage : FIRST_PAGE,
   );
   useEffect(() => {
-    onPageChange(currentPage);
+    onPageChange(currentPage); // eslint-disable-line react-hooks/exhaustive-deps
   }, [currentPage]);
   return (
     <MainContainer>

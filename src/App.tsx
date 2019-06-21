@@ -7,7 +7,7 @@ import { Routing } from './routing';
 import { getTheme, ThemeType } from './components';
 import { rootReducer, logMiddleware } from './store';
 import { apiHub } from './api';
-import { ThunkExtraArgument } from './shared';
+import { ThunkExtraArgument, FullscreenLoadingSignContainer } from './shared';
 
 const theme = ThemeType.Default;
 
@@ -24,6 +24,7 @@ const App: React.FC = (): JSX.Element => (
   <ThemeProvider theme={getTheme(theme)}>
     <Provider store={store}>
       <Routing />
+      <FullscreenLoadingSignContainer />
     </Provider>
   </ThemeProvider>
 );

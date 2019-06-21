@@ -1,4 +1,4 @@
-import { ActionTypes, REQUEST_TABLE_ORDERS_SUCCESS, REQUEST_TABLE_ORDERS_ERROR } from './actions';
+import { ActionTypes, REQUEST_TABLE_ORDERS_SUCCESS } from './actions';
 
 import { State } from './models';
 
@@ -14,10 +14,6 @@ export function reducer(state = initialState, action: ActionTypes): State {
         ...state,
         items: [...action.payload.items],
         totalPagesCount: action.payload.totalPagesCount,
-      };
-    case REQUEST_TABLE_ORDERS_ERROR:
-      return {
-        ...state,
       };
     default:
       return state;

@@ -69,16 +69,13 @@ const Space = styled.div`
 const PAGE_SIZE = 10;
 
 interface OwnProps {}
-
 interface StateProps {
   orders: TableOrdersStoreModel[];
   totalPagesCount: number;
 }
-
 interface DispatchProps {
   onPageChange: (start: number, count: number) => void;
 }
-
 type Props = OwnProps & StateProps & DispatchProps;
 
 const OrdersScreenInner = (props: Props): JSX.Element => {
