@@ -8,3 +8,4 @@ export * from './Paginator';
 export * from './Layout';
 export * from './Card';
 export * from './PaginatedTable';
+export * from './Image';

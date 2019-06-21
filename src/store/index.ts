@@ -4,8 +4,11 @@ export {
   Dispatch as OrdersDispatch,
   requestTableOrdersActionCreator,
   requestTableOrdersSuccess,
-  // @ts-ignore
-  TableOrdersStoreModel,
 } from './orders';
-// export {  } from './app';
+export {
+  // @ts-ignore
+  Dispatch as ProductsDispatch,
+  requestTableProductsActionCreator,
+  requestTableProductsSuccess,
+} from './products';
 export * from './middlewares';

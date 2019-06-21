@@ -1,5 +1,5 @@
 import { PagedModel, AdminOrdersOrderResponseModel } from '../models';
-import { OrdersApiInterface } from './OrdersApiInterface';
+import { OrdersApiConcrete } from './OrdersApiConcrete';
 
 const generateOrders = (start: number, count: number): AdminOrdersOrderResponseModel[] => {
   const generated: AdminOrdersOrderResponseModel[] = [];
@@ -43,13 +43,8 @@ const generateOrders = (start: number, count: number): AdminOrdersOrderResponseM
   return generated;
 };
 
-export const ordersApiMock: OrdersApiInterface<
-PagedModel<AdminOrdersOrderResponseModel>,
-any,
-any
-> = {
+export const ordersApiMock: OrdersApiConcrete = {
   getOrders(start: number, count: number): Promise<PagedModel<AdminOrdersOrderResponseModel>> {
-    debugger;
     return new Promise((res) => {
       setTimeout(() => {
         const totalItems = 12;

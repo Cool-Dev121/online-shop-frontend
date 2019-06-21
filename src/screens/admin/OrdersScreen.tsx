@@ -1,16 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { TableColumnsDefinition, styled, PaginatedTable } from '../../components';
-import {
-  requestTableOrdersActionCreator,
-  AppState,
-  OrdersDispatch,
-  TableOrdersStoreModel,
-} from '../../store';
+import { requestTableOrdersActionCreator, AppState, OrdersDispatch } from '../../store';
 import {
   AdminOrdersTableOrderModel,
   AdminOrdersTableOrderItemModel,
   OrderItemCard,
+  ITEMS_PER_PAGE,
+  MAX_VISIBLE_PAGES_COUNT,
 } from '../../shared';
 
 enum OrdersColumnKey {
@@ -74,12 +71,9 @@ const ordersColumnsDefenition: TableColumnsDefinition<AdminOrdersTableOrderModel
   },
 };
 
-const ITEMS_PER_PAGE = 10;
-const MAX_VISIBLE_PAGES_COUNT = 8;
-
 interface OwnProps {}
 interface StateProps {
-  orders: TableOrdersStoreModel[];
+  orders: AdminOrdersTableOrderModel[];
   totalItemsCount: number;
 }
 interface DispatchProps {
