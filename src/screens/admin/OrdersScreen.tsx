@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  Table, TableColumnsDefinition, Paginator, styled,
-} from '../../components';
+import { TableColumnsDefinition, styled, PaginatedTable } from '../../components';
 import {
   requestTableOrdersActionCreator,
   AppState,
@@ -76,16 +74,13 @@ const ordersColumnsDefenition: TableColumnsDefinition<AdminOrdersTableOrderModel
   },
 };
 
-const Space = styled.div`
-  height: 50px;
-`;
-
-const PAGE_SIZE = 10;
+const ITEMS_PER_PAGE = 10;
+const MAX_VISIBLE_PAGES_COUNT = 8;
 
 interface OwnProps {}
 interface StateProps {
   orders: TableOrdersStoreModel[];
-  totalPagesCount: number;
+  totalItemsCount: number;
 }
 interface DispatchProps {
   onPageChange: (start: number, count: number) => void;
@@ -93,18 +88,19 @@ interface DispatchProps {
 type Props = OwnProps & StateProps & DispatchProps;
 
 const OrdersScreenInner = (props: Props): JSX.Element => {
-  const { orders, totalPagesCount, onPageChange } = props;
+  const { orders, totalItemsCount, onPageChange } = props;
 
   return (
     <React.Fragment>
-      <Table tableColumnsDefinition={ordersColumnsDefenition} items={orders} />
-      <Space />
-      <Paginator
-        visiblePagesCount={8}
-        pagesCount={Math.round(totalPagesCount / PAGE_SIZE)}
+      <PaginatedTable
+        items={orders}
+        itemsPerPage={ITEMS_PER_PAGE}
+        maxVisiblePagesCount={MAX_VISIBLE_PAGES_COUNT}
         onPageChange={(page: number) => {
-          onPageChange(PAGE_SIZE * (page - 1), PAGE_SIZE);
+          onPageChange(ITEMS_PER_PAGE * (page - 1), ITEMS_PER_PAGE);
         }}
+        tableColumnsDefinition={ordersColumnsDefenition}
+        totalItemsCount={totalItemsCount}
       />
     </React.Fragment>
   );
@@ -112,7 +108,7 @@ const OrdersScreenInner = (props: Props): JSX.Element => {
 
 const mapStateToProps = (state: AppState) => {
   const { orders } = state;
-  return { orders: orders.items, totalPagesCount: orders.totalPagesCount };
+  return { orders: orders.items, totalItemsCount: orders.totalItemsCount };
 };
 
 const mapDispatchToProps = (dispatch: OrdersDispatch) => ({

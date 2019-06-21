@@ -6,7 +6,7 @@ interface RequestTableOrdersSuccessAction {
   type: typeof REQUEST_TABLE_ORDERS_SUCCESS;
   payload: {
     items: AdminOrdersTableOrderModel[];
-    totalPagesCount: number;
+    totalItemsCount: number;
   };
 }
 

@@ -49,10 +49,14 @@ any,
 any
 > = {
   getOrders(start: number, count: number): Promise<PagedModel<AdminOrdersOrderResponseModel>> {
+    debugger;
     return new Promise((res) => {
       setTimeout(() => {
-        const totalItems = 100;
-        res({ items: generateOrders(start, count), totalItems });
+        const totalItems = 12;
+        res({
+          items: generateOrders(start, start + count > totalItems ? totalItems - start : count),
+          totalItems,
+        });
       }, 300);
     });
   },

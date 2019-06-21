@@ -4,7 +4,7 @@ import { State } from './models';
 
 const initialState: State = {
   items: [],
-  totalPagesCount: 0,
+  totalItemsCount: 0,
 };
 
 export function reducer(state = initialState, action: ActionTypes): State {
@@ -13,7 +13,7 @@ export function reducer(state = initialState, action: ActionTypes): State {
       return {
         ...state,
         items: [...action.payload.items],
-        totalPagesCount: action.payload.totalPagesCount,
+        totalItemsCount: action.payload.totalItemsCount,
       };
     default:
       return state;

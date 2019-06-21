@@ -7,3 +7,4 @@ export * from './shared/models';
 export * from './Paginator';
 export * from './Layout';
 export * from './Card';
+export * from './PaginatedTable';

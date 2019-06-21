@@ -13,13 +13,13 @@ import { startApiCall, apiCallFailed, apiCallEnded } from '../../app';
 
 export function requestTableOrdersSuccess(
   items: AdminOrdersTableOrderModel[],
-  totalPagesCount: number,
+  totalItemsCount: number,
 ): ActionTypes {
   return {
     type: REQUEST_TABLE_ORDERS_SUCCESS,
     payload: {
       items,
-      totalPagesCount,
+      totalItemsCount,
     },
   };
 }
