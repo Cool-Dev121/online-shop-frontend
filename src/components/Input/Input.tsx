@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from '../themes';
-import { bordered, shadowed } from '../shared';
+import {
+  bordered, shadowed, Validatable, validate,
+} from '../shared';
+import { ControlErrorMessage } from '../ControlErrorMessage';
 
 const MainContainer = styled.div`
   display: flex;
@@ -25,27 +28,22 @@ const InputComponent = styled.input`
   ${shadowed}
 `;
 
-const ErrorMessageContainer = styled.div`
-  height: 15px;
-  line-height: 15px;
-  width: 100%;
-  color: ${props => props.theme.color.error};
-  font-size: ${props => props.theme.fontSize.sm}px;
-`;
-
-interface Props {
+interface Props extends Validatable {
   title: string;
   name: string;
   placeholder?: string;
   value: string | number;
   onChange: (name: string, value: string) => void;
-  errorMessage?: string;
 }
 
 export const Input = (props: Props) => {
   const {
-    title, name, placeholder = '', value, onChange, errorMessage,
+    title, name, placeholder = '', value, onChange, validators,
   } = props;
+
+  const errorsInit: string[] = [];
+  const [errors, setErrors] = useState(errorsInit);
+
   return (
     <MainContainer>
       <TitleContainer>{title}</TitleContainer>
@@ -55,10 +53,13 @@ export const Input = (props: Props) => {
         placeholder={placeholder}
         value={value}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          onChange(name, event.target.value);
+          const { value } = event.target;
+          const validationResult = validate(value, validators);
+          setErrors(validationResult.errors);
+          onChange(name, value);
         }}
       />
-      <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
+      <ControlErrorMessage>{errors[0] || ''}</ControlErrorMessage>
     </MainContainer>
   );
 };
