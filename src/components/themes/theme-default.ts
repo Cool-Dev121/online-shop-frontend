@@ -1,6 +1,6 @@
 import { Theme } from './models';
 
-const theme: Theme = {
+export const theme: Theme = {
   padding: {
     sm: 5,
     md: 10,
@@ -11,6 +11,16 @@ const theme: Theme = {
     sm: 12,
     md: 14,
     lg: 16,
+  },
+
+  border: {
+    color: '#6e8e7f',
+    radius: 5,
+    width: 2,
+  },
+
+  color: {
+    error: '#b51f09',
   },
 
   toolbar: {
@@ -53,6 +63,11 @@ const theme: Theme = {
     borderWidth: 2,
     bgColor: 'white',
   },
-};
 
-export { theme };
+  input: {
+    borderColor: '#6e8e7f',
+    borderRadius: 5,
+    borderWidth: 2,
+    titleColor: '#6e8e7f',
+  },
+};

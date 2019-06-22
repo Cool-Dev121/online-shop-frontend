@@ -11,6 +11,16 @@ export interface Theme {
     lg: number;
   };
 
+  border: {
+    color: string;
+    radius: number;
+    width: number;
+  };
+
+  color: {
+    error: string;
+  };
+
   toolbar: {
     bgColor: string;
     borderRadius: number;
@@ -50,5 +60,12 @@ export interface Theme {
     borderRadius: number;
     borderWidth: number;
     bgColor: string;
+  };
+
+  input: {
+    borderColor: string;
+    borderRadius: number;
+    borderWidth: number;
+    titleColor: string;
   };
 }

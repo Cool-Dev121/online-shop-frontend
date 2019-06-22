@@ -9,3 +9,5 @@ export * from './Layout';
 export * from './Card';
 export * from './PaginatedTable';
 export * from './Image';
+export * from './Input';
+export * from './shared';
