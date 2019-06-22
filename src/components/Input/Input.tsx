@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { styled } from '../themes';
-import {
-  bordered, shadowed, Validatable, validate,
-} from '../shared';
+import { bordered, shadowed } from '../shared';
 import { ControlErrorMessage } from '../ControlErrorMessage';
 
 const MainContainer = styled.div`
@@ -28,21 +26,19 @@ const InputComponent = styled.input`
   ${shadowed}
 `;
 
-interface Props extends Validatable {
+interface Props {
   title: string;
   name: string;
   placeholder?: string;
   value: string | number;
   onChange: (name: string, value: string) => void;
+  errorMessage?: string;
 }
 
 export const Input = (props: Props) => {
   const {
-    title, name, placeholder = '', value, onChange, validators,
+    title, name, placeholder = '', value, onChange, errorMessage,
   } = props;
-
-  const errorsInit: string[] = [];
-  const [errors, setErrors] = useState(errorsInit);
 
   return (
     <MainContainer>
@@ -54,12 +50,10 @@ export const Input = (props: Props) => {
         value={value}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           const { value } = event.target;
-          const validationResult = validate(value, validators);
-          setErrors(validationResult.errors);
           onChange(name, value);
         }}
       />
-      <ControlErrorMessage>{errors[0] || ''}</ControlErrorMessage>
+      <ControlErrorMessage>{errorMessage || ''}</ControlErrorMessage>
     </MainContainer>
   );
 };

@@ -9,7 +9,7 @@ export const Button = styled.button<Activatable>`
   padding: 10px;
   width: 100%;
   outline: none;
-  cursor: pointer;
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
   font-size: ${props => props.theme.fontSize.md}px;
   color: ${props => (isSatisfiesSafely(props.isActive)
     ? props.theme.button.activeFontColor

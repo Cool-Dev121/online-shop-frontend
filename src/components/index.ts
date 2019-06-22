@@ -11,3 +11,4 @@ export * from './PaginatedTable';
 export * from './Image';
 export * from './Input';
 export * from './shared';
+export * from './Form';

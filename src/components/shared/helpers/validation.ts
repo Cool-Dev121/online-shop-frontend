@@ -1,4 +1,5 @@
-import { Validator } from '../models';
+import { Validator, FormDescription } from '../models';
+import { getKeys } from './object';
 
 const defaultErrorMessage = 'Value is not valid';
 
@@ -17,3 +18,13 @@ export const validate = (
   }
   return { isValid: errors.length === 0, errors };
 };
+
+export function validateForm(formDescription: FormDescription): boolean {
+  return getKeys(formDescription)
+    .map((k) => {
+      const control = formDescription[k];
+      return validate(control.initValue!, control.validators);
+    })
+    .map(validationResult => validationResult.isValid)
+    .reduce((prev, curr) => prev && curr, true);
+}

@@ -1,85 +1,96 @@
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useState } from 'react';
+
 import { ProductFormModel } from './models';
-import { Input, Button, Validator } from '../../../components';
+import {
+  Input, Button, FormDescription, Form,
+} from '../../../components';
 
 const MainContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
 
-const Form = styled.form`
-  flex: 0.5;
-`;
-
 enum FormFields {
   ProductName = 'productName',
   Price = 'price',
+  Submit = 'submit',
 }
 
-interface Props {
-  onSubmit: (form: ProductFormModel) => void;
-  formInit: ProductFormModel;
-}
-
-const validators: { [key: string]: Validator[] } = {
-  [FormFields.ProductName]: [
-    {
-      errorMessage: 'Name is too long',
-      isValid: (value: string) => {
-        const maxLength = 20;
-        const isValid = !(value.length > maxLength);
-        return isValid;
+const formDescription: FormDescription = {
+  [FormFields.ProductName]: {
+    initValue: '',
+    validators: [
+      {
+        errorMessage: 'Name is too long',
+        isValid: (value: string) => {
+          const maxLength = 20;
+          const isValid = !(value.length > maxLength);
+          return isValid;
+        },
       },
-    },
-    {
-      errorMessage: 'Name is too short',
-      isValid: (value: string) => {
-        const minLength = 3;
-        const isValid = !(value.length < minLength);
-        return isValid;
+      {
+        errorMessage: 'Name is too short',
+        isValid: (value: string) => {
+          const minLength = 3;
+          const isValid = !(value.length < minLength);
+          return isValid;
+        },
       },
-    },
-  ],
-};
-
-const handleChange = (form: ProductFormModel, name: string, value: string): ProductFormModel => ({
-  ...form,
-  [name]: value,
-});
-
-export const ProductForm = (props: Props): JSX.Element => {
-  const { onSubmit, formInit } = props;
-
-  const [form, setForm] = useState(formInit);
-
-  return (
-    <MainContainer>
-      <Form
-        onSubmit={(event) => {
-          event.preventDefault();
-          onSubmit(form);
-        }}
-      >
+    ],
+    renderControl: (control): JSX.Element => {
+      const { value, handleChange, errorMessage } = control;
+      return (
         <Input
           title="Name"
           name={FormFields.ProductName}
           placeholder="Name"
-          value={form.productName}
-          onChange={(name, value) => {
-            setForm(handleChange(form, name, value));
-          }}
-          validators={validators[FormFields.ProductName]}
+          value={value}
+          onChange={handleChange}
+          errorMessage={errorMessage}
         />
+      );
+    },
+  },
+  [FormFields.Price]: {
+    initValue: '',
+    validators: [],
+    renderControl: (control): JSX.Element => {
+      const { value, handleChange, errorMessage } = control;
+      return (
         <Input
           title="Price"
           name={FormFields.Price}
-          value={form.price}
-          onChange={(name, value) => setForm(handleChange(form, name, value))}
+          value={value}
+          onChange={handleChange}
+          errorMessage={errorMessage}
         />
-        <Button type="submit">Submit</Button>
-      </Form>
+      );
+    },
+  },
+  [FormFields.Submit]: {
+    renderControl: (_, form) => {
+      const { isFormValid } = form;
+      return (
+        <Button type="submit" disabled={!isFormValid}>
+          Submit
+        </Button>
+      );
+    },
+  },
+};
+
+interface ProductFormProps {
+  onSubmit: (form: ProductFormModel) => void;
+  formInit?: any;
+}
+
+export const ProductForm = (props: ProductFormProps): JSX.Element => {
+  const { onSubmit, formInit } = props;
+
+  return (
+    <MainContainer>
+      <Form formDescription={formDescription} onSubmit={onSubmit} />
     </MainContainer>
   );
 };

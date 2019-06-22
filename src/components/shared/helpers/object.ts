@@ -6,3 +6,7 @@ export function removeKey<TObject extends { [key: string]: any }>(obj: TObject, 
   const { [key]: deletedKey, ...otherKeys } = obj;
   return otherKeys;
 }
+
+export function getKeys<TObject>(obj: TObject) {
+  return Object.keys(obj);
+}

@@ -3,3 +3,5 @@ export * from './ChildrenAcceptable';
 export * from './Activatable';
 export * from './Validatable';
 export * from './Validator';
+export * from './HandleControlChange';
+export * from './FormDescription';
