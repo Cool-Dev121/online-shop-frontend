@@ -68,4 +68,8 @@ export interface Theme {
     borderWidth: number;
     titleColor: string;
   };
+
+  imageUploader: {
+    bgColor: string;
+  };
 }

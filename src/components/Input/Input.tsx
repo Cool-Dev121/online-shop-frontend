@@ -28,10 +28,10 @@ const InputComponent = styled.input`
 
 interface Props {
   title: string;
-  name: string;
+  name?: string;
   placeholder?: string;
   value: string | number;
-  onChange: (name: string, value: string) => void;
+  onChange?: (value: string) => void;
   errorMessage?: string;
 }
 
@@ -50,7 +50,7 @@ export const Input = (props: Props) => {
         value={value}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           const { value } = event.target;
-          onChange(name, value);
+          onChange && onChange(value);
         }}
       />
       <ControlErrorMessage>{errorMessage || ''}</ControlErrorMessage>

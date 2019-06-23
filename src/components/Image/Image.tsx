@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled } from './themes';
+import { styled } from '../themes';
 
 const ImgContainer = styled.div`
   width: 100%;
@@ -10,21 +10,21 @@ const ImgContainer = styled.div`
   align-items: center;
 `;
 
-const Img = styled.img`
+const ImageInner = styled.img`
   max-width: 100%;
   max-height: 100%;
   position: absolute;
 `;
 
 interface Props {
-  src: string;
+  imagePath: string;
 }
 
 export const Image = (props: Props): JSX.Element => {
-  const { src } = props;
+  const { imagePath } = props;
   return (
     <ImgContainer>
-      <Img src={src} />
+      <ImageInner src={imagePath} />
     </ImgContainer>
   );
 };

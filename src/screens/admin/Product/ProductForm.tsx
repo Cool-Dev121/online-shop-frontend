@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { ProductFormModel } from './models';
 import {
-  Input, Button, FormDescription, Form,
+  Input, Button, FormDescription, Form, ImageUploader,
 } from '../../../components';
 
 const MainContainer = styled.div`
@@ -14,6 +14,7 @@ const MainContainer = styled.div`
 enum FormFields {
   ProductName = 'productName',
   Price = 'price',
+  Image = 'image',
   Submit = 'submit',
 }
 
@@ -64,6 +65,20 @@ const formDescription: FormDescription = {
           value={value}
           onChange={handleChange}
           errorMessage={errorMessage}
+        />
+      );
+    },
+  },
+  [FormFields.Image]: {
+    renderControl: (control) => {
+      const { value, handleChange, errorMessage } = control;
+      return (
+        <ImageUploader
+          value={value}
+          onChange={(file, url) => {
+            handleChange(file);
+            console.log(file, url);
+          }}
         />
       );
     },

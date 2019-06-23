@@ -5,8 +5,8 @@ import {
   validate,
   getKeys,
   FormDescription,
-  HandleControlChange,
   validateForm,
+  HandleControlChangeExpanded,
 } from '../shared';
 
 const FormInner = styled.form`
@@ -37,7 +37,7 @@ export function Form<TForm extends any>(props: Props<TForm>): JSX.Element {
     setIsFormValid(validateForm(formDescription));
   }, []);
 
-  const handleChange: HandleControlChange = (name: string, value: string) => {
+  const handleChange: HandleControlChangeExpanded = (value: string, name: string) => {
     setForm({ ...form, [name]: value });
     const validationResult = validate(value, formDescription[name].validators);
     if (!validationResult.isValid) {
@@ -61,7 +61,11 @@ export function Form<TForm extends any>(props: Props<TForm>): JSX.Element {
       {Object.keys(formDescription).map(name => (
         <Fragment key={name}>
           {formDescription[name].renderControl(
-            { value: form[name], handleChange, errorMessage: errors[name] },
+            {
+              value: form[name],
+              handleChange: value => handleChange(value, name),
+              errorMessage: errors[name],
+            },
             { isFormValid },
           )}
         </Fragment>

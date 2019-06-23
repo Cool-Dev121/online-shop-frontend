@@ -38,7 +38,7 @@ const productsColumnsDefenition: TableColumnsDefinition<ProductsTableProductMode
     title: 'Image',
     renderCellItem: (item: ProductsTableProductModel): JSX.Element => (
       <ImageContainer>
-        <Image src={item.imagePath} />
+        <Image imagePath={item.imagePath} />
       </ImageContainer>
     ),
   },

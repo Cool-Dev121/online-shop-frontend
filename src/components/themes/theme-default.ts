@@ -70,4 +70,8 @@ export const theme: Theme = {
     borderWidth: 2,
     titleColor: '#6e8e7f',
   },
+
+  imageUploader: {
+    bgColor: '#e2eadb',
+  },
 };
