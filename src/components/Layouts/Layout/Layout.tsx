@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { styled } from '../../components';
 import { ToolbarContainer } from './ToolbarContainer';
+import { styled } from '../../themes';
 
 interface Props {
   renderToolbar: () => JSX.Element;

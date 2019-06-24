@@ -1,5 +1,5 @@
-import { styled } from '../themes';
-import { shadowed } from '../shared';
+import { styled } from '../../themes';
+import { shadowed } from '../../shared';
 
 export const ToolbarContainer = styled.div`
   padding: ${props => props.theme.padding.md}px;

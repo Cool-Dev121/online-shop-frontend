@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
-import { UserType, Loading } from '../shared';
+import { UserType } from '../shared';
+import { FullscreenLoadingSign } from '../shared/FullscreenLoadingSign/FullscreenLoadingSign';
 
 const AdminRouting = React.lazy(() => import('./AdminRouting'));
 const CustomerRouting = React.lazy(() => import('./CustomerRouting'));
@@ -20,13 +21,7 @@ const getUserType = (): UserType => UserType.Admin;
 export const Routing = (): JSX.Element => {
   const type = getUserType();
   return (
-    <Suspense
-      fallback={(
-        <div>
-          <Loading />
-        </div>
-)}
-    >
+    <Suspense fallback={<FullscreenLoadingSign />}>
       <RoutingInner type={type} />
     </Suspense>
   );
