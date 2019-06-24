@@ -1,10 +1,9 @@
-import { Validator } from './Validator';
+import { ValidatorItem } from './ValidatorItem';
 import { HandleControlChange } from './HandleControlChange';
 
 export interface FormDescription {
   [key: string]: {
-    initValue?: string;
-    validators?: Validator[];
+    validatorItems?: ValidatorItem[];
     renderControl: (
       control: {
       value: string;

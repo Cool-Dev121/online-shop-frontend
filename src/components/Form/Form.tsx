@@ -66,12 +66,12 @@ export function Form<TForm extends any>(props: Props<TForm>): JSX.Element {
   }, [errors]);
 
   useEffect(() => {
-    setIsFormValid(validateForm(formDescription));
-  }, []);
+    setIsFormValid(validateForm(formDescription, form));
+  }, [form]);
 
   const handleChange: HandleControlChangeExpanded = (value: Value, name: string) => {
     setForm({ ...form, [name]: value });
-    const validationResult = validate(value.toString(), formDescription[name].validators);
+    const validationResult = validate(value.toString(), formDescription[name].validatorItems);
     if (!validationResult.isValid) {
       setErrors({ ...errors, [name]: validationResult.errors[0] });
     } else if (errors[name]) {

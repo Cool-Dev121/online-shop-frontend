@@ -1,5 +1,5 @@
-import { Validator } from './Validator';
+import { ValidatorItem } from './ValidatorItem';
 
 export interface Validatable {
-  validators?: Validator[];
+  validatorItems?: ValidatorItem[];
 }

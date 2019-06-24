@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
-  Input, Button, FormDescription, Form, ImageUploader,
+  Input,
+  Button,
+  FormDescription,
+  Form,
+  ImageUploader,
+  maxLengthVaidator,
+  minLengthVaidator,
 } from '../../../components';
 import { ProductFormModel } from '../../../shared';
 
@@ -16,23 +22,14 @@ enum FormFields {
 
 const formDescription: FormDescription = {
   [FormFields.ProductName]: {
-    initValue: '',
-    validators: [
+    validatorItems: [
       {
         errorMessage: 'Name is too long',
-        isValid: (value: string) => {
-          const maxLength = 20;
-          const isValid = !(value.length > maxLength);
-          return isValid;
-        },
+        isValid: maxLengthVaidator(20),
       },
       {
         errorMessage: 'Name is too short',
-        isValid: (value: string) => {
-          const minLength = 3;
-          const isValid = !(value.length < minLength);
-          return isValid;
-        },
+        isValid: minLengthVaidator(3),
       },
     ],
     renderControl: (control): JSX.Element => {
@@ -50,8 +47,7 @@ const formDescription: FormDescription = {
     },
   },
   [FormFields.Price]: {
-    initValue: '',
-    validators: [],
+    validatorItems: [],
     renderControl: (control): JSX.Element => {
       const { value, handleChange, errorMessage } = control;
       return (

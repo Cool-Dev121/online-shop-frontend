@@ -1,4 +1,1 @@
-export type Validator = {
-  errorMessage: string;
-  isValid: (value: string) => boolean;
-};
+export type Validator = (value: string) => boolean;
