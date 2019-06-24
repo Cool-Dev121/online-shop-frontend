@@ -13,3 +13,4 @@ export * from './Input';
 export * from './shared';
 export * from './Form';
 export * from './ImageUploader';
+export * from './Icon';

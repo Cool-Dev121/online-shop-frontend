@@ -77,6 +77,10 @@ export interface Theme {
   };
 
   imageUploader: {
+    iconColor: string;
+  };
+
+  imagePreview: {
     bgColor: string;
   };
 }

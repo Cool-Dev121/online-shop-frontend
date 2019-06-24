@@ -11,6 +11,7 @@ import {
 } from '../shared';
 import { styled, Themable } from '../themes';
 import { VerticalDivider } from '../VerticalDivider';
+import { ControlContainer } from '../ControlContainer';
 
 const MainContainer = styled.div`
   border-radius: ${props => props.theme.table.borderRadius}px;
@@ -32,29 +33,15 @@ export function TableInner<TItem extends Identifiable>(
   const { tableColumnsDefinition, items, theme } = props;
   const columnKeys = getKeysAsNumbers(tableColumnsDefinition);
   return (
-    <MainContainer>
-      <TableHeader>
-        <TableRow>
-          {columnKeys.map((k, colIndex) => (
-            <React.Fragment key={k}>
-              <TableHeaderCell width={tableColumnsDefinition[k].width}>
-                {tableColumnsDefinition[k].title}
-              </TableHeaderCell>
-              {!isLast(columnKeys, colIndex) && (
-                <VerticalDivider color={theme.table.borderColor} width={theme.table.borderWidth} />
-              )}
-            </React.Fragment>
-          ))}
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {items.map((item: TItem, rowIndex: number) => (
-          <TableRow key={item.id} isOdd={rowIndex % 2 === 1}>
-            {columnKeys.map((k, colIndex: number) => (
+    <ControlContainer>
+      <MainContainer>
+        <TableHeader>
+          <TableRow>
+            {columnKeys.map((k, colIndex) => (
               <React.Fragment key={k}>
-                <TableCell width={tableColumnsDefinition[k].width}>
-                  {tableColumnsDefinition[k].renderCellItem(item)}
-                </TableCell>
+                <TableHeaderCell width={tableColumnsDefinition[k].width}>
+                  {tableColumnsDefinition[k].title}
+                </TableHeaderCell>
                 {!isLast(columnKeys, colIndex) && (
                   <VerticalDivider
                     color={theme.table.borderColor}
@@ -64,9 +51,28 @@ export function TableInner<TItem extends Identifiable>(
               </React.Fragment>
             ))}
           </TableRow>
-        ))}
-      </TableBody>
-    </MainContainer>
+        </TableHeader>
+        <TableBody>
+          {items.map((item: TItem, rowIndex: number) => (
+            <TableRow key={item.id} isOdd={rowIndex % 2 === 1}>
+              {columnKeys.map((k, colIndex: number) => (
+                <React.Fragment key={k}>
+                  <TableCell width={tableColumnsDefinition[k].width}>
+                    {tableColumnsDefinition[k].renderCellItem(item)}
+                  </TableCell>
+                  {!isLast(columnKeys, colIndex) && (
+                    <VerticalDivider
+                      color={theme.table.borderColor}
+                      width={theme.table.borderWidth}
+                    />
+                  )}
+                </React.Fragment>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </MainContainer>
+    </ControlContainer>
   );
 }
 

@@ -4,6 +4,7 @@ import { styled, Themable } from '../themes';
 import { PageButton } from './PageButton';
 import { generatePages, shadowed } from '../shared';
 import { VerticalDivider } from '../VerticalDivider';
+import { ControlContainer } from '../ControlContainer';
 
 const FIRST_PAGE = 1;
 
@@ -48,37 +49,43 @@ export const PaginatorInner = (props: Props): JSX.Element => {
     onPageChange(currentPage); // eslint-disable-line react-hooks/exhaustive-deps
   }, [currentPage]);
   return (
-    <MainContainer>
-      <PageButton onClick={() => setCurrentPage(validateCurrentPage(0, pagesCount))}>
-        {'<<'}
-      </PageButton>
-      <VerticalDivider color={theme.paginator.borderColor} width={theme.paginator.borderWidth} />
-      <PageButton onClick={() => setCurrentPage(validateCurrentPage(currentPage - 1, pagesCount))}>
-        {'<'}
-      </PageButton>
-      <VerticalDivider color={theme.paginator.borderColor} width={theme.paginator.borderWidth} />
-      {generatePages(currentPage, visiblePagesCount, pagesCount).map(page => (
-        <React.Fragment key={page}>
-          <PageButton
-            onClick={() => setCurrentPage(validateCurrentPage(page, pagesCount))}
-            isActive={currentPage === page}
-          >
-            {page}
-          </PageButton>
-          <VerticalDivider
-            color={theme.paginator.borderColor}
-            width={theme.paginator.borderWidth}
-          />
-        </React.Fragment>
-      ))}
-      <PageButton onClick={() => setCurrentPage(validateCurrentPage(currentPage + 1, pagesCount))}>
-        {'>'}
-      </PageButton>
-      <VerticalDivider color={theme.paginator.borderColor} width={theme.paginator.borderWidth} />
-      <PageButton onClick={() => setCurrentPage(validateCurrentPage(pagesCount, pagesCount))}>
-        {'>>'}
-      </PageButton>
-    </MainContainer>
+    <ControlContainer>
+      <MainContainer>
+        <PageButton onClick={() => setCurrentPage(validateCurrentPage(0, pagesCount))}>
+          {'<<'}
+        </PageButton>
+        <VerticalDivider color={theme.paginator.borderColor} width={theme.paginator.borderWidth} />
+        <PageButton
+          onClick={() => setCurrentPage(validateCurrentPage(currentPage - 1, pagesCount))}
+        >
+          {'<'}
+        </PageButton>
+        <VerticalDivider color={theme.paginator.borderColor} width={theme.paginator.borderWidth} />
+        {generatePages(currentPage, visiblePagesCount, pagesCount).map(page => (
+          <React.Fragment key={page}>
+            <PageButton
+              onClick={() => setCurrentPage(validateCurrentPage(page, pagesCount))}
+              isActive={currentPage === page}
+            >
+              {page}
+            </PageButton>
+            <VerticalDivider
+              color={theme.paginator.borderColor}
+              width={theme.paginator.borderWidth}
+            />
+          </React.Fragment>
+        ))}
+        <PageButton
+          onClick={() => setCurrentPage(validateCurrentPage(currentPage + 1, pagesCount))}
+        >
+          {'>'}
+        </PageButton>
+        <VerticalDivider color={theme.paginator.borderColor} width={theme.paginator.borderWidth} />
+        <PageButton onClick={() => setCurrentPage(validateCurrentPage(pagesCount, pagesCount))}>
+          {'>>'}
+        </PageButton>
+      </MainContainer>
+    </ControlContainer>
   );
 };
 

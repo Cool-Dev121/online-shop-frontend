@@ -1,6 +1,6 @@
 export interface ProductFormModel {
   id: string;
-  imagePath: string;
+  image: string | ArrayBuffer;
   productName: string;
   price: number;
 }

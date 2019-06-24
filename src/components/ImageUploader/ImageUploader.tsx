@@ -1,72 +1,81 @@
 import React, {
   Fragment, useState, RefObject, useEffect,
 } from 'react';
-import { Image } from '../Image';
-import { styled } from '../themes';
+import { withTheme } from 'styled-components';
+import { styled, Themable } from '../themes';
 import { Input } from '../Input';
-import { shadowed, FormControl } from '../shared';
+import { FormControl } from '../shared';
+import { Icon, IconName } from '../Icon';
+import { ImagePreview } from '../ImagePreview';
 
-interface Props extends FormControl {}
+interface Props extends FormControl, Themable {}
 
-const ImagePreviewContainer = styled.div`
-  height: 100px;
-  background-color: ${props => props.theme.imageUploader.bgColor};
-  padding: ${props => props.theme.padding.sm}px;
-  box-sizing: border-box;
-  ${shadowed}
+const InputContainer = styled.div`
+  display: flex;
 `;
 
-export const ImageUploader = (props: Props): JSX.Element => {
-  const { onChange, value, errorMessage } = props;
+const IconContainer = styled.div`
+  padding: ${props => props.theme.padding.sm}px;
+  display: flex;
+  align-items: center;
+`;
 
-  const imageRef: RefObject<HTMLInputElement> = React.createRef();
+export const ImageUploader = withTheme(
+  (props: Props): JSX.Element => {
+    const {
+      onChange, value, errorMessage, theme,
+    } = props;
 
-  const [imagePath, setImagePath] = useState(value);
+    const imageRef: RefObject<HTMLInputElement> = React.createRef();
 
-  useEffect(() => {
-    setImagePath(value);
-  }, [value]);
+    const [image, setImage] = useState(value);
+    const [imageName, setImageName] = useState();
 
-  const onFilePicked = (e: any) => {
-    const { files } = e.target;
-    if (files[0] !== undefined) {
-      const imgName = files[0].name;
-      setImagePath(imgName);
-      if (imgName.lastIndexOf('.') <= 0) {
-        return;
-      }
-      const fr = new FileReader();
-      fr.readAsDataURL(files[0]);
-      fr.addEventListener('load', () => {
-        const productImageFile = files[0];
-        const productImageUrl = fr.result;
-        setImagePath(productImageUrl as string);
-        if (onChange) {
-          onChange(productImageFile as File);
+    useEffect(() => {
+      setImage(value);
+    }, [value]);
+
+    const onFilePicked = (e: any) => {
+      const { files } = e.target;
+      if (files[0] !== undefined) {
+        const imgName = files[0].name;
+        if (imgName.lastIndexOf('.') <= 0) {
+          return;
         }
-      });
-    }
-  };
+        const fr = new FileReader();
+        fr.readAsDataURL(files[0]);
+        fr.addEventListener('load', () => {
+          const imageNameInner = files[0].name;
+          setImageName(imageNameInner);
+          if (onChange) {
+            const imageBuffer = fr.result as ArrayBuffer;
+            onChange(imageBuffer);
+          }
+        });
+      }
+    };
 
-  return (
-    <Fragment>
-      <ImagePreviewContainer>
-        <Image imagePath={imagePath} />
-      </ImagePreviewContainer>
-      <div
-        onClick={() => {
-          (imageRef.current as any).click();
-        }}
-      >
-        <Input title="Select image" value={imagePath} errorMessage={errorMessage} />
-      </div>
-      <input
-        style={{ display: 'none' }}
-        type="file"
-        ref={imageRef}
-        accept="image/*"
-        onChange={onFilePicked}
-      />
-    </Fragment>
-  );
-};
+    return (
+      <Fragment>
+        <ImagePreview imagePath={image} />
+        <InputContainer
+          onClick={() => {
+            (imageRef.current as any).click();
+          }}
+        >
+          <IconContainer>
+            <Icon name={IconName.faPaperclip} color={theme.imageUploader.iconColor} />
+          </IconContainer>
+          <Input title="Select image" value={imageName || image} errorMessage={errorMessage} />
+        </InputContainer>
+        <input
+          style={{ display: 'none' }}
+          type="file"
+          ref={imageRef}
+          accept="image/*"
+          onChange={onFilePicked}
+        />
+      </Fragment>
+    );
+  },
+);

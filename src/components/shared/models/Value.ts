@@ -1,1 +1,1 @@
-export type Value = number | string | File;
+export type Value = number | string | ArrayBuffer;

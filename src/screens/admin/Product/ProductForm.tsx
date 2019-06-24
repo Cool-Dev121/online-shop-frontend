@@ -16,7 +16,7 @@ const MainContainer = styled.div``;
 enum FormFields {
   ProductName = 'productName',
   Price = 'price',
-  Image = 'imagePath',
+  Image = 'image',
   Submit = 'submit',
 }
 
@@ -64,16 +64,7 @@ const formDescription: FormDescription = {
   [FormFields.Image]: {
     renderControl: (control) => {
       const { value, handleChange, errorMessage } = control;
-      return (
-        <ImageUploader
-          name={FormFields.Image}
-          value={value}
-          onChange={(file) => {
-            handleChange(file);
-            console.log('IMAGE', file, (file as any).name);
-          }}
-        />
-      );
+      return <ImageUploader name={FormFields.Image} value={value} onChange={handleChange} />;
     },
   },
   [FormFields.Submit]: {

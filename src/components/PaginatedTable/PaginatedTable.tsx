@@ -5,7 +5,6 @@ import { TableColumnsDefinition, Table } from '../Table';
 import { Paginator } from '../Paginator';
 
 const PaginatorContainer = styled.div`
-  padding-top: ${props => props.theme.padding.md}px;
   display: flex;
   justify-content: flex-end;
 `;

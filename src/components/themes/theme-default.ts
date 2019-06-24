@@ -79,6 +79,10 @@ export const theme: Theme = {
   },
 
   imageUploader: {
+    iconColor: '#6e8e7f',
+  },
+
+  imagePreview: {
     bgColor: '#e2eadb',
   },
 };

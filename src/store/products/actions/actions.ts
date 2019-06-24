@@ -68,7 +68,7 @@ ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
     const mappedResult: ProductFormModel = {
       id: result.id,
       productName: result.name,
-      imagePath: result.image,
+      image: result.image,
       price: result.price,
     };
     return dispatch(requestProductByIdSuccess(mappedResult));
