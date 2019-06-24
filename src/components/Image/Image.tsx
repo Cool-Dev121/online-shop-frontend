@@ -18,10 +18,11 @@ const ImageInner = styled.img`
 
 interface Props {
   imagePath: string;
+  name?: string;
 }
 
 export const Image = (props: Props): JSX.Element => {
-  const { imagePath } = props;
+  const { imagePath, name } = props;
   return (
     <ImgContainer>
       <ImageInner src={imagePath} />

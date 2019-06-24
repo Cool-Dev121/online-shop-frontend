@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from '../themes';
-import { bordered, shadowed } from '../shared';
+import { bordered, shadowed, FormControl } from '../shared';
 import { ControlErrorMessage } from '../ControlErrorMessage';
 
 const MainContainer = styled.div`
@@ -26,13 +26,9 @@ const InputComponent = styled.input`
   ${shadowed}
 `;
 
-interface Props {
+interface Props extends FormControl {
   title: string;
-  name?: string;
   placeholder?: string;
-  value: string | number;
-  onChange?: (value: string) => void;
-  errorMessage?: string;
 }
 
 export const Input = (props: Props) => {
@@ -49,8 +45,10 @@ export const Input = (props: Props) => {
         placeholder={placeholder}
         value={value}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          const { value } = event.target;
-          onChange && onChange(value);
+          const { value: targetValue } = event.target;
+          if (onChange) {
+            onChange(targetValue);
+          }
         }}
       />
       <ControlErrorMessage>{errorMessage || ''}</ControlErrorMessage>

@@ -7,12 +7,20 @@ import {
   FormDescription,
   validateForm,
   HandleControlChangeExpanded,
+  Value,
 } from '../shared';
 
 const MainContainer = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const FormTitleContainer = styled.div`
+  display: flex;
   justify-content: center;
+  font-size: ${props => props.theme.fontSize.lg}px;
 `;
 
 const FormInner = styled.form`
@@ -36,13 +44,17 @@ const FormInner = styled.form`
 interface Props<TForm> {
   onSubmit: (form: TForm) => void;
   formDescription: FormDescription;
+  title?: string;
+  initValue?: TForm;
 }
 
 export function Form<TForm extends any>(props: Props<TForm>): JSX.Element {
-  const { onSubmit, formDescription } = props;
+  const {
+    onSubmit, formDescription, title, initValue,
+  } = props;
 
-  const initForm: any = {};
-  const [form, setForm] = useState(initForm);
+  const initValueInner: any = initValue || {};
+  const [form, setForm] = useState(initValueInner);
 
   const errorsInit: { [key: string]: string } = {};
   const [errors, setErrors] = useState(errorsInit);
@@ -57,9 +69,9 @@ export function Form<TForm extends any>(props: Props<TForm>): JSX.Element {
     setIsFormValid(validateForm(formDescription));
   }, []);
 
-  const handleChange: HandleControlChangeExpanded = (value: string, name: string) => {
+  const handleChange: HandleControlChangeExpanded = (value: Value, name: string) => {
     setForm({ ...form, [name]: value });
-    const validationResult = validate(value, formDescription[name].validators);
+    const validationResult = validate(value.toString(), formDescription[name].validators);
     if (!validationResult.isValid) {
       setErrors({ ...errors, [name]: validationResult.errors[0] });
     } else if (errors[name]) {
@@ -69,6 +81,7 @@ export function Form<TForm extends any>(props: Props<TForm>): JSX.Element {
 
   return (
     <MainContainer>
+      {title && <FormTitleContainer>{title}</FormTitleContainer>}
       <FormInner
         onSubmit={(event) => {
           event.preventDefault();

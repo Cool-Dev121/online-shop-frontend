@@ -2,13 +2,9 @@ import React, { Fragment, useState, RefObject } from 'react';
 import { Image } from '../Image';
 import { styled } from '../themes';
 import { Input } from '../Input';
-import { shadowed } from '../shared';
+import { shadowed, FormControl } from '../shared';
 
-interface Props {
-  value: string;
-  onChange: (file: any, url: string | ArrayBuffer | null) => void;
-  errorMessage?: string;
-}
+interface Props extends FormControl {}
 
 const ImagePreviewContainer = styled.div`
   height: 100px;
@@ -24,7 +20,7 @@ export const ImageUploader = (props: Props): JSX.Element => {
   const imageRef: RefObject<HTMLInputElement> = React.createRef();
 
   const [imagePath, setImagePath] = useState(value);
-  const [imageName, setImageName] = useState();
+  const [imageName, setImageName] = useState(value);
 
   const onFilePicked = (e: any) => {
     const { files } = e.target;
@@ -40,7 +36,9 @@ export const ImageUploader = (props: Props): JSX.Element => {
         const productImageFile = files[0];
         const productImageUrl = fr.result;
         setImagePath(productImageUrl as string);
-        onChange(productImageFile, productImageUrl);
+        if (onChange) {
+          onChange(productImageFile as File);
+        }
       });
     }
   };

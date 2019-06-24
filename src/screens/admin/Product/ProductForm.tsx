@@ -1,17 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-
-import { ProductFormModel } from './models';
 import {
   Input, Button, FormDescription, Form, ImageUploader,
 } from '../../../components';
+import { ProductFormModel } from '../../../shared';
 
 const MainContainer = styled.div``;
 
 enum FormFields {
   ProductName = 'productName',
   Price = 'price',
-  Image = 'image',
+  Image = 'imagePath',
   Submit = 'submit',
 }
 
@@ -71,10 +70,11 @@ const formDescription: FormDescription = {
       const { value, handleChange, errorMessage } = control;
       return (
         <ImageUploader
+          name={FormFields.Image}
           value={value}
-          onChange={(file, url) => {
+          onChange={(file) => {
             handleChange(file);
-            console.log(file, url);
+            console.log('IMAGE', file, (file as any).name);
           }}
         />
       );
@@ -94,15 +94,21 @@ const formDescription: FormDescription = {
 
 interface ProductFormProps {
   onSubmit: (form: ProductFormModel) => void;
-  formInit?: any;
+  initValue?: ProductFormModel;
+  title: string;
 }
 
 export const ProductForm = (props: ProductFormProps): JSX.Element => {
-  const { onSubmit, formInit } = props;
+  const { onSubmit, initValue, title } = props;
 
   return (
     <MainContainer>
-      <Form formDescription={formDescription} onSubmit={onSubmit} />
+      <Form
+        formDescription={formDescription}
+        onSubmit={onSubmit}
+        title={title}
+        initValue={initValue}
+      />
     </MainContainer>
   );
 };

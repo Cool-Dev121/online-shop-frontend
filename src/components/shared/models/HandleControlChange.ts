@@ -1,2 +1,4 @@
-export type HandleControlChange = (value: string) => void;
-export type HandleControlChangeExpanded = (value: string, name: string) => void;
+import { Value } from './Value';
+
+export type HandleControlChange = (value: Value) => void;
+export type HandleControlChangeExpanded = (value: Value, name: string) => void;

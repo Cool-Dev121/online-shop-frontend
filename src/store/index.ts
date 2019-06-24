@@ -10,5 +10,6 @@ export {
   Dispatch as ProductsDispatch,
   requestTableProductsActionCreator,
   requestTableProductsSuccess,
+  requestProductByIdActionCreator,
 } from './products';
 export * from './middlewares';

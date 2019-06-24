@@ -5,3 +5,5 @@ export * from './Validatable';
 export * from './Validator';
 export * from './HandleControlChange';
 export * from './FormDescription';
+export * from './FormControl';
+export * from './Value';

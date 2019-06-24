@@ -1,5 +1,6 @@
 import { ProductsApiConcrete } from './ProductsApiConcrete';
-import { PagedModel, ProductsProductResponseModel } from '../models';
+import { PagedModel, ProductsProductResponseModel, ProductResponseModel } from '../models';
+import { withDelay } from '../../helpers';
 
 const generateProducts = (start: number, count: number): ProductsProductResponseModel[] => {
   const generated: ProductsProductResponseModel[] = [];
@@ -14,16 +15,35 @@ const generateProducts = (start: number, count: number): ProductsProductResponse
   return generated;
 };
 
+const generateProduct = (id: string): ProductResponseModel => {
+  const product = {
+    id: `${id}`,
+    name: 'Mocked Product Name',
+    price: 1,
+    image: 'https://cdn.pixabay.com/photo/2014/10/15/22/06/apples-490474_1280.jpg',
+  };
+  return product;
+};
+
 export const productsApiMock: ProductsApiConcrete = {
   getProducts(start: number, count: number): Promise<PagedModel<ProductsProductResponseModel>> {
     return new Promise((res) => {
-      setTimeout(() => {
+      withDelay(() => {
         const totalItems = 12;
         res({
           items: generateProducts(start, start + count > totalItems ? totalItems - start : count),
           totalItems,
         });
-      }, 300);
+      });
+    });
+  },
+  getProduct(id: string): Promise<ProductResponseModel> {
+    return new Promise((res) => {
+      withDelay(() => {
+        res({
+          ...generateProduct(id),
+        });
+      });
     });
   },
 };
