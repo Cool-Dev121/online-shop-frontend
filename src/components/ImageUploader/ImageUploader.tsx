@@ -60,6 +60,9 @@ export const ImageUploader = withTheme(
         <ImagePreview imagePath={image} />
         <InputContainer
           onClick={() => {
+            if (!image && onChange) {
+              onChange('');
+            }
             (imageRef.current as any).click();
           }}
         >

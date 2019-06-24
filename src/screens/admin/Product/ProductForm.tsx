@@ -8,6 +8,7 @@ import {
   ImageUploader,
   maxLengthVaidator,
   minLengthVaidator,
+  isRequiredValidator,
 } from '../../../components';
 import { ProductFormModel } from '../../../shared';
 
@@ -62,9 +63,22 @@ const formDescription: FormDescription = {
     },
   },
   [FormFields.Image]: {
+    validatorItems: [
+      {
+        errorMessage: 'Image is required',
+        isValid: isRequiredValidator(),
+      },
+    ],
     renderControl: (control) => {
       const { value, handleChange, errorMessage } = control;
-      return <ImageUploader name={FormFields.Image} value={value} onChange={handleChange} />;
+      return (
+        <ImageUploader
+          name={FormFields.Image}
+          value={value}
+          onChange={handleChange}
+          errorMessage={errorMessage}
+        />
+      );
     },
   },
   [FormFields.Submit]: {

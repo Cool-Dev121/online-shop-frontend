@@ -9,3 +9,5 @@ export const minLengthVaidator = (minLength: number): Validator => (value: strin
   const isValid = value === undefined || value === null ? false : !(value.length < minLength);
   return isValid;
 };
+
+export const isRequiredValidator = (): Validator => (value: string) => !!value;
