@@ -1,2 +1,2 @@
 export { ProductCreateScreen } from './ProductCreateScreen';
-export { ProductEditScreen } from './ProductEditScreen';
+export * from './ProductEditScreen';

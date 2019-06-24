@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { ComponentType } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {
   AdminOrdersScreen,
   AdminProductsScreen,
   ProductCreateScreen,
   ProductEditScreen,
+  SignInScreen,
+  SignUpScreen,
 } from '../screens';
-import { LinksList, LinkItemModel, Toolbar } from '../shared';
+import { RouteWithLayout } from './RouteWithLayout';
 import { Layout } from '../components';
+import { Toolbar, LinksList, LinkItemModel } from '../shared';
 
 const links: LinkItemModel[] = [
   {
@@ -32,20 +35,27 @@ const links: LinkItemModel[] = [
   },
 ];
 
-const AdminRouting = (): JSX.Element => (
-  <Router>
+export type Props = { component: ComponentType<any> };
+
+const AdminLayout = (props: Props): JSX.Element => {
+  const { component: Component } = props;
+  return (
     <Layout
       renderToolbar={() => <Toolbar />}
       renderSidebar={() => <LinksList items={links} />}
-      renderContent={() => (
-        <React.Fragment>
-          <Route path="/orders" component={AdminOrdersScreen} />
-          <Route path="/products" component={AdminProductsScreen} />
-          <Route path="/product" exact component={ProductCreateScreen} />
-          <Route path="/product/:id" component={ProductEditScreen} />
-        </React.Fragment>
-      )}
+      renderContent={() => <Component />}
     />
+  );
+};
+
+const AdminRouting = (): JSX.Element => (
+  <Router>
+    <Route path="/signin" component={SignInScreen} />
+    <Route path="/signup" component={SignUpScreen} />
+    <RouteWithLayout path="/orders" layout={AdminLayout} component={AdminOrdersScreen} />
+    <RouteWithLayout path="/products" layout={AdminLayout} component={AdminProductsScreen} />
+    <RouteWithLayout path="/product" layout={AdminLayout} exact component={ProductCreateScreen} />
+    <RouteWithLayout path="/product/:id" layout={AdminLayout} component={ProductEditScreen} />
   </Router>
 );
 

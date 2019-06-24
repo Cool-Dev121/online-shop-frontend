@@ -1,19 +1,17 @@
 import React, { useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { ProductForm } from './ProductForm';
-import { AppState, ProductsDispatch, requestProductByIdActionCreator } from '../../../store';
-import { ProductFormModel } from '../../../shared';
-
-interface Params {
-  id: string;
-}
+import { ProductForm } from '../ProductForm';
+import { AppState, ProductsDispatch, requestProductByIdActionCreator } from '../../../../store';
+import { ProductFormModel } from '../../../../shared';
 
 const handleSubmit = (productForm: ProductFormModel) => {
   console.log('PROD FORM', productForm);
 };
 
-interface OwnProps extends RouteComponentProps<Params> {}
+interface OwnProps {
+  id: string;
+}
 interface StateProps {
   selectedProduct?: ProductFormModel;
 }
@@ -22,9 +20,8 @@ interface DispatchProps {
 }
 type Props = OwnProps & StateProps & DispatchProps;
 
-export const ProductEditScreenInner = (props: Props): JSX.Element => {
-  const { match, loadProduct, selectedProduct } = props;
-  const { id } = match.params;
+export const ProductEditFormInner = (props: Props): JSX.Element => {
+  const { id, loadProduct, selectedProduct } = props;
 
   useEffect(() => {
     loadProduct(id);
@@ -50,7 +47,7 @@ const mapDispatchToProps = (dispatch: ProductsDispatch) => ({
   },
 });
 
-export const ProductEditScreen = connect(
+export const ProductEditForm = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ProductEditScreenInner);
+)(ProductEditFormInner);
