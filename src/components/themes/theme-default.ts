@@ -23,6 +23,13 @@ export const theme: Theme = {
     error: '#b51f09',
   },
 
+  gridOptions: {
+    sm: 576,
+    md: 768,
+    lg: 992,
+    xl: 1200,
+  },
+
   toolbar: {
     bgColor: '#aec1ae',
     borderRadius: 5,

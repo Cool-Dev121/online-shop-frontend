@@ -21,6 +21,13 @@ export interface Theme {
     error: string;
   };
 
+  gridOptions: {
+    sm: number;
+    md: number;
+    lg: number;
+    xl: number;
+  };
+
   toolbar: {
     bgColor: string;
     borderRadius: number;

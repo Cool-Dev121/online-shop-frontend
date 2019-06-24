@@ -6,10 +6,7 @@ import {
   Input, Button, FormDescription, Form, ImageUploader,
 } from '../../../components';
 
-const MainContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+const MainContainer = styled.div``;
 
 enum FormFields {
   ProductName = 'productName',

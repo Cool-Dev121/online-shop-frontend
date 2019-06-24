@@ -10,7 +10,7 @@ enum ProductsColumnKey {
   Id,
   Name,
   Price,
-  Image,
+  Image, // eslint-disable-line
 }
 
 const ImageContainer = styled.div`

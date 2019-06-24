@@ -9,8 +9,28 @@ import {
   HandleControlChangeExpanded,
 } from '../shared';
 
+const MainContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
 const FormInner = styled.form`
-  /* flex: 0.5; */
+  @media (min-width: 0px) {
+    width: 100%;
+  }
+  @media (min-width: ${props => props.theme.gridOptions.sm}px) {
+    width: 90%;
+  }
+  @media (min-width: ${props => props.theme.gridOptions.md}px) {
+    width: 50%;
+  }
+  @media (min-width: ${props => props.theme.gridOptions.lg}px) {
+    width: 50%;
+  }
+  @media (min-width: ${props => props.theme.gridOptions.xl}px) {
+    width: 30%;
+  }
 `;
 
 interface Props<TForm> {
@@ -48,28 +68,30 @@ export function Form<TForm extends any>(props: Props<TForm>): JSX.Element {
   };
 
   return (
-    <FormInner
-      onSubmit={(event) => {
-        event.preventDefault();
-        if (!isFormValid) {
-          console.log('FORM IS NOT VALID');
-          return;
-        }
-        onSubmit(form);
-      }}
-    >
-      {Object.keys(formDescription).map(name => (
-        <Fragment key={name}>
-          {formDescription[name].renderControl(
-            {
-              value: form[name],
-              handleChange: value => handleChange(value, name),
-              errorMessage: errors[name],
-            },
-            { isFormValid },
-          )}
-        </Fragment>
-      ))}
-    </FormInner>
+    <MainContainer>
+      <FormInner
+        onSubmit={(event) => {
+          event.preventDefault();
+          if (!isFormValid) {
+            console.log('FORM IS NOT VALID');
+            return;
+          }
+          onSubmit(form);
+        }}
+      >
+        {Object.keys(formDescription).map(name => (
+          <Fragment key={name}>
+            {formDescription[name].renderControl(
+              {
+                value: form[name],
+                handleChange: value => handleChange(value, name),
+                errorMessage: errors[name],
+              },
+              { isFormValid },
+            )}
+          </Fragment>
+        ))}
+      </FormInner>
+    </MainContainer>
   );
 }
