@@ -96,7 +96,6 @@ interface ProductFormProps {
 
 export const ProductForm = (props: ProductFormProps): JSX.Element => {
   const { onSubmit, initValue, title } = props;
-
   return (
     <MainContainer>
       <Form

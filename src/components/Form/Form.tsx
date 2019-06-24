@@ -41,7 +41,7 @@ const FormInner = styled.form`
   }
 `;
 
-interface Props<TForm> {
+interface Props<TForm extends any> {
   onSubmit: (form: TForm) => void;
   formDescription: FormDescription;
   title?: string;
@@ -68,6 +68,10 @@ export function Form<TForm extends any>(props: Props<TForm>): JSX.Element {
   useEffect(() => {
     setIsFormValid(validateForm(formDescription, form));
   }, [form]);
+
+  useEffect(() => {
+    setForm(initValueInner);
+  }, [initValue]);
 
   const handleChange: HandleControlChangeExpanded = (value: Value, name: string) => {
     setForm({ ...form, [name]: value });

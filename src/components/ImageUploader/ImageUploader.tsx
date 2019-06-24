@@ -1,4 +1,6 @@
-import React, { Fragment, useState, RefObject } from 'react';
+import React, {
+  Fragment, useState, RefObject, useEffect,
+} from 'react';
 import { Image } from '../Image';
 import { styled } from '../themes';
 import { Input } from '../Input';
@@ -20,13 +22,16 @@ export const ImageUploader = (props: Props): JSX.Element => {
   const imageRef: RefObject<HTMLInputElement> = React.createRef();
 
   const [imagePath, setImagePath] = useState(value);
-  const [imageName, setImageName] = useState(value);
+
+  useEffect(() => {
+    setImagePath(value);
+  }, [value]);
 
   const onFilePicked = (e: any) => {
     const { files } = e.target;
     if (files[0] !== undefined) {
       const imgName = files[0].name;
-      setImageName(imgName);
+      setImagePath(imgName);
       if (imgName.lastIndexOf('.') <= 0) {
         return;
       }
@@ -53,7 +58,7 @@ export const ImageUploader = (props: Props): JSX.Element => {
           (imageRef.current as any).click();
         }}
       >
-        <Input title="Select image" value={imageName} errorMessage={errorMessage} />
+        <Input title="Select image" value={imagePath} errorMessage={errorMessage} />
       </div>
       <input
         style={{ display: 'none' }}
