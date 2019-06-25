@@ -1,1 +1,5 @@
-export enum CustomerRoutes {}
+export enum CustomerRoutes {
+  Products = '/',
+  Orders = '/orders',
+  Cart = '/cart',
+}
