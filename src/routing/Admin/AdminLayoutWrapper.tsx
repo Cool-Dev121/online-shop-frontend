@@ -20,11 +20,6 @@ const links: LinkItemModel[] = [
     link: AdminRoutes.Product,
     title: 'Product create (temp)',
   },
-  {
-    id: 'product-edit',
-    link: `${AdminRoutes.Product}/5`,
-    title: 'Product 5 edit (temp)',
-  },
 ];
 
 export const AdminLayoutWrapper = (props: LayoutProps): JSX.Element => {

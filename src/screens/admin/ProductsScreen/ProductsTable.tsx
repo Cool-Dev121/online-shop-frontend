@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  TableColumnsDefinition, styled, PaginatedTable, Image,
+  TableColumnsDefinition, styled, PaginatedTable, Image, Button,
 } from '../../../components';
 import { AppState, requestTableProductsActionCreator, ProductsDispatch } from '../../../store';
 import {
@@ -9,16 +9,25 @@ import {
   ITEMS_PER_PAGE,
   MAX_VISIBLE_PAGES_COUNT,
 } from '../../../shared';
+import { EditProductButton } from './EditProductButton';
 
 enum ProductsColumnKey {
   Id,
   Name,
   Price,
   Image, // eslint-disable-line
+  Edit,
 }
 
 const ImageContainer = styled.div`
   height: 100px;
+`;
+
+const EditButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 `;
 
 const productsColumnsDefenition: TableColumnsDefinition<ProductsTableProductModel> = {
@@ -44,6 +53,15 @@ const productsColumnsDefenition: TableColumnsDefinition<ProductsTableProductMode
       <ImageContainer>
         <Image imagePath={item.imagePath} />
       </ImageContainer>
+    ),
+  },
+  [ProductsColumnKey.Edit]: {
+    width: 1,
+    title: '',
+    renderCellItem: (item: ProductsTableProductModel): JSX.Element => (
+      <EditButtonContainer>
+        <EditProductButton id={item.id} />
+      </EditButtonContainer>
     ),
   },
 };
