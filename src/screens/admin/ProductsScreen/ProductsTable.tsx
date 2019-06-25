@@ -2,9 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   TableColumnsDefinition, styled, PaginatedTable, Image,
-} from '../../components';
-import { AppState, requestTableProductsActionCreator, ProductsDispatch } from '../../store';
-import { ProductsTableProductModel, ITEMS_PER_PAGE, MAX_VISIBLE_PAGES_COUNT } from '../../shared';
+} from '../../../components';
+import { AppState, requestTableProductsActionCreator, ProductsDispatch } from '../../../store';
+import {
+  ProductsTableProductModel,
+  ITEMS_PER_PAGE,
+  MAX_VISIBLE_PAGES_COUNT,
+} from '../../../shared';
 
 enum ProductsColumnKey {
   Id,
@@ -54,22 +58,20 @@ interface DispatchProps {
 }
 type Props = OwnProps & StateProps & DispatchProps;
 
-const ProductsScreenInner = (props: Props): JSX.Element => {
+const ProductsTableInner = (props: Props): JSX.Element => {
   const { products, totalItemsCount, onPageChange } = props;
 
   return (
-    <React.Fragment>
-      <PaginatedTable
-        items={products}
-        itemsPerPage={ITEMS_PER_PAGE}
-        maxVisiblePagesCount={MAX_VISIBLE_PAGES_COUNT}
-        onPageChange={(page: number) => {
-          onPageChange(ITEMS_PER_PAGE * (page - 1), ITEMS_PER_PAGE);
-        }}
-        tableColumnsDefinition={productsColumnsDefenition}
-        totalItemsCount={totalItemsCount}
-      />
-    </React.Fragment>
+    <PaginatedTable
+      items={products}
+      itemsPerPage={ITEMS_PER_PAGE}
+      maxVisiblePagesCount={MAX_VISIBLE_PAGES_COUNT}
+      onPageChange={(page: number) => {
+        onPageChange(ITEMS_PER_PAGE * (page - 1), ITEMS_PER_PAGE);
+      }}
+      tableColumnsDefinition={productsColumnsDefenition}
+      totalItemsCount={totalItemsCount}
+    />
   );
 };
 
@@ -84,7 +86,7 @@ const mapDispatchToProps = (dispatch: ProductsDispatch) => ({
   },
 });
 
-export const ProductsScreen = connect(
+export const ProductsTable = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ProductsScreenInner);
+)(ProductsTableInner);

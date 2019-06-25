@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { TableColumnsDefinition, styled, PaginatedTable } from '../../components';
-import { requestTableOrdersActionCreator, AppState, OrdersDispatch } from '../../store';
+import { TableColumnsDefinition, styled, PaginatedTable } from '../../../components';
+import { requestTableOrdersActionCreator, AppState, OrdersDispatch } from '../../../store';
 import {
   AdminOrdersTableOrderModel,
   AdminOrdersTableOrderItemModel,
   OrderItemCard,
   ITEMS_PER_PAGE,
   MAX_VISIBLE_PAGES_COUNT,
-} from '../../shared';
+} from '../../../shared';
 
 enum OrdersColumnKey {
   Id,
@@ -81,22 +81,20 @@ interface DispatchProps {
 }
 type Props = OwnProps & StateProps & DispatchProps;
 
-const OrdersScreenInner = (props: Props): JSX.Element => {
+const OrdersTableInner = (props: Props): JSX.Element => {
   const { orders, totalItemsCount, onPageChange } = props;
 
   return (
-    <React.Fragment>
-      <PaginatedTable
-        items={orders}
-        itemsPerPage={ITEMS_PER_PAGE}
-        maxVisiblePagesCount={MAX_VISIBLE_PAGES_COUNT}
-        onPageChange={(page: number) => {
-          onPageChange(ITEMS_PER_PAGE * (page - 1), ITEMS_PER_PAGE);
-        }}
-        tableColumnsDefinition={ordersColumnsDefenition}
-        totalItemsCount={totalItemsCount}
-      />
-    </React.Fragment>
+    <PaginatedTable
+      items={orders}
+      itemsPerPage={ITEMS_PER_PAGE}
+      maxVisiblePagesCount={MAX_VISIBLE_PAGES_COUNT}
+      onPageChange={(page: number) => {
+        onPageChange(ITEMS_PER_PAGE * (page - 1), ITEMS_PER_PAGE);
+      }}
+      tableColumnsDefinition={ordersColumnsDefenition}
+      totalItemsCount={totalItemsCount}
+    />
   );
 };
 
@@ -111,7 +109,7 @@ const mapDispatchToProps = (dispatch: OrdersDispatch) => ({
   },
 });
 
-export const OrdersScreen = connect(
+export const OrdersTable = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(OrdersScreenInner);
+)(OrdersTableInner);

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled, Card } from '../../components';
-import { SignInFormContainer } from './SignInFormContainer';
+import { SignInForm } from './SignInForm';
 
 const MainContainer = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const CardContainer = styled.div`
 export const SignInScreen = (): JSX.Element => (
   <MainContainer>
     <CardContainer>
-      <Card renderContent={() => <SignInFormContainer />} />
+      <Card renderContent={() => <SignInForm />} />
     </CardContainer>
   </MainContainer>
 );

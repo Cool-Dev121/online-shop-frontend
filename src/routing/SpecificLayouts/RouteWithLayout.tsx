@@ -1,23 +1,28 @@
 import React, { ComponentType } from 'react';
 import { Route, RouteComponentProps } from 'react-router-dom';
-import { ConnectedComponentClass } from 'react-redux';
 
-interface Props {
-  layout: ComponentType<any>;
-  component: ComponentType<any> | ConnectedComponentClass<any, any>;
+type ComponentProps<TMatchType> = RouteComponentProps<TMatchType>;
+type ContentComponentType<TMatchType> = ComponentType<ComponentProps<TMatchType>>;
+type LayoutComponentType = ComponentType<{ component: () => JSX.Element }>;
+
+interface Props<TMatchType> {
+  layout: LayoutComponentType;
+  content: ContentComponentType<TMatchType>;
   exact?: boolean;
   path: string;
 }
 
-export const RouteWithLayout = (props: Props) => {
+export function RouteWithLayout<TMatchType>(props: Props<TMatchType>) {
   const {
-    component: Component, exact, path, layout: Layout,
+    content: ContentComponent, exact, path, layout: Layout,
   } = props;
   return (
     <Route
       exact={exact}
       path={path}
-      render={(d: RouteComponentProps) => <Layout component={() => <Component {...d} />} />}
+      render={(routeComponentProps: RouteComponentProps<TMatchType>) => (
+        <Layout component={() => <ContentComponent {...routeComponentProps} />} />
+      )}
     />
   );
-};
+}

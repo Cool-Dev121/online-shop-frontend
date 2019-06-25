@@ -1,13 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
-  styled, Form, FormDescription, Input, Button,
+  Form, FormDescription, Input, Button,
 } from '../../components';
 import { SignInFormModel } from '../../shared';
-
-const MainContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import { requestSignInActionCreator, AppDispatch } from '../../store';
 
 enum FormFields {
   Email = 'email',
@@ -56,14 +53,23 @@ const formDescription: FormDescription = {
   },
 };
 
-interface Props {
-  onSubmit: (form: SignInFormModel) => void;
+interface DispatchProps {
+  signIn: (form: SignInFormModel) => void;
 }
-export const SignInForm = (props: Props): JSX.Element => {
-  const { onSubmit } = props;
-  return (
-    <MainContainer>
-      <Form formDescription={formDescription} onSubmit={onSubmit} title="Sign In" />
-    </MainContainer>
-  );
+type Props = DispatchProps;
+
+export const SignInFormInner = (props: Props): JSX.Element => {
+  const { signIn } = props;
+  return <Form formDescription={formDescription} onSubmit={signIn} title="Sign In" />;
 };
+
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  signIn: (form: SignInFormModel) => {
+    dispatch(requestSignInActionCreator(form));
+  },
+});
+
+export const SignInForm = connect(
+  null,
+  mapDispatchToProps,
+)(SignInFormInner);

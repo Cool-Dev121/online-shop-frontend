@@ -12,21 +12,17 @@ import { RouteWithLayout, AdminLayoutWrapper, PanelLayoutWrapper } from './Speci
 
 const AdminRouting = (): JSX.Element => (
   <Router>
-    <RouteWithLayout path="/signin" layout={PanelLayoutWrapper} component={SignInScreen} />
-    <RouteWithLayout path="/signup" layout={PanelLayoutWrapper} component={SignUpScreen} />
-    <RouteWithLayout path="/orders" layout={AdminLayoutWrapper} component={AdminOrdersScreen} />
-    <RouteWithLayout path="/products" layout={AdminLayoutWrapper} component={AdminProductsScreen} />
+    <RouteWithLayout path="/signin" layout={PanelLayoutWrapper} content={SignInScreen} />
+    <RouteWithLayout path="/signup" layout={PanelLayoutWrapper} content={SignUpScreen} />
+    <RouteWithLayout path="/orders" layout={AdminLayoutWrapper} content={AdminOrdersScreen} />
+    <RouteWithLayout path="/products" layout={AdminLayoutWrapper} content={AdminProductsScreen} />
     <RouteWithLayout
       path="/product"
       layout={AdminLayoutWrapper}
       exact
-      component={ProductCreateScreen}
+      content={ProductCreateScreen}
     />
-    <RouteWithLayout
-      path="/product/:id"
-      layout={AdminLayoutWrapper}
-      component={ProductEditScreen}
-    />
+    <RouteWithLayout path="/product/:id" layout={AdminLayoutWrapper} content={ProductEditScreen} />
   </Router>
 );
 

@@ -1,3 +1,3 @@
-export { OrdersScreen } from './OrdersScreen';
-export { ProductsScreen } from './ProductsScreen';
+export * from './OrdersScreen';
+export * from './ProductsScreen';
 export * from './Product';
