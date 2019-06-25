@@ -16,5 +16,6 @@ export {
   // @ts-ignore
   Dispatch as AppDispatch,
   requestSignInActionCreator,
+  requestSignUpActionCreator,
 } from './app';
 export * from './middlewares';

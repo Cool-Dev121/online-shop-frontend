@@ -1,4 +1,9 @@
-import { SignInRequestModel, SignInResponseModel } from '../models';
+import {
+  SignInRequestModel,
+  SignInResponseModel,
+  SignUpRequestModel,
+  SignUpResponseModel,
+} from '../models';
 import { AppApiInterface } from './AppApiInterface';
 
 export const appApiMock: AppApiInterface = {
@@ -7,6 +12,15 @@ export const appApiMock: AppApiInterface = {
       setTimeout(() => {
         res({
           token: 'test_token',
+        });
+      }, 300);
+    });
+  },
+  signUp(form: SignUpRequestModel): Promise<SignUpResponseModel> {
+    return new Promise((res) => {
+      setTimeout(() => {
+        res({
+          result: true,
         });
       }, 300);
     });

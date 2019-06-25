@@ -29,7 +29,7 @@ const FormInner = styled.form`
 
 interface Props<TForm extends any> {
   onSubmit: (form: TForm) => void;
-  formDescription: FormDescription;
+  formDescription: FormDescription<TForm>;
   title?: string;
   initValue?: TForm;
 }
@@ -60,8 +60,13 @@ export function Form<TForm extends any>(props: Props<TForm>): JSX.Element {
   }, [initValue]);
 
   const handleChange: HandleControlChangeExpanded = (value: Value, name: string) => {
-    setForm({ ...form, [name]: value });
-    const validationResult = validate(value.toString(), formDescription[name].validatorItems);
+    const updatedForm = { ...form, [name]: value };
+    setForm(updatedForm);
+    const validationResult = validate(
+      value.toString(),
+      updatedForm,
+      formDescription[name].validatorItems,
+    );
     if (!validationResult.isValid) {
       setErrors({ ...errors, [name]: validationResult.errors[0] });
     } else if (errors[name]) {

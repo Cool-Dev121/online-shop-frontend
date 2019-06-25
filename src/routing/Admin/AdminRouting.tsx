@@ -8,12 +8,12 @@ import {
   ProductEditScreen,
   SignInScreen,
   SignUpScreen,
-} from '../screens';
-import { AdminLayoutWrapper, PanelLayoutWrapper } from './SpecificLayouts';
-import { RouteWithLayout } from './Routes';
-import { ProtectedRouteWithLayout } from './Routes/ProtectedRouteWithLayout';
-import { PATH_IF_NOT_ALLOWED } from '../shared';
-import { AppState } from '../store';
+} from '../../screens';
+import { RouteWithLayout, ProtectedRouteWithLayout } from '../Routes';
+import { AppState } from '../../store';
+import { AdminLayoutWrapper } from './AdminLayoutWrapper';
+import { PanelLayoutWrapper, CommonRoutes } from '../Common';
+import { AdminRoutes } from './AdminRoutes';
 
 interface StateProps {
   isSignedIn: boolean;
@@ -24,31 +24,39 @@ const AdminRoutingInner = (props: Props): JSX.Element => {
   const { isSignedIn } = props;
   return (
     <Router>
-      <RouteWithLayout path="/signin" layout={PanelLayoutWrapper} content={SignInScreen} />
-      <RouteWithLayout path="/signup" layout={PanelLayoutWrapper} content={SignUpScreen} />
+      <RouteWithLayout
+        path={CommonRoutes.SignIn}
+        layout={PanelLayoutWrapper}
+        content={SignInScreen}
+      />
+      <RouteWithLayout
+        path={CommonRoutes.SignUp}
+        layout={PanelLayoutWrapper}
+        content={SignUpScreen}
+      />
       <ProtectedRouteWithLayout
-        path="/orders"
+        path={AdminRoutes.Orders}
         layout={AdminLayoutWrapper}
         content={AdminOrdersScreen}
-        pathIfNotAllowed={PATH_IF_NOT_ALLOWED}
+        pathIfNotAllowed={CommonRoutes.SignIn}
         checkIsAllowed={() => isSignedIn}
       />
       <ProtectedRouteWithLayout
-        path="/"
+        path={AdminRoutes.Products}
         exact
         layout={AdminLayoutWrapper}
         content={AdminProductsScreen}
-        pathIfNotAllowed={PATH_IF_NOT_ALLOWED}
+        pathIfNotAllowed={CommonRoutes.SignIn}
         checkIsAllowed={() => isSignedIn}
       />
       <RouteWithLayout
-        path="/product"
+        path={AdminRoutes.Product}
         layout={AdminLayoutWrapper}
         exact
         content={ProductCreateScreen}
       />
       <RouteWithLayout
-        path="/product/:id"
+        path={`${AdminRoutes.Product}/:id`}
         layout={AdminLayoutWrapper}
         content={ProductEditScreen}
       />

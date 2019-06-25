@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, Redirect } from 'react-router-dom';
 import { styled, Card } from '../../components';
-import { SignInForm } from './SignInForm';
+import { SignUpForm } from './SignUpForm';
 import { AppState } from '../../store';
-import { SignUpButton } from './SignUpButton';
+import { SignInButton } from './SignInButton';
 
 const MainContainer = styled.div`
   display: flex;
@@ -15,7 +15,7 @@ const MainContainer = styled.div`
   width: 100%;
 `;
 
-const SignUpButtonContainer = styled.div`
+const SignInButtonContainer = styled.div`
   position: absolute;
   top: 0;
   right: 0;
@@ -39,7 +39,7 @@ interface StateProps {
 }
 type Props = OwnProps & StateProps;
 
-export const SignInScreenInner = (props: Props): JSX.Element => {
+export const SignUpScreenInner = (props: Props): JSX.Element => {
   const { isSignedIn, location } = props;
 
   const { from } = location.state || { from: { pathname: '/' } };
@@ -48,11 +48,11 @@ export const SignInScreenInner = (props: Props): JSX.Element => {
 
   return (
     <MainContainer>
-      <SignUpButtonContainer>
-        <SignUpButton />
-      </SignUpButtonContainer>
+      <SignInButtonContainer>
+        <SignInButton />
+      </SignInButtonContainer>
       <CardContainer>
-        <Card renderContent={() => <SignInForm />} />
+        <Card renderContent={() => <SignUpForm />} />
       </CardContainer>
     </MainContainer>
   );
@@ -63,4 +63,4 @@ const mapStateToProps = (state: AppState) => {
   return { isSignedIn: app.isSignedIn };
 };
 
-export const SignInScreen = connect(mapStateToProps)(SignInScreenInner);
+export const SignUpScreen = connect(mapStateToProps)(SignUpScreenInner);

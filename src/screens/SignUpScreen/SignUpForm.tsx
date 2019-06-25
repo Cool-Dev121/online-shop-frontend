@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  Form, FormDescription, Input, Button,
+  Form, FormDescription, Input, Button, areEqual,
 } from '../../components';
-import { requestSignInActionCreator, AppDispatch } from '../../store';
-import { SignInFormModel } from '../../shared';
+import { SignUpFormModel } from '../../shared';
+import { AppDispatch, requestSignUpActionCreator } from '../../store';
 
 enum FormFields {
   Email = 'email',
   Password = 'password',
+  ConfirmPassword = 'confirmPassword',
   Submit = 'submit',
 }
 
-const formDescription: FormDescription<SignInFormModel> = {
+const formDescription: FormDescription<SignUpFormModel> = {
   [FormFields.Email]: {
     renderControl: (control): JSX.Element => {
       const { errorMessage, handleChange, value } = control;
@@ -41,12 +42,32 @@ const formDescription: FormDescription<SignInFormModel> = {
       );
     },
   },
+  [FormFields.ConfirmPassword]: {
+    validatorItems: [
+      {
+        errorMessage: 'Passwords are not equal',
+        isValid: areEqual(FormFields.Password),
+      },
+    ],
+    renderControl: (control): JSX.Element => {
+      const { errorMessage, handleChange, value } = control;
+      return (
+        <Input
+          title="Confirm password"
+          name={FormFields.ConfirmPassword}
+          value={value}
+          onChange={handleChange}
+          errorMessage={errorMessage}
+        />
+      );
+    },
+  },
   [FormFields.Submit]: {
     renderControl: (_, form) => {
       const { isFormValid } = form;
       return (
         <Button type="submit" disabled={!isFormValid}>
-          Sign In
+          Sign Up
         </Button>
       );
     },
@@ -54,22 +75,22 @@ const formDescription: FormDescription<SignInFormModel> = {
 };
 
 interface DispatchProps {
-  signIn: (form: SignInFormModel) => void;
+  signUp: (form: SignUpFormModel) => void;
 }
 type Props = DispatchProps;
 
-export const SignInFormInner = (props: Props): JSX.Element => {
-  const { signIn } = props;
-  return <Form formDescription={formDescription} onSubmit={signIn} title="Sign In" />;
+export const SignUpFormInner = (props: Props): JSX.Element => {
+  const { signUp } = props;
+  return <Form formDescription={formDescription} onSubmit={signUp} title="Sign Up" />;
 };
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  signIn: (form: SignInFormModel) => {
-    dispatch(requestSignInActionCreator(form));
+  signUp: (form: SignUpFormModel) => {
+    dispatch(requestSignUpActionCreator(form));
   },
 });
 
-export const SignInForm = connect(
+export const SignUpForm = connect(
   null,
   mapDispatchToProps,
-)(SignInFormInner);
+)(SignUpFormInner);

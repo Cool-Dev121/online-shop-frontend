@@ -1,4 +1,6 @@
-export type ValidatorItem = {
+import { Validator } from './Validator';
+
+export type ValidatorItem<TForm> = {
   errorMessage: string;
-  isValid: (value: string) => boolean;
+  isValid: Validator<TForm>;
 };

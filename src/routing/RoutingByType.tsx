@@ -1,10 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { UserType } from '../shared';
-import { AppState } from '../store';
 
-const AdminRouting = React.lazy(() => import('./AdminRouting'));
-const CustomerRouting = React.lazy(() => import('./CustomerRouting'));
+const AdminRouting = React.lazy(() => import('./Admin/AdminRouting'));
+const CustomerRouting = React.lazy(() => import('./Customer/CustomerRouting'));
 
 export const RoutingByType = (props: { type: UserType }): JSX.Element => {
   const { type } = props;

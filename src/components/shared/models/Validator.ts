@@ -1,1 +1,1 @@
-export type Validator = (value: string) => boolean;
+export type Validator<TForm extends any> = (value: string, form: TForm) => boolean;

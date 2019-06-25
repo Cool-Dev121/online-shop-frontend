@@ -4,6 +4,7 @@ export const START_API_CALL = '[APP] START_API_CALL';
 export const API_CALL_ENDED = '[APP] API_CALL_ENDED';
 export const API_CALL_FAILED = '[APP] API_CALL_FAILED';
 export const REQUEST_SIGN_IN_SUCCESS = '[APP] REQUEST_SIGN_IN_SUCCESS';
+export const REQUEST_SIGN_UP_SUCCESS = '[APP] REQUEST_SIGN_UP_SUCCESS';
 
 interface StartApiCallAction {
   type: typeof START_API_CALL;
@@ -33,7 +34,15 @@ interface RequestSignInSuccessAction {
   };
 }
 
+interface RequestSignUpSuccessAction {
+  type: typeof REQUEST_SIGN_UP_SUCCESS;
+  payload: {
+    result: boolean;
+  };
+}
+
 export type ActionTypes = | StartApiCallAction
   | ApiCallEndedAction
   | ApiCallFailedAction
-  | RequestSignInSuccessAction;
+  | RequestSignInSuccessAction
+  | RequestSignUpSuccessAction;

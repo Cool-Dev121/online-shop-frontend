@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
-import { CartScreen, CustomerOrdersScreen, CustomerProductsScreen } from '../screens';
+import { CartScreen, CustomerOrdersScreen, CustomerProductsScreen } from '../../screens';
 
 const CustomerRouting = (): JSX.Element => (
   <Router>

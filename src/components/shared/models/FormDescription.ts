@@ -1,9 +1,9 @@
 import { ValidatorItem } from './ValidatorItem';
 import { HandleControlChange } from './HandleControlChange';
 
-export interface FormDescription {
+export interface FormDescription<TForm> {
   [key: string]: {
-    validatorItems?: ValidatorItem[];
+    validatorItems?: ValidatorItem<TForm>[];
     renderControl: (
       control: {
       value: string;

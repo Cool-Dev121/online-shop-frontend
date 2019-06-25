@@ -37,7 +37,7 @@ export function apiCallFailed(error: ApiCallError): ActionTypes {
   };
 }
 
-export function requestSigInSuccess(token: string): ActionTypes {
+export function requestSignInSuccess(token: string): ActionTypes {
   return {
     type: REQUEST_SIGN_IN_SUCCESS,
     payload: {
@@ -59,7 +59,30 @@ ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
       email: form.email,
       password: form.password,
     });
-    return dispatch(requestSigInSuccess(result.token));
+    return dispatch(requestSignInSuccess(result.token));
+  } catch (e) {
+    dispatch(apiCallFailed(e));
+    return; // eslint-disable-line
+  } finally {
+    dispatch(apiCallEnded());
+  }
+};
+
+export const requestSignUpActionCreator: ActionCreator<
+ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
+> = (form: SignInFormModel) => async (
+  dispatch: Dispatch,
+  _,
+  { api },
+): Promise<ActionTypes | void> => {
+  dispatch(startApiCall());
+  try {
+    const result = await api.app.signUp({
+      email: form.email,
+      password: form.password,
+    });
+    // TODO: should be redirected to sign in page
+    // return dispatch(requestSigInSuccess(result.token));
   } catch (e) {
     dispatch(apiCallFailed(e));
     return; // eslint-disable-line

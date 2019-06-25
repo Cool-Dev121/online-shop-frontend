@@ -2,26 +2,27 @@ import React from 'react';
 import { Layout } from '../../components';
 import { Toolbar, LinksList, LinkItemModel } from '../../shared';
 import { LayoutProps } from '../Routes';
+import { AdminRoutes } from './AdminRoutes';
 
 const links: LinkItemModel[] = [
   {
     id: 'orders',
-    link: '/orders',
+    link: AdminRoutes.Orders,
     title: 'Orders',
   },
   {
     id: 'products',
-    link: '/',
+    link: AdminRoutes.Products,
     title: 'Products',
   },
   {
     id: 'product-create',
-    link: '/product',
+    link: AdminRoutes.Product,
     title: 'Product create (temp)',
   },
   {
     id: 'product-edit',
-    link: '/product/5',
+    link: `${AdminRoutes.Product}/5`,
     title: 'Product 5 edit (temp)',
   },
 ];

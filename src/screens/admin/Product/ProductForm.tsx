@@ -42,7 +42,7 @@ enum FormFields {
   Submit = 'submit',
 }
 
-const formDescription: FormDescription = {
+const formDescription: FormDescription<ProductFormModel> = {
   [FormFields.ProductName]: {
     validatorItems: [
       {
