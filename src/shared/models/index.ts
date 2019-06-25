@@ -5,3 +5,4 @@ export * from './ProductsTableProductModel';
 export * from './ProductFormModel';
 export * from './SignInFormModel';
 export * from './SignUpFormModel';
+export * from './CartItemModel';
