@@ -7,11 +7,14 @@ import { TableCell } from './TableCell';
 import { TableRow } from './TableRow';
 import { TableBody } from './TableBody';
 import {
-  getKeysAsNumbers, Identifiable, isLast, shadowed,
+  getKeysAsNumbers, Identifiable, isLast, shadowed, withBottomPadding,
 } from '../shared';
 import { styled, Themable } from '../themes';
 import { VerticalDivider } from '../VerticalDivider';
-import { ControlContainer } from '../ControlContainer';
+
+const PaddingContainer = styled.div`
+  ${props => withBottomPadding(props.theme)}
+`;
 
 const MainContainer = styled.div`
   border-radius: ${props => props.theme.table.borderRadius}px;
@@ -33,7 +36,7 @@ export function TableInner<TItem extends Identifiable>(
   const { tableColumnsDefinition, items, theme } = props;
   const columnKeys = getKeysAsNumbers(tableColumnsDefinition);
   return (
-    <ControlContainer>
+    <PaddingContainer>
       <MainContainer>
         <TableHeader>
           <TableRow>
@@ -72,7 +75,7 @@ export function TableInner<TItem extends Identifiable>(
           ))}
         </TableBody>
       </MainContainer>
-    </ControlContainer>
+    </PaddingContainer>
   );
 }
 

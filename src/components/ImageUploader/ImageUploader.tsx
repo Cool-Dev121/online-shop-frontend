@@ -12,6 +12,7 @@ interface Props extends FormControl, Themable {}
 
 const InputContainer = styled.div`
   display: flex;
+  width: 100%;
 `;
 
 const IconContainer = styled.div`

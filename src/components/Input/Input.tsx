@@ -1,14 +1,16 @@
 import React from 'react';
 import { styled } from '../themes';
-import { bordered, shadowed, FormControl } from '../shared';
+import {
+  bordered, shadowed, FormControl, withBottomPadding,
+} from '../shared';
 import { ControlErrorMessage } from '../ControlErrorMessage';
-import { ControlContainer } from '../ControlContainer';
 
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+  ${props => withBottomPadding(props.theme)}
 `;
 
 const TitleContainer = styled.div`
@@ -38,23 +40,21 @@ export const Input = (props: Props) => {
   } = props;
 
   return (
-    <ControlContainer>
-      <MainContainer>
-        <TitleContainer>{title}</TitleContainer>
-        <InputComponent
-          autoComplete="off"
-          name={name}
-          placeholder={placeholder}
-          value={value}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            const { value: targetValue } = event.target;
-            if (onChange) {
-              onChange(targetValue);
-            }
-          }}
-        />
-        <ControlErrorMessage>{errorMessage || ''}</ControlErrorMessage>
-      </MainContainer>
-    </ControlContainer>
+    <MainContainer>
+      <TitleContainer>{title}</TitleContainer>
+      <InputComponent
+        autoComplete="off"
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          const { value: targetValue } = event.target;
+          if (onChange) {
+            onChange(targetValue);
+          }
+        }}
+      />
+      <ControlErrorMessage>{errorMessage || ''}</ControlErrorMessage>
+    </MainContainer>
   );
 };

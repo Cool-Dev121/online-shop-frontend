@@ -1,8 +1,11 @@
 import React from 'react';
 import { styled } from '../themes';
-import { shadowed } from '../shared';
-import { ControlContainer } from '../ControlContainer';
+import { shadowed, withBottomPadding } from '../shared';
 import { Image } from '../Image';
+
+const PaddingContainer = styled.div`
+  ${props => withBottomPadding(props.theme)}
+`;
 
 const ImagePreviewContainer = styled.div`
   height: 100px;
@@ -19,10 +22,10 @@ interface Props {
 export const ImagePreview = (props: Props): JSX.Element => {
   const { imagePath } = props;
   return (
-    <ControlContainer>
+    <PaddingContainer>
       <ImagePreviewContainer>
         <Image imagePath={imagePath} />
       </ImagePreviewContainer>
-    </ControlContainer>
+    </PaddingContainer>
   );
 };

@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { withTheme } from 'styled-components';
 import { styled, Themable } from '../themes';
 import { PageButton } from './PageButton';
-import { generatePages, shadowed } from '../shared';
+import { generatePages, shadowed, withBottomPadding } from '../shared';
 import { VerticalDivider } from '../VerticalDivider';
-import { ControlContainer } from '../ControlContainer';
 
 const FIRST_PAGE = 1;
 
@@ -14,6 +13,10 @@ interface Props extends Themable {
   currentPage?: number;
   onPageChange: (page: number) => void;
 }
+
+const PaddingContainer = styled.div`
+  ${props => withBottomPadding(props.theme)}
+`;
 
 const MainContainer = styled.div`
   display: flex;
@@ -49,7 +52,7 @@ export const PaginatorInner = (props: Props): JSX.Element => {
     onPageChange(currentPage); // eslint-disable-line react-hooks/exhaustive-deps
   }, [currentPage]);
   return (
-    <ControlContainer>
+    <PaddingContainer>
       <MainContainer>
         <PageButton onClick={() => setCurrentPage(validateCurrentPage(0, pagesCount))}>
           {'<<'}
@@ -85,7 +88,7 @@ export const PaginatorInner = (props: Props): JSX.Element => {
           {'>>'}
         </PageButton>
       </MainContainer>
-    </ControlContainer>
+    </PaddingContainer>
   );
 };
 
