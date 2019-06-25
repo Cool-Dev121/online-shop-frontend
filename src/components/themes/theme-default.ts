@@ -85,4 +85,9 @@ export const theme: Theme = {
   imagePreview: {
     bgColor: '#e2eadb',
   },
+
+  panelLayout: {
+    landingBgColor: '#e2eadb',
+    contentBgColor: '#aec1ae',
+  },
 };

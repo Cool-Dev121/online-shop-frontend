@@ -33,18 +33,18 @@ const FooterContainer = styled.div`
 `;
 
 interface Props {
-  headerTitle: string;
+  headerTitle?: string;
   renderContent: () => JSX.Element;
-  footerTitle: string;
+  footerTitle?: string;
 }
 
 export const Card = (props: Props): JSX.Element => {
   const { headerTitle, renderContent, footerTitle } = props;
   return (
     <MainContainer>
-      <HeaderContainer>{headerTitle}</HeaderContainer>
+      {headerTitle && <HeaderContainer>{headerTitle}</HeaderContainer>}
       <ContentContainer>{renderContent()}</ContentContainer>
-      <FooterContainer>{footerTitle}</FooterContainer>
+      {footerTitle && <FooterContainer>{footerTitle}</FooterContainer>}
     </MainContainer>
   );
 };

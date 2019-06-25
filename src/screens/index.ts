@@ -9,5 +9,5 @@ export {
   OrdersScreen as CustomerOrdersScreen,
   ProductsScreen as CustomerProductsScreen,
 } from './customer';
-export { SignInScreen } from './SignInScreen';
-export { SignUpScreen } from './SignUpScreen';
+export * from './SignInScreen';
+export * from './SignUpScreen';

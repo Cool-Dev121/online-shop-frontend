@@ -83,4 +83,9 @@ export interface Theme {
   imagePreview: {
     bgColor: string;
   };
+
+  panelLayout: {
+    landingBgColor: string;
+    contentBgColor: string;
+  };
 }

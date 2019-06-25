@@ -12,4 +12,9 @@ export {
   requestTableProductsSuccess,
   requestProductByIdActionCreator,
 } from './products';
+export {
+  // @ts-ignore
+  Dispatch as AppDispatch,
+  requestSignInActionCreator,
+} from './app';
 export * from './middlewares';

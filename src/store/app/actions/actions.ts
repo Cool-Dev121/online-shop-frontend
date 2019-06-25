@@ -1,7 +1,14 @@
+import { ActionCreator } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 import {
-  START_API_CALL, API_CALL_ENDED, API_CALL_FAILED, ActionTypes,
+  START_API_CALL,
+  API_CALL_ENDED,
+  API_CALL_FAILED,
+  ActionTypes,
+  REQUEST_SIGN_IN_SUCCESS,
 } from './types';
-import { ApiCallError } from '../../../shared';
+import { ApiCallError, ThunkExtraArgument, SignInFormModel } from '../../../shared';
+import { Dispatch, State } from '../models';
 
 export function startApiCall(): ActionTypes {
   return {
@@ -29,3 +36,34 @@ export function apiCallFailed(error: ApiCallError): ActionTypes {
     },
   };
 }
+
+export function requestSigInSuccess(token: string): ActionTypes {
+  return {
+    type: REQUEST_SIGN_IN_SUCCESS,
+    payload: {
+      token,
+    },
+  };
+}
+
+export const requestSignInActionCreator: ActionCreator<
+ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
+> = (form: SignInFormModel) => async (
+  dispatch: Dispatch,
+  _,
+  { api },
+): Promise<ActionTypes | void> => {
+  dispatch(startApiCall());
+  try {
+    const result = await api.app.signIn({
+      email: form.email,
+      password: form.password,
+    });
+    return dispatch(requestSigInSuccess(result.token));
+  } catch (e) {
+    dispatch(apiCallFailed(e));
+    return; // eslint-disable-line
+  } finally {
+    dispatch(apiCallEnded());
+  }
+};

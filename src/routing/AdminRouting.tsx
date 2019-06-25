@@ -8,12 +8,12 @@ import {
   SignInScreen,
   SignUpScreen,
 } from '../screens';
-import { RouteWithLayout, FullscreenLayoutWrapper, AdminLayoutWrapper } from './SpecificLayouts';
+import { RouteWithLayout, AdminLayoutWrapper, PanelLayoutWrapper } from './SpecificLayouts';
 
 const AdminRouting = (): JSX.Element => (
   <Router>
-    <RouteWithLayout path="/signin" layout={FullscreenLayoutWrapper} component={SignInScreen} />
-    <RouteWithLayout path="/signup" layout={FullscreenLayoutWrapper} component={SignUpScreen} />
+    <RouteWithLayout path="/signin" layout={PanelLayoutWrapper} component={SignInScreen} />
+    <RouteWithLayout path="/signup" layout={PanelLayoutWrapper} component={SignUpScreen} />
     <RouteWithLayout path="/orders" layout={AdminLayoutWrapper} component={AdminOrdersScreen} />
     <RouteWithLayout path="/products" layout={AdminLayoutWrapper} component={AdminProductsScreen} />
     <RouteWithLayout

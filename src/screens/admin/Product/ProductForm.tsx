@@ -12,7 +12,28 @@ import {
 } from '../../../components';
 import { ProductFormModel } from '../../../shared';
 
-const MainContainer = styled.div``;
+const MainContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const FormContainer = styled.div`
+  @media (min-width: 0px) {
+    width: 100%;
+  }
+  @media (min-width: ${props => props.theme.gridOptions.sm}px) {
+    width: 90%;
+  }
+  @media (min-width: ${props => props.theme.gridOptions.md}px) {
+    width: 50%;
+  }
+  @media (min-width: ${props => props.theme.gridOptions.lg}px) {
+    width: 50%;
+  }
+  @media (min-width: ${props => props.theme.gridOptions.xl}px) {
+    width: 30%;
+  }
+`;
 
 enum FormFields {
   ProductName = 'productName',
@@ -93,22 +114,24 @@ const formDescription: FormDescription = {
   },
 };
 
-interface ProductFormProps {
+interface Props {
   onSubmit: (form: ProductFormModel) => void;
   initValue?: ProductFormModel;
   title: string;
 }
 
-export const ProductForm = (props: ProductFormProps): JSX.Element => {
+export const ProductForm = (props: Props): JSX.Element => {
   const { onSubmit, initValue, title } = props;
   return (
     <MainContainer>
-      <Form
-        formDescription={formDescription}
-        onSubmit={onSubmit}
-        title={title}
-        initValue={initValue}
-      />
+      <FormContainer>
+        <Form
+          formDescription={formDescription}
+          onSubmit={onSubmit}
+          title={title}
+          initValue={initValue}
+        />
+      </FormContainer>
     </MainContainer>
   );
 };

@@ -24,21 +24,7 @@ const FormTitleContainer = styled.div`
 `;
 
 const FormInner = styled.form`
-  @media (min-width: 0px) {
-    width: 100%;
-  }
-  @media (min-width: ${props => props.theme.gridOptions.sm}px) {
-    width: 90%;
-  }
-  @media (min-width: ${props => props.theme.gridOptions.md}px) {
-    width: 50%;
-  }
-  @media (min-width: ${props => props.theme.gridOptions.lg}px) {
-    width: 50%;
-  }
-  @media (min-width: ${props => props.theme.gridOptions.xl}px) {
-    width: 30%;
-  }
+  width: 100%;
 `;
 
 interface Props<TForm extends any> {
