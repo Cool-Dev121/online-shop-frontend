@@ -34,6 +34,7 @@ export function reducer(state = initialState, action: ActionTypes): State {
       return {
         ...state,
         token: action.payload.token,
+        isSignedIn: true,
       };
     default:
       return state;

@@ -42,9 +42,9 @@ type Props = OwnProps & StateProps;
 export const SignInScreenInner = (props: Props): JSX.Element => {
   const { isSignedIn, location } = props;
 
-  const { from } = location.state || { from: { pathname: '/' } };
+  const redirectTo = location.state || '/';
 
-  if (isSignedIn) return <Redirect to={from} />;
+  if (isSignedIn) return <Redirect to={redirectTo} />;
 
   return (
     <MainContainer>
