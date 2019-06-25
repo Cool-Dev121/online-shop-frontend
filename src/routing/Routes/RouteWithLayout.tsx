@@ -1,17 +1,8 @@
-import React, { ComponentType } from 'react';
+import React from 'react';
 import { Route, RouteComponentProps } from 'react-router-dom';
+import { BaseProps } from './models';
 
-type ComponentProps<TMatchType> = RouteComponentProps<TMatchType>;
-type ContentComponentType<TMatchType> = ComponentType<ComponentProps<TMatchType>>;
-export type LayoutProps = { component: () => JSX.Element };
-type LayoutComponentType = ComponentType<LayoutProps>;
-
-interface Props<TMatchType> {
-  layout: LayoutComponentType;
-  content: ContentComponentType<TMatchType>;
-  exact?: boolean;
-  path: string;
-}
+type Props<TMatchType> = BaseProps<TMatchType>;
 
 export function RouteWithLayout<TMatchType>(props: Props<TMatchType>) {
   const {

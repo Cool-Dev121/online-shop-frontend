@@ -11,6 +11,7 @@ import { State } from './models';
 const initialState: State = {
   isLoadingShown: false,
   token: null,
+  isSignedIn: false,
 };
 
 export function reducer(state = initialState, action: ActionTypes): State {

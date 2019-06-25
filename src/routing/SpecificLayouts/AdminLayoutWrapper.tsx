@@ -11,7 +11,7 @@ const links: LinkItemModel[] = [
   },
   {
     id: 'products',
-    link: '/products',
+    link: '/',
     title: 'Products',
   },
   {

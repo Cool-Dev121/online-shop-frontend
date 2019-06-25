@@ -1,6 +1,9 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { RouteComponentProps, Redirect } from 'react-router-dom';
 import { styled, Card } from '../../components';
 import { SignInForm } from './SignInForm';
+import { AppState } from '../../store';
 
 const MainContainer = styled.div`
   display: flex;
@@ -21,10 +24,32 @@ const CardContainer = styled.div`
   }
 `;
 
-export const SignInScreen = (): JSX.Element => (
-  <MainContainer>
-    <CardContainer>
-      <Card renderContent={() => <SignInForm />} />
-    </CardContainer>
-  </MainContainer>
-);
+type OwnProps = RouteComponentProps;
+
+interface StateProps {
+  isSignedIn: boolean;
+}
+type Props = OwnProps & StateProps;
+
+export const SignInScreenInner = (props: Props): JSX.Element => {
+  const { isSignedIn, location } = props;
+
+  const { from } = location.state || { from: { pathname: '/' } };
+
+  if (isSignedIn) return <Redirect to={from} />;
+
+  return (
+    <MainContainer>
+      <CardContainer>
+        <Card renderContent={() => <SignInForm />} />
+      </CardContainer>
+    </MainContainer>
+  );
+};
+
+const mapStateToProps = (state: AppState) => {
+  const { app } = state;
+  return { isSignedIn: app.isSignedIn };
+};
+
+export const SignInScreen = connect(mapStateToProps)(SignInScreenInner);
