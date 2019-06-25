@@ -8,7 +8,8 @@ import {
   SignInScreen,
   SignUpScreen,
 } from '../screens';
-import { RouteWithLayout, AdminLayoutWrapper, PanelLayoutWrapper } from './SpecificLayouts';
+import { AdminLayoutWrapper, PanelLayoutWrapper } from './SpecificLayouts';
+import { RouteWithLayout } from './Routes';
 
 const AdminRouting = (): JSX.Element => (
   <Router>

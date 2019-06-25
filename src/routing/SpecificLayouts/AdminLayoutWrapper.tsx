@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout } from '../../components';
 import { Toolbar, LinksList, LinkItemModel } from '../../shared';
-import { Props } from './Props';
+import { LayoutProps } from '../Routes';
 
 const links: LinkItemModel[] = [
   {
@@ -26,7 +26,7 @@ const links: LinkItemModel[] = [
   },
 ];
 
-export const AdminLayoutWrapper = (props: Props): JSX.Element => {
+export const AdminLayoutWrapper = (props: LayoutProps): JSX.Element => {
   const { component: Component } = props;
   return (
     <Layout

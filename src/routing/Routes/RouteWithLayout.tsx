@@ -3,7 +3,8 @@ import { Route, RouteComponentProps } from 'react-router-dom';
 
 type ComponentProps<TMatchType> = RouteComponentProps<TMatchType>;
 type ContentComponentType<TMatchType> = ComponentType<ComponentProps<TMatchType>>;
-type LayoutComponentType = ComponentType<{ component: () => JSX.Element }>;
+export type LayoutProps = { component: () => JSX.Element };
+type LayoutComponentType = ComponentType<LayoutProps>;
 
 interface Props<TMatchType> {
   layout: LayoutComponentType;
