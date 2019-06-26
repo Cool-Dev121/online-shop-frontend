@@ -56,7 +56,7 @@ const productsColumnsDefenition: TableColumnsDefinition<ProductsTableProductMode
     ),
   },
   [ProductsColumnKey.Edit]: {
-    width: 1,
+    width: 2,
     title: '',
     renderCellItem: (item: ProductsTableProductModel): JSX.Element => (
       <AddToCartButtonContainer>

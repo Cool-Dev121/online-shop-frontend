@@ -1,2 +1,3 @@
 export * from './State';
-export * from './Dispatch';
+export * from './ThunkDispatch';
+export * from './ActionCreator';

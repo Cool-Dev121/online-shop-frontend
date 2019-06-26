@@ -1,5 +1,3 @@
-import { ActionCreator } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 import {
   START_API_CALL,
   API_CALL_ENDED,
@@ -7,8 +5,8 @@ import {
   ActionTypes,
   REQUEST_SIGN_IN_SUCCESS,
 } from './types';
-import { ApiCallError, ThunkExtraArgument, SignInFormModel } from '../../../shared';
-import { Dispatch, State } from '../models';
+import { ApiCallError, SignInFormModel } from '../../../shared';
+import { ThunkDispatch, ActionCreator } from '../models';
 
 export function startApiCall(): ActionTypes {
   return {
@@ -46,10 +44,8 @@ export function requestSignInSuccess(token: string): ActionTypes {
   };
 }
 
-export const requestSignInActionCreator: ActionCreator<
-ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
-> = (form: SignInFormModel) => async (
-  dispatch: Dispatch,
+export const requestSignInActionCreator: ActionCreator = (form: SignInFormModel) => async (
+  dispatch: ThunkDispatch,
   _,
   { api },
 ): Promise<ActionTypes | void> => {
@@ -68,10 +64,8 @@ ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
   }
 };
 
-export const requestSignUpActionCreator: ActionCreator<
-ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
-> = (form: SignInFormModel) => async (
-  dispatch: Dispatch,
+export const requestSignUpActionCreator: ActionCreator = (form: SignInFormModel) => async (
+  dispatch: ThunkDispatch,
   _,
   { api },
 ): Promise<ActionTypes | void> => {

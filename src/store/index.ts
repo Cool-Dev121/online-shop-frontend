@@ -1,26 +1,26 @@
 export * from './store';
 export {
   // @ts-ignore
-  Dispatch as OrdersDispatch,
+  ThunkDispatch as OrdersDispatch,
   requestTableOrdersActionCreator,
   requestTableOrdersSuccess,
 } from './orders';
 export {
   // @ts-ignore
-  Dispatch as ProductsDispatch,
+  ThunkDispatch as ProductsDispatch,
   requestTableProductsActionCreator,
   requestTableProductsSuccess,
   requestProductByIdActionCreator,
 } from './products';
 export {
   // @ts-ignore
-  Dispatch as AppDispatch,
+  ThunkDispatch as AppDispatch,
   requestSignInActionCreator,
   requestSignUpActionCreator,
 } from './app';
 export {
   // @ts-ignore
-  Dispatch as CartDispatch,
+  ThunkDispatch as CartDispatch,
   addItemToCartActionCreator,
   removeItemFromCartActionCreator,
   incrementItemCountActionCreator,

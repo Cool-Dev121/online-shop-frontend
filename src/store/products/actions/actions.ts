@@ -1,14 +1,13 @@
-import { ThunkAction } from 'redux-thunk';
-import { ActionCreator, Dispatch } from 'redux';
-import { State } from '../models';
+import { Dispatch } from 'redux';
 import {
   REQUEST_TABLE_PRODUCTS_SUCCESS,
   REQUEST_PRODUCT_BY_ID_SUCCESS,
   ActionTypes,
 } from './types';
-import { ThunkExtraArgument, ProductsTableProductModel, ProductFormModel } from '../../../shared';
+import { ProductsTableProductModel, ProductFormModel } from '../../../shared';
 import { ProductsProductResponseModel } from '../../../api';
 import { startApiCall, apiCallFailed, apiCallEnded } from '../../app';
+import { ActionCreator } from '../models';
 
 export function requestTableProductsSuccess(
   items: ProductsTableProductModel[],
@@ -32,13 +31,10 @@ export function requestProductByIdSuccess(item: ProductFormModel): ActionTypes {
   };
 }
 
-export const requestTableProductsActionCreator: ActionCreator<
-ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
-> = (start: number, count: number) => async (
-  dispatch: Dispatch,
-  _,
-  { api },
-): Promise<ActionTypes | void> => {
+export const requestTableProductsActionCreator: ActionCreator = (
+  start: number,
+  count: number,
+) => async (dispatch: Dispatch, _, { api }): Promise<ActionTypes | void> => {
   dispatch(startApiCall());
   try {
     const result = await api.products.getProducts(start, count);
@@ -59,9 +55,11 @@ ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
   }
 };
 
-export const requestProductByIdActionCreator: ActionCreator<
-ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
-> = (id: string) => async (dispatch: Dispatch, _, { api }): Promise<ActionTypes | void> => {
+export const requestProductByIdActionCreator: ActionCreator = (id: string) => async (
+  dispatch: Dispatch,
+  _,
+  { api },
+): Promise<ActionTypes | void> => {
   dispatch(startApiCall());
   try {
     const result = await api.products.getProduct(id);

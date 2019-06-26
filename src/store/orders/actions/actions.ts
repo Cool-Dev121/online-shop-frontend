@@ -1,15 +1,10 @@
-import { ThunkAction } from 'redux-thunk';
-import { ActionCreator, Dispatch } from 'redux';
-import { State } from '../models';
+import { Dispatch } from 'redux';
 import { REQUEST_TABLE_ORDERS_SUCCESS, ActionTypes } from './types';
-import {
-  ThunkExtraArgument,
-  AdminOrdersTableOrderModel,
-  AdminOrdersTableOrderItemModel,
-} from '../../../shared';
+import { AdminOrdersTableOrderModel, AdminOrdersTableOrderItemModel } from '../../../shared';
 import { AdminOrdersOrderItemResponseModel, AdminOrdersOrderResponseModel } from '../../../api';
 import { getOrderItemSum, getOrderSum } from '../../../helpers';
 import { startApiCall, apiCallFailed, apiCallEnded } from '../../app';
+import { ActionCreator } from '../models';
 
 export function requestTableOrdersSuccess(
   items: AdminOrdersTableOrderModel[],
@@ -24,13 +19,10 @@ export function requestTableOrdersSuccess(
   };
 }
 
-export const requestTableOrdersActionCreator: ActionCreator<
-ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
-> = (start: number, count: number) => async (
-  dispatch: Dispatch,
-  _,
-  { api },
-): Promise<ActionTypes | void> => {
+export const requestTableOrdersActionCreator: ActionCreator = (
+  start: number,
+  count: number,
+) => async (dispatch: Dispatch, _, { api }): Promise<ActionTypes | void> => {
   dispatch(startApiCall());
   try {
     const result = await api.orders.getOrders(start, count);
