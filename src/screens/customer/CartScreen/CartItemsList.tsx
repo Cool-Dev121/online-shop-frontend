@@ -4,6 +4,7 @@ import { getKeys } from 'eslint-visitor-keys';
 import { styled, List } from '../../../components';
 import { CartItemModel } from '../../../shared';
 import { AppState, CartDispatch } from '../../../store';
+import { CartItem } from './CartItem';
 
 const MainContainer = styled.div``;
 
@@ -27,7 +28,7 @@ const CartItemsListInner = (props: Props): JSX.Element => {
               marginBottom: index === items.length - 1 ? 0 : '5px',
             }}
           >
-            <div>{JSON.stringify(item)}</div>
+            <CartItem item={item} />
           </div>
         )}
         items={items}

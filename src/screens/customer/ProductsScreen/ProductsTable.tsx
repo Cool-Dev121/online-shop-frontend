@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  TableColumnsDefinition, styled, PaginatedTable, Image, Button,
+  TableColumnsDefinition, styled, PaginatedTable, Image,
 } from '../../../components';
 import { AppState, requestTableProductsActionCreator, ProductsDispatch } from '../../../store';
 import {
