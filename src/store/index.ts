@@ -18,4 +18,13 @@ export {
   requestSignInActionCreator,
   requestSignUpActionCreator,
 } from './app';
+export {
+  // @ts-ignore
+  Dispatch as CartDispatch,
+  addItemToCartActionCreator,
+  removeItemFromCartActionCreator,
+  incrementItemCountActionCreator,
+  decrementItemCountActionCreator,
+  clearCartActionCreator,
+} from './cart';
 export * from './middlewares';

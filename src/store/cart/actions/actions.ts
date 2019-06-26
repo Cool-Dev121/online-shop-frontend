@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 import { ActionCreator, Dispatch } from 'redux';
-import { State } from '../models';
+import { AppState } from '../../store';
 import {
   ActionTypes,
   ADD_ITEM_TO_CART,
@@ -45,14 +45,13 @@ function clearCart(): ActionTypes {
 }
 
 export const addItemToCartActionCreator: ActionCreator<
-ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
+ThunkAction<Promise<ActionTypes | void>, AppState, ThunkExtraArgument, ActionTypes>
 > = (item: ProductsTableProductModel) => async (
   dispatch: Dispatch,
-  getState: () => State,
+  getState: () => AppState,
 ): Promise<ActionTypes | void> => {
-  debugger; // TODO: check if state is root state
   const state = getState();
-  const itemFromState: CartItemModel | undefined = state.items[item.id];
+  const itemFromState: CartItemModel | undefined = state.cart.items[item.id];
   // if item is in cart - increment count
   if (itemFromState) {
     dispatch(setCartItemCount(itemFromState.id, itemFromState.count + 1));
@@ -63,7 +62,7 @@ ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
 };
 
 export const removeItemFromCartActionCreator: ActionCreator<
-ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
+ThunkAction<Promise<ActionTypes | void>, AppState, ThunkExtraArgument, ActionTypes>
 > = (item: ProductsTableProductModel) => async (
   dispatch: Dispatch,
 ): Promise<ActionTypes | void> => {
@@ -72,25 +71,25 @@ ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
 };
 
 export const incrementItemCountActionCreator: ActionCreator<
-ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
+ThunkAction<Promise<ActionTypes | void>, AppState, ThunkExtraArgument, ActionTypes>
 > = (item: ProductsTableProductModel) => async (
   dispatch: Dispatch,
-  getState: () => State,
+  getState: () => AppState,
 ): Promise<ActionTypes | void> => {
   const state = getState();
-  const itemFromState: CartItemModel | undefined = state.items[item.id];
+  const itemFromState: CartItemModel | undefined = state.cart.items[item.id];
   dispatch(setCartItemCount(itemFromState.id, itemFromState.count + 1));
 };
 
 export const decrementItemCountActionCreator: ActionCreator<
-ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
+ThunkAction<Promise<ActionTypes | void>, AppState, ThunkExtraArgument, ActionTypes>
 > = (item: ProductsTableProductModel) => async (
   dispatch: Dispatch,
-  getState: () => State,
+  getState: () => AppState,
   extraArgument,
 ): Promise<ActionTypes | void> => {
   const state = getState();
-  const itemFromState: CartItemModel | undefined = state.items[item.id];
+  const itemFromState: CartItemModel | undefined = state.cart.items[item.id];
   if (itemFromState.count - 1 === 0) {
     // item will be removed
     removeItemFromCartActionCreator(item)(dispatch, getState, extraArgument);
@@ -100,7 +99,7 @@ ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
 };
 
 export const clearCartActionCreator: ActionCreator<
-ThunkAction<Promise<ActionTypes | void>, State, ThunkExtraArgument, ActionTypes>
+ThunkAction<Promise<ActionTypes | void>, AppState, ThunkExtraArgument, ActionTypes>
 > = () => async (dispatch: Dispatch): Promise<ActionTypes | void> => {
   // TODO: show confirm message
   dispatch(clearCart());
