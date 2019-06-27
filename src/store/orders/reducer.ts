@@ -1,6 +1,6 @@
 import {
   ActionTypes,
-  REQUEST_TABLE_ORDERS_SUCCESS,
+  REQUEST_TABLE_ADMIN_ORDERS_SUCCESS,
   REQUEST_TABLE_CUSTOMER_ORDERS_SUCCESS,
 } from './actions';
 
@@ -11,18 +11,24 @@ const initialState: State = {
     items: [],
     totalItemsCount: 0,
   },
-  items: [],
-  totalItemsCount: 0,
+  admin: {
+    items: [],
+    totalItemsCount: 0,
+  },
 };
 
 export function reducer(state = initialState, action: ActionTypes): State {
   switch (action.type) {
-    case REQUEST_TABLE_ORDERS_SUCCESS:
+    case REQUEST_TABLE_ADMIN_ORDERS_SUCCESS: {
+      const { items, totalItemsCount } = action.payload;
       return {
         ...state,
-        items: [...action.payload.items],
-        totalItemsCount: action.payload.totalItemsCount,
+        admin: {
+          items,
+          totalItemsCount,
+        },
       };
+    }
     case REQUEST_TABLE_CUSTOMER_ORDERS_SUCCESS: {
       const { items, totalItemsCount } = action.payload;
       return {

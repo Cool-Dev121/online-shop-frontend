@@ -5,6 +5,8 @@ export interface State {
     items: CustomerOrdersTableOrderModel[];
     totalItemsCount: number;
   };
-  items: AdminOrdersTableOrderModel[];
-  totalItemsCount: number;
+  admin: {
+    items: AdminOrdersTableOrderModel[];
+    totalItemsCount: number;
+  };
 }

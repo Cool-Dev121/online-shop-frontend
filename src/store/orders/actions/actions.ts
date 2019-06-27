@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import {
-  REQUEST_TABLE_ORDERS_SUCCESS,
+  REQUEST_TABLE_ADMIN_ORDERS_SUCCESS,
   ActionTypes,
   REQUEST_TABLE_CUSTOMER_ORDERS_SUCCESS,
 } from './types';
@@ -18,12 +18,12 @@ import { getOrderItemSum, getOrderSum } from '../../../helpers';
 import { startApiCall, apiCallFailed, apiCallEnded } from '../../app';
 import { ActionCreator } from '../models';
 
-function requestTableOrdersSuccess(
+function requestTableAdminOrdersSuccess(
   items: AdminOrdersTableOrderModel[],
   totalItemsCount: number,
 ): ActionTypes {
   return {
-    type: REQUEST_TABLE_ORDERS_SUCCESS,
+    type: REQUEST_TABLE_ADMIN_ORDERS_SUCCESS,
     payload: {
       items,
       totalItemsCount,
@@ -44,7 +44,7 @@ function requestTableCustomerOrdersSuccess(
   };
 }
 
-export const requestTableOrdersActionCreator: ActionCreator = (
+export const requestTableAdminOrdersActionCreator: ActionCreator = (
   start: number,
   count: number,
 ) => async (dispatch: Dispatch, _, { api }): Promise<ActionTypes | void> => {
@@ -67,7 +67,7 @@ export const requestTableOrdersActionCreator: ActionCreator = (
         orderSum: getOrderSum(order.items),
       } as AdminOrdersTableOrderModel),
     );
-    return dispatch(requestTableOrdersSuccess(mappedResult, result.totalItems));
+    return dispatch(requestTableAdminOrdersSuccess(mappedResult, result.totalItems));
   } catch (e) {
     dispatch(apiCallFailed(e));
     return; // eslint-disable-line

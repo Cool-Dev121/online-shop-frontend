@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { TableColumnsDefinition, styled, PaginatedTable } from '../../../components';
-import { requestTableOrdersActionCreator, AppState, OrdersDispatch } from '../../../store';
+import { requestTableAdminOrdersActionCreator, AppState, OrdersDispatch } from '../../../store';
 import {
   AdminOrdersTableOrderModel,
   AdminOrdersTableOrderItemModel,
@@ -99,13 +99,13 @@ const OrdersTableInner = (props: Props): JSX.Element => {
 };
 
 const mapStateToProps = (state: AppState) => {
-  const { orders } = state;
-  return { orders: orders.items, totalItemsCount: orders.totalItemsCount };
+  const { items, totalItemsCount } = state.orders.admin;
+  return { orders: items, totalItemsCount };
 };
 
 const mapDispatchToProps = (dispatch: OrdersDispatch) => ({
   onPageChange: (start: number, count: number) => {
-    dispatch(requestTableOrdersActionCreator(start, count));
+    dispatch(requestTableAdminOrdersActionCreator(start, count));
   },
 });
 
