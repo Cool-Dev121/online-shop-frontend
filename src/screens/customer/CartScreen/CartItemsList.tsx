@@ -1,12 +1,16 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { getKeys } from 'eslint-visitor-keys';
-import { styled, List } from '../../../components';
+import {
+  styled, List, asArray, Text, Button, TextSize,
+} from '../../../components';
 import { CartItemModel } from '../../../shared';
 import { AppState, CartDispatch } from '../../../store';
 import { CartItem } from './CartItem';
+import { getCartSum } from '../../../helpers';
 
 const MainContainer = styled.div``;
+
+const ControlsContainer = styled.div``;
 
 interface OwnProps {}
 interface StateProps {
@@ -33,12 +37,15 @@ const CartItemsListInner = (props: Props): JSX.Element => {
         )}
         items={items}
       />
+      <ControlsContainer>
+        <Text size={TextSize.xxl} text={`Total: $${getCartSum(items)}`} />
+        <Button>Make an order</Button>
+      </ControlsContainer>
     </MainContainer>
   );
 };
 
-const asArray = (items: { [id: string]: CartItemModel }): CartItemModel[] => getKeys(items).map(id => items[id]);
-
+// TODO: move items sum to map state to props with reselect
 const mapStateToProps = (state: AppState) => {
   const { cart } = state;
   return { items: asArray(cart.items) };

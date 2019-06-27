@@ -1,3 +1,5 @@
+import { getKeys } from './object';
+
 export function isLast<TItem>(collection: TItem[], index: number) {
   return collection.length - 1 === index;
 }
@@ -8,6 +10,10 @@ export function fromRange(start: number, end: number) {
     arr.push(i);
   }
   return arr;
+}
+
+export function asArray<TModel>(items: { [id: string]: TModel }): TModel[] {
+  return getKeys(items).map(id => items[id]);
 }
 
 export const generatePages = (

@@ -1,4 +1,8 @@
-import { AdminOrdersTableOrderModel, ProductsTableProductModel } from '../../../shared';
+import {
+  AdminOrdersTableOrderModel,
+  ProductsTableProductModel,
+  CartItemModel,
+} from '../../../shared';
 
 export const ADD_ITEM_TO_CART = '[CART] ADD_ITEM_TO_CART';
 export const REMOVE_ITEM_FROM_CART = '[CART] ADD_ITEM_TO_CART';
@@ -15,7 +19,7 @@ interface AddItemToCartAction {
 interface RemoveItemFromCartAction {
   type: typeof REMOVE_ITEM_FROM_CART;
   payload: {
-    item: ProductsTableProductModel;
+    item: CartItemModel;
   };
 }
 

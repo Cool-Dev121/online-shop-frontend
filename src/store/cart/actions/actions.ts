@@ -19,7 +19,7 @@ function addItemToCart(item: ProductsTableProductModel): ActionTypes {
   };
 }
 
-function removeItemFromCart(item: ProductsTableProductModel): ActionTypes {
+function removeItemFromCart(item: CartItemModel): ActionTypes {
   return {
     type: REMOVE_ITEM_FROM_CART,
     payload: {
@@ -58,24 +58,23 @@ export const addItemToCartActionCreator: ActionCreator = (
   }
 };
 
-export const removeItemFromCartActionCreator: ActionCreator = (
-  item: ProductsTableProductModel,
-) => async (dispatch: Dispatch): Promise<ActionTypes | void> => {
+export const removeItemFromCartActionCreator: ActionCreator = (item: CartItemModel) => async (
+  dispatch: Dispatch,
+): Promise<ActionTypes | void> => {
   // TODO: show confirm message
   dispatch(removeItemFromCart(item));
 };
 
-export const incrementItemCountActionCreator: ActionCreator = (
-  item: ProductsTableProductModel,
-) => async (dispatch: Dispatch, getState: () => AppState): Promise<ActionTypes | void> => {
+export const incrementItemCountActionCreator: ActionCreator = (item: CartItemModel) => async (
+  dispatch: Dispatch,
+  getState: () => AppState,
+): Promise<ActionTypes | void> => {
   const state = getState();
   const itemFromState: CartItemModel | undefined = state.cart.items[item.id];
   dispatch(setCartItemCount(itemFromState.id, itemFromState.count + 1));
 };
 
-export const decrementItemCountActionCreator: ActionCreator = (
-  item: ProductsTableProductModel,
-) => async (
+export const decrementItemCountActionCreator: ActionCreator = (item: CartItemModel) => async (
   dispatch: Dispatch,
   getState: () => AppState,
   extraArgument,
