@@ -49,9 +49,9 @@ interface OwnProps {
   item: CartItemModel;
 }
 interface DispatchProps {
-  onIncItem: (item: CartItemModel) => void;
-  onDecItem: (item: CartItemModel) => void;
-  onRemoveItem: (item: CartItemModel) => void;
+  onIncItem: (id: string) => void;
+  onDecItem: (id: string) => void;
+  onRemoveItem: (id: string) => void;
 }
 type Props = OwnProps & DispatchProps;
 
@@ -77,13 +77,13 @@ const CartItemInner = (props: Props): JSX.Element => {
           </ItemDescriptionContainer>
           <ControlsContainer>
             <ControlContainer>
-              <Button onClick={() => onIncItem(item)}>+</Button>
+              <Button onClick={() => onIncItem(item.id)}>+</Button>
             </ControlContainer>
             <ControlContainer>
-              <Button onClick={() => onDecItem(item)}>-</Button>
+              <Button onClick={() => onDecItem(item.id)}>-</Button>
             </ControlContainer>
             <ControlContainer>
-              <Button onClick={() => onRemoveItem(item)}>Remove</Button>
+              <Button onClick={() => onRemoveItem(item.id)}>Remove</Button>
             </ControlContainer>
           </ControlsContainer>
         </CardContentContainer>
@@ -93,14 +93,14 @@ const CartItemInner = (props: Props): JSX.Element => {
 };
 
 const mapDispatchToProps = (dispatch: CartDispatch) => ({
-  onIncItem: (item: CartItemModel) => {
-    dispatch(incrementItemCountActionCreator(item));
+  onIncItem: (id: string) => {
+    dispatch(incrementItemCountActionCreator(id));
   },
-  onDecItem: (item: CartItemModel) => {
-    dispatch(decrementItemCountActionCreator(item));
+  onDecItem: (id: string) => {
+    dispatch(decrementItemCountActionCreator(id));
   },
-  onRemoveItem: (item: CartItemModel) => {
-    dispatch(removeItemFromCartActionCreator(item));
+  onRemoveItem: (id: string) => {
+    dispatch(removeItemFromCartActionCreator(id));
   },
 });
 

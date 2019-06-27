@@ -15,13 +15,14 @@ const initialState: State = {
 export function reducer(state = initialState, action: ActionTypes): State {
   switch (action.type) {
     case ADD_ITEM_TO_CART: {
-      const { id } = action.payload.item;
+      const { item } = action.payload;
+      const { id } = item;
       return {
         ...state,
         items: {
           ...state.items,
           [id]: {
-            ...action.payload.item,
+            ...item,
             count: 1,
           },
         },
@@ -41,7 +42,7 @@ export function reducer(state = initialState, action: ActionTypes): State {
       };
     }
     case REMOVE_ITEM_FROM_CART: {
-      const { id } = action.payload.item;
+      const { id } = action.payload;
       const { [id]: value, ...itemsWithoutRemoved } = state.items;
       return {
         ...state,

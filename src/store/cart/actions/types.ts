@@ -1,25 +1,21 @@
-import {
-  AdminOrdersTableOrderModel,
-  ProductsTableProductModel,
-  CartItemModel,
-} from '../../../shared';
+import { ProductsTableProductModel } from '../../../shared';
 
 export const ADD_ITEM_TO_CART = '[CART] ADD_ITEM_TO_CART';
-export const REMOVE_ITEM_FROM_CART = '[CART] ADD_ITEM_TO_CART';
+export const REMOVE_ITEM_FROM_CART = '[CART] REMOVE_ITEM_FROM_CART';
 export const SET_CART_ITEM_COUNT = '[CART] SET_CART_ITEM_COUNT';
 export const CLEAR_CART = '[CART] CLEAR_CART';
 
-interface AddItemToCartAction {
+export interface AddItemToCartAction {
   type: typeof ADD_ITEM_TO_CART;
   payload: {
     item: ProductsTableProductModel;
   };
 }
 
-interface RemoveItemFromCartAction {
+export interface RemoveItemFromCartAction {
   type: typeof REMOVE_ITEM_FROM_CART;
   payload: {
-    item: CartItemModel;
+    id: string;
   };
 }
 

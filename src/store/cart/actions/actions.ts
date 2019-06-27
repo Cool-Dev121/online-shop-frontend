@@ -19,11 +19,11 @@ function addItemToCart(item: ProductsTableProductModel): ActionTypes {
   };
 }
 
-function removeItemFromCart(item: CartItemModel): ActionTypes {
+function removeItemFromCart(id: string): ActionTypes {
   return {
     type: REMOVE_ITEM_FROM_CART,
     payload: {
-      item,
+      id,
     },
   };
 }
@@ -58,32 +58,32 @@ export const addItemToCartActionCreator: ActionCreator = (
   }
 };
 
-export const removeItemFromCartActionCreator: ActionCreator = (item: CartItemModel) => async (
+export const removeItemFromCartActionCreator: ActionCreator = (itemId: string) => async (
   dispatch: Dispatch,
 ): Promise<ActionTypes | void> => {
   // TODO: show confirm message
-  dispatch(removeItemFromCart(item));
+  dispatch(removeItemFromCart(itemId));
 };
 
-export const incrementItemCountActionCreator: ActionCreator = (item: CartItemModel) => async (
+export const incrementItemCountActionCreator: ActionCreator = (itemId: string) => async (
   dispatch: Dispatch,
   getState: () => AppState,
 ): Promise<ActionTypes | void> => {
   const state = getState();
-  const itemFromState: CartItemModel | undefined = state.cart.items[item.id];
+  const itemFromState: CartItemModel | undefined = state.cart.items[itemId];
   dispatch(setCartItemCount(itemFromState.id, itemFromState.count + 1));
 };
 
-export const decrementItemCountActionCreator: ActionCreator = (item: CartItemModel) => async (
+export const decrementItemCountActionCreator: ActionCreator = (itemId: string) => async (
   dispatch: Dispatch,
   getState: () => AppState,
   extraArgument,
 ): Promise<ActionTypes | void> => {
   const state = getState();
-  const itemFromState: CartItemModel | undefined = state.cart.items[item.id];
+  const itemFromState: CartItemModel | undefined = state.cart.items[itemId];
   if (itemFromState.count - 1 === 0) {
     // item will be removed
-    removeItemFromCartActionCreator(item)(dispatch, getState, extraArgument);
+    removeItemFromCartActionCreator(itemId)(dispatch, getState, extraArgument);
   } else {
     dispatch(setCartItemCount(itemFromState.id, itemFromState.count - 1));
   }
