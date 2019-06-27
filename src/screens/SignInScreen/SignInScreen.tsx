@@ -5,6 +5,7 @@ import { styled, Card } from '../../components';
 import { SignInForm } from './SignInForm';
 import { AppState } from '../../store';
 import { SignUpButton } from './SignUpButton';
+import { ResponsiveContainer } from '../../shared';
 
 const MainContainer = styled.div`
   display: flex;
@@ -20,16 +21,6 @@ const SignUpButtonContainer = styled.div`
   top: 0;
   right: 0;
   padding: ${props => props.theme.padding.md}px;
-`;
-
-const CardContainer = styled.div`
-  width: 100%;
-  @media (max-width: ${props => props.theme.gridOptions.md}px) {
-    width: 50%;
-  }
-  @media (max-width: ${props => props.theme.gridOptions.sm}px) {
-    width: 100%;
-  }
 `;
 
 type OwnProps = RouteComponentProps;
@@ -51,9 +42,16 @@ export const SignInScreenInner = (props: Props): JSX.Element => {
       <SignUpButtonContainer>
         <SignUpButton />
       </SignUpButtonContainer>
-      <CardContainer>
+      <ResponsiveContainer
+        widthsInPercent={{
+          sm: 50,
+          md: 100,
+          lg: 100,
+          xl: 100,
+        }}
+      >
         <Card renderContent={() => <SignInForm />} />
-      </CardContainer>
+      </ResponsiveContainer>
     </MainContainer>
   );
 };
