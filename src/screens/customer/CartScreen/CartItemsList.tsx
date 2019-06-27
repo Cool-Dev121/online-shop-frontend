@@ -3,12 +3,15 @@ import { connect } from 'react-redux';
 import {
   styled, List, asArray, Text, Button, TextSize,
 } from '../../../components';
-import { CartItemModel } from '../../../shared';
+import { CartItemModel, ResponsiveContainer } from '../../../shared';
 import { AppState, CartDispatch } from '../../../store';
 import { CartItem } from './CartItem';
 import { getCartSum } from '../../../helpers';
 
-const MainContainer = styled.div``;
+const MainContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 const ControlsContainer = styled.div``;
 
@@ -25,22 +28,31 @@ const CartItemsListInner = (props: Props): JSX.Element => {
   const { items } = props;
   return (
     <MainContainer>
-      <List
-        renderItem={(item: CartItemModel, index: number) => (
-          <div
-            style={{
-              marginBottom: index === items.length - 1 ? 0 : '5px',
-            }}
-          >
-            <CartItem item={item} />
-          </div>
-        )}
-        items={items}
-      />
-      <ControlsContainer>
-        <Text size={TextSize.xxl} text={`Total: $${getCartSum(items)}`} />
-        <Button>Make an order</Button>
-      </ControlsContainer>
+      <ResponsiveContainer
+        widthsInPercent={{
+          sm: 100,
+          md: 100,
+          lg: 70,
+          xl: 60,
+        }}
+      >
+        <List
+          renderItem={(item: CartItemModel, index: number) => (
+            <div
+              style={{
+                marginBottom: index === items.length - 1 ? 0 : '5px',
+              }}
+            >
+              <CartItem item={item} />
+            </div>
+          )}
+          items={items}
+        />
+        <ControlsContainer>
+          <Text size={TextSize.xxl} text={`Total: $${getCartSum(items)}`} />
+          <Button>Make an order</Button>
+        </ControlsContainer>
+      </ResponsiveContainer>
     </MainContainer>
   );
 };
