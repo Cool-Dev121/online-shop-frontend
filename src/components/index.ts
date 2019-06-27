@@ -15,3 +15,4 @@ export * from './ImageUploader';
 export * from './Icon';
 export * from './Layouts';
 export * from './Text';
+export * from './ResponsiveContainer';

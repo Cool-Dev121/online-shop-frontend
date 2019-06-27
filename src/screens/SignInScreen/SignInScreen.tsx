@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, Redirect } from 'react-router-dom';
-import { styled, Card } from '../../components';
+import { styled, Card, ResponsiveContainer } from '../../components';
 import { SignInForm } from './SignInForm';
 import { AppState } from '../../store';
 import { SignUpButton } from './SignUpButton';
-import { ResponsiveContainer } from '../../shared';
 
 const MainContainer = styled.div`
   display: flex;

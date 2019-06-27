@@ -1,9 +1,15 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import {
-  styled, List, asArray, Text, Button, TextSize,
+  styled,
+  List,
+  asArray,
+  Text,
+  Button,
+  TextSize,
+  ResponsiveContainer,
 } from '../../../components';
-import { CartItemModel, ResponsiveContainer } from '../../../shared';
+import { CartItemModel } from '../../../shared';
 import { AppState, CartDispatch } from '../../../store';
 import { CartItem } from './CartItem';
 import { getCartSum } from '../../../helpers';

@@ -9,8 +9,9 @@ import {
   maxLengthVaidator,
   minLengthVaidator,
   isRequiredValidator,
+  ResponsiveContainer,
 } from '../../../components';
-import { ProductFormModel, ResponsiveContainer } from '../../../shared';
+import { ProductFormModel } from '../../../shared';
 
 const MainContainer = styled.div`
   display: flex;

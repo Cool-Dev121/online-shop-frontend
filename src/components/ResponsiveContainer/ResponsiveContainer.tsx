@@ -1,5 +1,12 @@
 import { styled } from '../../components';
 
+type WidthsInPercent = {
+  sm: number;
+  md: number;
+  lg: number;
+  xl: number;
+};
+
 interface Props {
   widthsInPercent?: WidthsInPercent;
 }
@@ -8,14 +15,7 @@ function getValueOrDefault<TValue>(value: TValue | undefined, defaultValue: TVal
   return value === undefined || value === null ? defaultValue : value;
 }
 
-type WidthsInPercent = {
-  sm: number;
-  md: number;
-  lg: number;
-  xl: number;
-};
-
-const defaultValues = {
+const defaultValues: WidthsInPercent = {
   sm: 90,
   md: 80,
   lg: 50,
