@@ -1,3 +1,3 @@
 export { CartScreen } from './CartScreen';
-export { OrdersScreen } from './OrdersScreens';
+export { OrdersScreen } from './OrdersScreen';
 export { ProductsScreen } from './ProductsScreen';

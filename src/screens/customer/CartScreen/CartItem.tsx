@@ -77,10 +77,10 @@ const CartItemInner = (props: Props): JSX.Element => {
           </ItemDescriptionContainer>
           <ControlsContainer>
             <ControlContainer>
-              <Button onClick={() => onIncItem(item.id)}>+</Button>
+              <Button onClick={() => onDecItem(item.id)}>-</Button>
             </ControlContainer>
             <ControlContainer>
-              <Button onClick={() => onDecItem(item.id)}>-</Button>
+              <Button onClick={() => onIncItem(item.id)}>+</Button>
             </ControlContainer>
             <ControlContainer>
               <Button onClick={() => onRemoveItem(item.id)}>Remove</Button>

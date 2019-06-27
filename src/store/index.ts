@@ -3,7 +3,7 @@ export {
   // @ts-ignore
   ThunkDispatch as OrdersDispatch,
   requestTableOrdersActionCreator,
-  requestTableOrdersSuccess,
+  requestTableCustomerOrdersActionCreator,
 } from './orders';
 export {
   // @ts-ignore

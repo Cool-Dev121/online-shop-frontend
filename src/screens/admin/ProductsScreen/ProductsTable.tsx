@@ -78,7 +78,6 @@ type Props = OwnProps & StateProps & DispatchProps;
 
 const ProductsTableInner = (props: Props): JSX.Element => {
   const { products, totalItemsCount, onPageChange } = props;
-
   return (
     <PaginatedTable
       items={products}
