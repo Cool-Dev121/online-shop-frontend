@@ -2,26 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ProductsTable } from './ProductsTable';
 import { NoItemsDetect } from '../../../shared';
-import { AppState } from '../../../store';
+import { AppState, getIsNoProductItems } from '../../../store';
 
 interface StateProps {
-  isThereItems: boolean;
+  isNoItems: boolean;
 }
 type Props = StateProps;
 
 export const ProductsScreenInner = (props: Props): JSX.Element => {
-  const { isThereItems } = props;
+  const { isNoItems } = props;
   return (
-    <NoItemsDetect isNoItems={!isThereItems}>
+    <NoItemsDetect isNoItems={isNoItems}>
       <ProductsTable />
     </NoItemsDetect>
   );
 };
 
-// TODO: add reselect
-const mapStateToProps = (state: AppState) => {
-  const { products } = state;
-  return { isThereItems: products.items.length > 0 };
-};
+const mapStateToProps = (state: AppState) => ({ isNoItems: getIsNoProductItems(state) });
 
 export const ProductsScreen = connect(mapStateToProps)(ProductsScreenInner);

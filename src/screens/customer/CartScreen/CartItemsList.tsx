@@ -1,18 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import {
-  styled,
-  List,
-  asArray,
-  Text,
-  Button,
-  TextSize,
-  ResponsiveContainer,
+  styled, List, Text, Button, TextSize, ResponsiveContainer,
 } from '../../../components';
 import { CartItemModel } from '../../../shared';
-import { AppState, CartDispatch } from '../../../store';
+import {
+  AppState, CartDispatch, getCartItemsArray, getCartItemsSum,
+} from '../../../store';
 import { CartItem } from './CartItem';
-import { getCartSum } from '../../../helpers';
 
 const MainContainer = styled.div`
   display: flex;
@@ -24,6 +19,7 @@ const ControlsContainer = styled.div``;
 interface OwnProps {}
 interface StateProps {
   items: CartItemModel[];
+  cartSum: number;
 }
 interface DispatchProps {
   // onPageChange: (start: number, count: number) => void;
@@ -31,7 +27,7 @@ interface DispatchProps {
 type Props = OwnProps & StateProps & DispatchProps;
 
 const CartItemsListInner = (props: Props): JSX.Element => {
-  const { items } = props;
+  const { items, cartSum } = props;
   return (
     <MainContainer>
       <ResponsiveContainer
@@ -55,7 +51,7 @@ const CartItemsListInner = (props: Props): JSX.Element => {
           items={items}
         />
         <ControlsContainer>
-          <Text size={TextSize.xxl} text={`Total: $${getCartSum(items)}`} />
+          <Text size={TextSize.xxl} text={`Total: $${cartSum}`} />
           <Button>Make an order</Button>
         </ControlsContainer>
       </ResponsiveContainer>
@@ -63,11 +59,10 @@ const CartItemsListInner = (props: Props): JSX.Element => {
   );
 };
 
-// TODO: move items sum to map state to props with reselect
-const mapStateToProps = (state: AppState) => {
-  const { cart } = state;
-  return { items: asArray(cart.items) };
-};
+const mapStateToProps = (state: AppState) => ({
+  items: getCartItemsArray(state),
+  cartSum: getCartItemsSum(state),
+});
 
 const mapDispatchToProps = (dispatch: CartDispatch) => ({
   // onPageChange: (start: number, count: number) => {

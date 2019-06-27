@@ -1,28 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { CartItemsList } from './CartItemsList';
-import { AppState } from '../../../store';
-import { asArray } from '../../../components';
+import { AppState, getIsNoCartItems } from '../../../store';
 import { NoItemsDetect } from '../../../shared';
 
 interface StateProps {
-  isThereItems: boolean;
+  isNoItems: boolean;
 }
 type Props = StateProps;
 
 export const CartScreenInner = (props: Props): JSX.Element => {
-  const { isThereItems } = props;
+  const { isNoItems } = props;
   return (
-    <NoItemsDetect isNoItems={!isThereItems}>
+    <NoItemsDetect isNoItems={isNoItems}>
       <CartItemsList />
     </NoItemsDetect>
   );
 };
 
-// TODO: add reselect
-const mapStateToProps = (state: AppState) => {
-  const { cart } = state;
-  return { isThereItems: asArray(cart.items).length > 0 };
-};
+const mapStateToProps = (state: AppState) => ({ isNoItems: getIsNoCartItems(state) });
 
 export const CartScreen = connect(mapStateToProps)(CartScreenInner);

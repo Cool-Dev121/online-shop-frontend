@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { OrdersTable } from './OrdersTable';
-import { AppState } from '../../../store';
+import { AppState, getIsNoCustomerOrderItems } from '../../../store';
 import { NoItemsDetect } from '../../../shared';
 
 interface StateProps {
@@ -18,10 +18,6 @@ export const OrdersScreenInner = (props: Props): JSX.Element => {
   );
 };
 
-// TODO: add reselect
-const mapStateToProps = (state: AppState) => {
-  const { items } = state.orders.customer;
-  return { isNoItems: items.length < 1 };
-};
+const mapStateToProps = (state: AppState) => ({ isNoItems: getIsNoCustomerOrderItems(state) });
 
 export const OrdersScreen = connect(mapStateToProps)(OrdersScreenInner);
