@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { CartItemsList } from './CartItemsList';
 import { AppState } from '../../../store';
 import { asArray } from '../../../components';
-import { NoItemsSign } from '../../../shared';
+import { NoItemsDetect } from '../../../shared';
 
 interface StateProps {
   isThereItems: boolean;
@@ -13,10 +13,9 @@ type Props = StateProps;
 export const CartScreenInner = (props: Props): JSX.Element => {
   const { isThereItems } = props;
   return (
-    <Fragment>
-      {isThereItems && <CartItemsList />}
-      {!isThereItems && <NoItemsSign />}
-    </Fragment>
+    <NoItemsDetect isNoItems={!isThereItems}>
+      <CartItemsList />
+    </NoItemsDetect>
   );
 };
 

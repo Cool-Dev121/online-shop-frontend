@@ -7,4 +7,5 @@ export * from './models';
 export * from './FullscreenLoadingSign';
 export * from './OrderItemCard';
 export * from './consts';
-export * from './NoItemSign';
+export * from './NoItemsSign';
+export * from './NoItemsDetect';
