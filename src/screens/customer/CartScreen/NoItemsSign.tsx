@@ -2,28 +2,28 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { CartItemsList } from './CartItemsList';
 import { AppState } from '../../../store';
-import { asArray } from '../../../components';
-import { NoItemsSign } from '../../../shared';
+import { asArray, styled } from '../../../components';
+
+const NoItemsContainer = styled.div``;
 
 interface StateProps {
   isThereItems: boolean;
 }
 type Props = StateProps;
 
-export const CartScreenInner = (props: Props): JSX.Element => {
+const NoItemsSignInner = (props: Props): JSX.Element => {
   const { isThereItems } = props;
   return (
     <Fragment>
       {isThereItems && <CartItemsList />}
-      {!isThereItems && <NoItemsSign />}
+      {!isThereItems && <NoItemsContainer />}
     </Fragment>
   );
 };
 
-// TODO: add reselect
 const mapStateToProps = (state: AppState) => {
   const { cart } = state;
   return { isThereItems: asArray(cart.items).length > 0 };
 };
 
-export const CartScreen = connect(mapStateToProps)(CartScreenInner);
+export const NoItemsSign = connect(mapStateToProps)(NoItemsSignInner);
