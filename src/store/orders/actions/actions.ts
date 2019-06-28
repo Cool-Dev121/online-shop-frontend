@@ -8,6 +8,7 @@ import {
   AdminOrdersTableOrderModel,
   AdminOrdersTableOrderItemModel,
   CustomerOrdersTableOrderModel,
+  OrderStatus,
 } from '../../../shared';
 import {
   AdminOrdersOrderItemResponseModel,
@@ -99,6 +100,21 @@ export const requestTableCustomerOrdersActionCreator: ActionCreator = (
       } as AdminOrdersTableOrderModel),
     );
     return dispatch(requestTableCustomerOrdersSuccess(mappedResult, result.totalItems));
+  } catch (e) {
+    dispatch(apiCallFailed(e));
+    return; // eslint-disable-line
+  } finally {
+    dispatch(apiCallEnded());
+  }
+};
+
+export const requestOrderStatusChangeActionCreator: ActionCreator = (
+  id: string,
+  status: OrderStatus,
+) => async (dispatch: Dispatch, _, { api }): Promise<ActionTypes | void> => {
+  dispatch(startApiCall());
+  try {
+    const result = await api.orders.changeOrderStatus(id, status);
   } catch (e) {
     dispatch(apiCallFailed(e));
     return; // eslint-disable-line

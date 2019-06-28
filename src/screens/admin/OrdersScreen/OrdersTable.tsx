@@ -64,7 +64,7 @@ const ordersColumnsDefenition: TableColumnsDefinition<AdminOrdersTableOrderModel
     width: 2,
     title: 'Status',
     renderCellItem: (item: AdminOrdersTableOrderModel): JSX.Element => (
-      <OrderStatusSelectbox value={item.status.toString()} />
+      <OrderStatusSelectbox orderId={item.id} value={item.status.toString()} />
     ),
   },
   [OrdersColumnKey.Sum]: {

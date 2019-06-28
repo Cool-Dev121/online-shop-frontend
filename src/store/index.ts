@@ -4,6 +4,7 @@ export {
   ThunkDispatch as OrdersDispatch,
   requestTableAdminOrdersActionCreator,
   requestTableCustomerOrdersActionCreator,
+  requestOrderStatusChangeActionCreator,
   getIsNoAdminOrderItems,
   getIsNoCustomerOrderItems,
 } from './orders';

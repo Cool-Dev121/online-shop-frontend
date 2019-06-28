@@ -121,4 +121,11 @@ export const ordersApiMock: OrdersApiConcrete = {
       }, 300);
     });
   },
+  changeOrderStatus(id: string, status: OrderStatus): Promise<null> {
+    return new Promise((res) => {
+      setTimeout(() => {
+        res();
+      }, 300);
+    });
+  },
 };

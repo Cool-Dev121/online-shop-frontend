@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { numericEnumToArray, Selectbox } from '../../../components';
 import { OrderStatus } from '../../../shared';
-import { OrdersDispatch } from '../../../store';
+import { OrdersDispatch, requestOrderStatusChangeActionCreator } from '../../../store';
 
 const orderStatuses = numericEnumToArray<string>(OrderStatus).map(os => ({
   id: os.key,
@@ -10,29 +10,31 @@ const orderStatuses = numericEnumToArray<string>(OrderStatus).map(os => ({
 }));
 
 interface OwnProps {
+  orderId: string;
   value: string;
 }
 interface DispatchProps {
-  onStatusChange: (status: OrderStatus) => void;
+  onStatusChange: (id: string, status: OrderStatus) => void;
 }
 type Props = OwnProps & DispatchProps;
 
 const OrderStatusSelectboxInner = (props: Props) => {
-  const { value, onStatusChange } = props;
+  const { orderId, value, onStatusChange } = props;
   return (
     <Selectbox
       value={value}
       collection={orderStatuses}
       onChange={(status) => {
-        onStatusChange(status as OrderStatus);
+        onStatusChange(orderId, status as OrderStatus);
       }}
     />
   );
 };
 
 const mapDispatchToProps = (dispatch: OrdersDispatch) => ({
-  onStatusChange: (status: OrderStatus) => {
+  onStatusChange: (id: string, status: OrderStatus) => {
     console.log(status);
+    dispatch(requestOrderStatusChangeActionCreator(id, status));
   },
 });
 
