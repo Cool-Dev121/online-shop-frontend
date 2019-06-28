@@ -1,3 +1,5 @@
+import { OrderStatus } from '../OrderStatus';
+
 export interface AdminOrdersTableOrderItemProductModel {
   id: string;
   img: string;
@@ -16,6 +18,6 @@ export interface AdminOrdersTableOrderModel {
   userId: string;
   createdAt: string;
   items: AdminOrdersTableOrderItemModel[];
-  status: string;
+  status: OrderStatus;
   orderSum: number;
 }

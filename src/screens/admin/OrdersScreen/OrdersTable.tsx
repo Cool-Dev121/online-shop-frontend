@@ -9,6 +9,7 @@ import {
   ITEMS_PER_PAGE,
   MAX_VISIBLE_PAGES_COUNT,
 } from '../../../shared';
+import { OrderStatusSelectbox } from './OrderStatusSelectbox';
 
 enum OrdersColumnKey {
   Id,
@@ -62,7 +63,9 @@ const ordersColumnsDefenition: TableColumnsDefinition<AdminOrdersTableOrderModel
   [OrdersColumnKey.Status]: {
     width: 2,
     title: 'Status',
-    renderCellItem: (item: AdminOrdersTableOrderModel): JSX.Element => <div>{item.status}</div>,
+    renderCellItem: (item: AdminOrdersTableOrderModel): JSX.Element => (
+      <OrderStatusSelectbox value={item.status.toString()} />
+    ),
   },
   [OrdersColumnKey.Sum]: {
     width: 1,

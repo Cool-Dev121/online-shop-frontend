@@ -1,3 +1,5 @@
+import { OrderStatus } from '../../../shared';
+
 export interface CustomerOrdersOrderItemProductResponseModel {
   id: string;
   img: string;
@@ -14,5 +16,5 @@ export interface CustomerOrdersOrderResponseModel {
   id: string;
   createdAt: string;
   items: CustomerOrdersOrderItemResponseModel[];
-  status: string;
+  status: OrderStatus;
 }

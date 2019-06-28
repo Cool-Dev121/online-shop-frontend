@@ -4,6 +4,7 @@ import {
   CustomerOrdersOrderResponseModel,
 } from '../models';
 import { OrdersApiConcrete } from './OrdersApiConcrete';
+import { OrderStatus } from '../../shared';
 
 const generateOrders = (start: number, count: number): AdminOrdersOrderResponseModel[] => {
   const generated: AdminOrdersOrderResponseModel[] = [];
@@ -41,7 +42,7 @@ const generateOrders = (start: number, count: number): AdminOrdersOrderResponseM
           count: 2,
         },
       ],
-      status: 'created',
+      status: OrderStatus.Created,
     });
   }
   return generated;
@@ -85,7 +86,7 @@ const generateOrdersOfCustomer = (
           count: 2,
         },
       ],
-      status: 'created',
+      status: OrderStatus.Created,
     });
   }
   return generated;
