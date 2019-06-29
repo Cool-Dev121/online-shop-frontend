@@ -96,10 +96,13 @@ export const ordersApiMock: OrdersApiConcrete = {
   getOrders(start: number, count: number): Promise<PagedModel<AdminOrdersOrderResponseModel>> {
     return new Promise((res) => {
       setTimeout(() => {
-        const totalItems = 12;
+        const totalItemsCount = 12;
         res({
-          items: generateOrders(start, start + count > totalItems ? totalItems - start : count),
-          totalItems,
+          items: generateOrders(
+            start,
+            start + count > totalItemsCount ? totalItemsCount - start : count,
+          ),
+          totalItemsCount,
         });
       }, 300);
     });
@@ -110,13 +113,13 @@ export const ordersApiMock: OrdersApiConcrete = {
   ): Promise<PagedModel<CustomerOrdersOrderResponseModel>> {
     return new Promise((res) => {
       setTimeout(() => {
-        const totalItems = 12;
+        const totalItemsCount = 12;
         res({
           items: generateOrdersOfCustomer(
             start,
-            start + count > totalItems ? totalItems - start : count,
+            start + count > totalItemsCount ? totalItemsCount - start : count,
           ),
-          totalItems,
+          totalItemsCount,
         });
       }, 300);
     });

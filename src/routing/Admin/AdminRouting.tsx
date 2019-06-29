@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
 import {
   AdminOrdersScreen,
   AdminProductsScreen,
@@ -10,18 +9,17 @@ import {
   SignUpScreen,
 } from '../../screens';
 import { RouteWithLayout, ProtectedRouteWithLayout } from '../Routes';
-import { AppState } from '../../store';
 import { AdminLayoutWrapper } from './AdminLayoutWrapper';
 import { PanelLayoutWrapper, CommonRoutes, FullscreenLayoutWrapper } from '../Common';
 import { AdminRoutes } from './AdminRoutes';
 
 interface StateProps {
-  isSignedIn: boolean;
+  checkIsAllowed: () => boolean;
 }
 type Props = StateProps;
 
-const AdminRoutingInner = (props: Props): JSX.Element => {
-  const { isSignedIn } = props;
+const AdminRouting = (props: Props): JSX.Element => {
+  const { checkIsAllowed } = props;
   return (
     <Router>
       <Switch>
@@ -40,7 +38,7 @@ const AdminRoutingInner = (props: Props): JSX.Element => {
           layout={AdminLayoutWrapper}
           content={AdminOrdersScreen}
           pathIfNotAllowed={CommonRoutes.SignIn}
-          checkIsAllowed={() => isSignedIn}
+          checkIsAllowed={checkIsAllowed}
         />
         <ProtectedRouteWithLayout
           path={AdminRoutes.Products}
@@ -48,7 +46,7 @@ const AdminRoutingInner = (props: Props): JSX.Element => {
           layout={AdminLayoutWrapper}
           content={AdminProductsScreen}
           pathIfNotAllowed={CommonRoutes.SignIn}
-          checkIsAllowed={() => isSignedIn}
+          checkIsAllowed={checkIsAllowed}
         />
         <RouteWithLayout
           path={AdminRoutes.Product}
@@ -71,12 +69,5 @@ const AdminRoutingInner = (props: Props): JSX.Element => {
     </Router>
   );
 };
-
-const mapStateToProps = (state: AppState) => {
-  const { app } = state;
-  return { isSignedIn: app.isSignedIn };
-};
-
-export const AdminRouting = connect(mapStateToProps)(AdminRoutingInner);
 
 export default AdminRouting;

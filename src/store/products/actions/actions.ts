@@ -8,6 +8,7 @@ import { ProductsTableProductModel, ProductFormModel } from '../../../shared';
 import { ProductsProductResponseModel } from '../../../api';
 import { startApiCall, apiCallFailed, apiCallEnded } from '../../app';
 import { ActionCreator } from '../models';
+import { getFullImageUrl } from '../../../helpers';
 
 export function requestTableProductsSuccess(
   items: ProductsTableProductModel[],
@@ -43,10 +44,10 @@ export const requestTableProductsActionCreator: ActionCreator = (
         id: product.id,
         name: product.name,
         price: product.price,
-        imagePath: product.image,
+        imagePath: getFullImageUrl(product.image),
       } as ProductsTableProductModel),
     );
-    return dispatch(requestTableProductsSuccess(mappedResult, result.totalItems));
+    return dispatch(requestTableProductsSuccess(mappedResult, result.totalItemsCount));
   } catch (e) {
     dispatch(apiCallFailed(e));
     return; // eslint-disable-line
@@ -66,10 +67,26 @@ export const requestProductByIdActionCreator: ActionCreator = (id: string) => as
     const mappedResult: ProductFormModel = {
       id: result.id,
       productName: result.name,
-      image: result.image,
+      image: getFullImageUrl(result.image),
       price: result.price,
     };
     return dispatch(requestProductByIdSuccess(mappedResult));
+  } catch (e) {
+    dispatch(apiCallFailed(e));
+    return; // eslint-disable-line
+  } finally {
+    dispatch(apiCallEnded());
+  }
+};
+
+export const requestCreateProductActionCreator: ActionCreator = (form: ProductFormModel) => async (
+  dispatch: Dispatch,
+  _,
+  { api },
+): Promise<ActionTypes | void> => {
+  dispatch(startApiCall());
+  try {
+    await api.products.createProduct(form);
   } catch (e) {
     dispatch(apiCallFailed(e));
     return; // eslint-disable-line

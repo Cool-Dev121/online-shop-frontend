@@ -1,3 +1,4 @@
+import { LOCAL_STORAGE_KEY_TOKEN } from '../../../shared/consts/localStorageKeys';
 import {
   START_API_CALL,
   API_CALL_ENDED,
@@ -7,6 +8,7 @@ import {
 } from './types';
 import { ApiCallError, SignInFormModel } from '../../../shared';
 import { ThunkDispatch, ActionCreator } from '../models';
+import { setValueToLocalStorage } from '../../../helpers';
 
 export function startApiCall(): ActionTypes {
   return {
@@ -51,10 +53,11 @@ export const requestSignInActionCreator: ActionCreator = (form: SignInFormModel)
 ): Promise<ActionTypes | void> => {
   dispatch(startApiCall());
   try {
-    const result = await api.app.signIn({
-      email: form.email,
+    const result = await api.auth.signIn({
+      login: form.email,
       password: form.password,
     });
+    setValueToLocalStorage(LOCAL_STORAGE_KEY_TOKEN, result.token);
     return dispatch(requestSignInSuccess(result.token));
   } catch (e) {
     dispatch(apiCallFailed(e));
@@ -71,12 +74,11 @@ export const requestSignUpActionCreator: ActionCreator = (form: SignInFormModel)
 ): Promise<ActionTypes | void> => {
   dispatch(startApiCall());
   try {
-    const result = await api.app.signUp({
-      email: form.email,
+    await api.auth.signUp({
+      login: form.email,
       password: form.password,
     });
     // TODO: should be redirected to sign in page
-    // return dispatch(requestSigInSuccess(result.token));
   } catch (e) {
     dispatch(apiCallFailed(e));
     return; // eslint-disable-line

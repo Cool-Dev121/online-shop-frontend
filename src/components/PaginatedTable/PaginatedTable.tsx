@@ -18,8 +18,8 @@ interface Props<TItem extends Identifiable> {
   onPageChange: (page: number) => void;
 }
 
-function getPagesCount(totalItems: number, itemsPerPage: number): number {
-  return Math.ceil(totalItems / itemsPerPage);
+function getPagesCount(totalItemsCount: number, itemsPerPage: number): number {
+  return Math.ceil(totalItemsCount / itemsPerPage);
 }
 
 function getVisiblePagesCount(maxVisiblePagesCount: number, pagesCount: number): number {

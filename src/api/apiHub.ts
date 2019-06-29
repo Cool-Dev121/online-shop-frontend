@@ -1,16 +1,15 @@
 import { ordersApiMock, OrdersApiConcrete } from './ordersApi';
-import { ProductsApiConcrete, productsApiMock } from './productsApi';
-import { AppApiInterface } from './appApi/AppApiInterface';
-import { appApiMock } from './appApi';
+import { ProductsApiConcrete, productsApi } from './productsApi';
+import { AuthApiInterface, authApi } from './authApi';
 
 export interface ApiHub {
-  app: AppApiInterface;
+  auth: AuthApiInterface;
   orders: OrdersApiConcrete;
   products: ProductsApiConcrete;
 }
 
 export const apiHub: ApiHub = {
-  app: appApiMock,
+  auth: authApi, // authApiMock,
   orders: ordersApiMock,
-  products: productsApiMock,
+  products: productsApi, // productsApiMock
 };

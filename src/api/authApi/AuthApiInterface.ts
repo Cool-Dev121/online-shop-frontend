@@ -2,10 +2,10 @@ import {
   SignInRequestModel,
   SignInResponseModel,
   SignUpRequestModel,
-  SignUpResponseModel,
+  SignUpResponseModel
 } from '../models';
 
-export interface AppApiInterface {
+export interface AuthApiInterface {
   signIn: (form: SignInRequestModel) => Promise<SignInResponseModel>;
   signUp: (form: SignUpRequestModel) => Promise<SignUpResponseModel>;
 }

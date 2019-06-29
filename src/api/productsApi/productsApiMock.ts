@@ -1,6 +1,7 @@
 import { ProductsApiConcrete } from './ProductsApiConcrete';
 import { PagedModel, ProductsProductResponseModel, ProductResponseModel } from '../models';
 import { withDelay } from '../../helpers';
+import { ProductFormModel } from '../../shared';
 
 const generateProducts = (start: number, count: number): ProductsProductResponseModel[] => {
   const generated: ProductsProductResponseModel[] = [];
@@ -29,10 +30,13 @@ export const productsApiMock: ProductsApiConcrete = {
   getProducts(start: number, count: number): Promise<PagedModel<ProductsProductResponseModel>> {
     return new Promise((res) => {
       withDelay(() => {
-        const totalItems = 12;
+        const totalItemsCount = 12;
         res({
-          items: generateProducts(start, start + count > totalItems ? totalItems - start : count),
-          totalItems,
+          items: generateProducts(
+            start,
+            start + count > totalItemsCount ? totalItemsCount - start : count,
+          ),
+          totalItemsCount,
         });
       });
     });
@@ -43,6 +47,13 @@ export const productsApiMock: ProductsApiConcrete = {
         res({
           ...generateProduct(id),
         });
+      });
+    });
+  },
+  createProduct(form: ProductFormModel): Promise<void> {
+    return new Promise((res) => {
+      withDelay(() => {
+        res();
       });
     });
   },

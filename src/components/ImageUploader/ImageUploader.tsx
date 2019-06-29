@@ -38,19 +38,21 @@ export const ImageUploader = withTheme(
 
     const onFilePicked = (e: any) => {
       const { files } = e.target;
-      if (files[0] !== undefined) {
-        const imgName = files[0].name;
+      const file = files[0];
+      if (file !== undefined) {
+        const imgName = file.name;
         if (imgName.lastIndexOf('.') <= 0) {
           return;
         }
         const fr = new FileReader();
-        fr.readAsDataURL(files[0]);
+        fr.readAsDataURL(file);
         fr.addEventListener('load', () => {
-          const imageNameInner = files[0].name;
+          const imageNameInner = file.name;
           setImageName(imageNameInner);
           if (onChange) {
             const imageBuffer = fr.result as ArrayBuffer;
-            onChange(imageBuffer);
+            // onChange(imageBuffer);
+            onChange(file);
           }
         });
       }

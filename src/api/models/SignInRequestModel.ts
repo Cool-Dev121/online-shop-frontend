@@ -1,4 +1,4 @@
 export interface SignInRequestModel {
-  email: string;
+  login: string;
   password: string;
 }

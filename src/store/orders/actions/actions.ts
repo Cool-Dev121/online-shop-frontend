@@ -68,7 +68,7 @@ export const requestTableAdminOrdersActionCreator: ActionCreator = (
         orderSum: getOrderSum(order.items),
       } as AdminOrdersTableOrderModel),
     );
-    return dispatch(requestTableAdminOrdersSuccess(mappedResult, result.totalItems));
+    return dispatch(requestTableAdminOrdersSuccess(mappedResult, result.totalItemsCount));
   } catch (e) {
     dispatch(apiCallFailed(e));
     return; // eslint-disable-line
@@ -99,7 +99,7 @@ export const requestTableCustomerOrdersActionCreator: ActionCreator = (
         orderSum: getOrderSum(order.items),
       } as AdminOrdersTableOrderModel),
     );
-    return dispatch(requestTableCustomerOrdersSuccess(mappedResult, result.totalItems));
+    return dispatch(requestTableCustomerOrdersSuccess(mappedResult, result.totalItemsCount));
   } catch (e) {
     dispatch(apiCallFailed(e));
     return; // eslint-disable-line
