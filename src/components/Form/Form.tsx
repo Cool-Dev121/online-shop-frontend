@@ -2,12 +2,11 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { styled } from '../themes';
 import {
   removeKey,
-  validate,
   getKeys,
-  FormDescription,
+  FormControlValidators,
   validateForm,
-  HandleControlChangeExpanded,
-  Value,
+  HandleControlChange,
+  validate,
 } from '../shared';
 
 const MainContainer = styled.div`
@@ -29,14 +28,20 @@ const FormInner = styled.form`
 
 interface Props<TForm extends any> {
   onSubmit: (form: TForm) => void;
-  formDescription: FormDescription<TForm>;
+  formControlValidators: FormControlValidators<TForm>;
   title?: string;
   initValue?: TForm;
+  renderFormInner: (
+    form: TForm,
+    errors: { [key: string]: string },
+    handleChange: (key: string, value: any) => void,
+    isFormValid: boolean,
+  ) => JSX.Element;
 }
 
 export function Form<TForm extends any>(props: Props<TForm>): JSX.Element {
   const {
-    onSubmit, formDescription, title, initValue,
+    onSubmit, formControlValidators, title, initValue, renderFormInner,
   } = props;
 
   const initValueInner: any = initValue || {};
@@ -52,21 +57,18 @@ export function Form<TForm extends any>(props: Props<TForm>): JSX.Element {
   }, [errors]);
 
   useEffect(() => {
-    setIsFormValid(validateForm(formDescription, form));
+    const res = validateForm(formControlValidators, form);
+    setIsFormValid(res);
   }, [form]);
 
   useEffect(() => {
     setForm(initValueInner);
   }, [initValue]);
 
-  const handleChange: HandleControlChangeExpanded = (value: Value, name: string) => {
+  const handleChange: HandleControlChange = (name: string, value: any) => {
     const updatedForm = { ...form, [name]: value };
     setForm(updatedForm);
-    const validationResult = validate(
-      value.toString(),
-      updatedForm,
-      formDescription[name].validatorItems,
-    );
+    const validationResult = validate(value, updatedForm, formControlValidators[name]);
     if (!validationResult.isValid) {
       setErrors({ ...errors, [name]: validationResult.errors[0] });
     } else if (errors[name]) {
@@ -81,24 +83,12 @@ export function Form<TForm extends any>(props: Props<TForm>): JSX.Element {
         onSubmit={(event) => {
           event.preventDefault();
           if (!isFormValid) {
-            console.log('FORM IS NOT VALID');
             return;
           }
           onSubmit(form);
         }}
       >
-        {Object.keys(formDescription).map(name => (
-          <Fragment key={name}>
-            {formDescription[name].renderControl(
-              {
-                value: form[name],
-                handleChange: value => handleChange(value, name),
-                errorMessage: errors[name],
-              },
-              { isFormValid },
-            )}
-          </Fragment>
-        ))}
+        {renderFormInner(form, errors, handleChange, isFormValid)}
       </FormInner>
     </MainContainer>
   );

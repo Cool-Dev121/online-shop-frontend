@@ -25,7 +25,7 @@ const OrderStatusSelectboxInner = (props: Props) => {
       value={value}
       collection={orderStatuses}
       onChange={(status) => {
-        onStatusChange(orderId, status as OrderStatus);
+        onStatusChange(orderId, (status as any).toString());
       }}
     />
   );

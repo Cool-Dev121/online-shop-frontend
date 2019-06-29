@@ -1,4 +1,4 @@
-import { ValidatorItem, FormDescription } from '../models';
+import { ValidatorItem, FormControlValidators } from '../models';
 import { getKeys } from './object';
 
 const defaultErrorMessage = 'Value is not valid';
@@ -21,14 +21,11 @@ export function validate<TForm>(
 }
 
 export function validateForm<TForm extends any>(
-  formDescription: FormDescription<TForm>,
+  validators: FormControlValidators<TForm>,
   form: TForm,
 ): boolean {
-  return getKeys(formDescription)
-    .map((k) => {
-      const control = formDescription[k];
-      return validate(form[k], form, control.validatorItems);
-    })
+  return getKeys(validators)
+    .map(k => validate(form[k], form, validators[k]))
     .map(validationResult => validationResult.isValid)
     .reduce((prev, curr) => prev && curr, true);
 }

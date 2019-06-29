@@ -1,8 +1,6 @@
-import { Value } from './Value';
-
 export interface FormControl {
   value: string;
-  onChange?: (value: Value) => void;
+  onChange?: (value: string) => void;
   errorMessage?: string;
   name?: string;
 }

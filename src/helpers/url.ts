@@ -19,7 +19,6 @@ export function buildUrl(serverUrl: string, apiPath: string): string {
 export function serializeRequestBody<TBody>(
   body?: string | TBody | Blob | FormData,
 ): string | Blob | FormData | null {
-  debugger;
   if (body == null) {
     return null;
   }

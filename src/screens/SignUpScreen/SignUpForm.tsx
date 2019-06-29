@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
-  Form, FormDescription, Input, Button, areEqual,
+  Input, Button, areEqual, FormControlValidators, Form,
 } from '../../components';
 import { SignUpFormModel } from '../../shared';
 import { AppDispatch, requestSignUpActionCreator } from '../../store';
@@ -13,65 +13,16 @@ enum FormFields {
   Submit = 'submit',
 }
 
-const formDescription: FormDescription<SignUpFormModel> = {
-  [FormFields.Email]: {
-    renderControl: (control): JSX.Element => {
-      const { errorMessage, handleChange, value } = control;
-      return (
-        <Input
-          title="Email"
-          name={FormFields.Email}
-          value={value}
-          onChange={handleChange}
-          errorMessage={errorMessage}
-        />
-      );
+const formControlValidators: FormControlValidators<SignUpFormModel> = {
+  [FormFields.Email]: [],
+  [FormFields.Password]: [],
+  [FormFields.ConfirmPassword]: [
+    {
+      errorMessage: 'Passwords are not equal',
+      isValid: areEqual(FormFields.Password),
     },
-  },
-  [FormFields.Password]: {
-    renderControl: (control): JSX.Element => {
-      const { errorMessage, handleChange, value } = control;
-      return (
-        <Input
-          title="Password"
-          name={FormFields.Email}
-          value={value}
-          onChange={handleChange}
-          errorMessage={errorMessage}
-        />
-      );
-    },
-  },
-  [FormFields.ConfirmPassword]: {
-    validatorItems: [
-      {
-        errorMessage: 'Passwords are not equal',
-        isValid: areEqual(FormFields.Password),
-      },
-    ],
-    renderControl: (control): JSX.Element => {
-      const { errorMessage, handleChange, value } = control;
-      return (
-        <Input
-          title="Confirm password"
-          name={FormFields.ConfirmPassword}
-          value={value}
-          onChange={handleChange}
-          errorMessage={errorMessage}
-        />
-      );
-    },
-  },
-  [FormFields.Submit]: {
-    renderControl: (_, form) => {
-      const { isFormValid } = form;
-      return (
-        <Button type="submit" disabled={!isFormValid}>
-          Sign Up
-        </Button>
-      );
-    },
-  },
+  ],
+  [FormFields.Submit]: [],
 };
 
 interface DispatchProps {
@@ -81,7 +32,41 @@ type Props = DispatchProps;
 
 export const SignUpFormInner = (props: Props): JSX.Element => {
   const { signUp } = props;
-  return <Form formDescription={formDescription} onSubmit={signUp} title="Sign Up" />;
+  return (
+    <Form
+      formControlValidators={formControlValidators}
+      onSubmit={signUp}
+      title="Sign Up"
+      renderFormInner={(form, errors, handleChange, isFormValid) => (
+        <Fragment>
+          <Input
+            title="Email"
+            name={FormFields.Email}
+            value={form[FormFields.Email]}
+            onChange={value => handleChange(FormFields.Email, value)}
+            errorMessage={errors[FormFields.Email]}
+          />
+          <Input
+            title="Password"
+            name={FormFields.Password}
+            value={form[FormFields.Password]}
+            onChange={value => handleChange(FormFields.Password, value)}
+            errorMessage={errors[FormFields.Password]}
+          />
+          <Input
+            title="Confirm password"
+            name={FormFields.ConfirmPassword}
+            value={form[FormFields.ConfirmPassword]}
+            onChange={value => handleChange(FormFields.ConfirmPassword, value)}
+            errorMessage={errors[FormFields.ConfirmPassword]}
+          />
+          <Button type="submit" disabled={!isFormValid}>
+            Sign In
+          </Button>
+        </Fragment>
+      )}
+    />
+  );
 };
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({

@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import {
   Input,
   Button,
-  FormDescription,
-  Form,
   ImageUploader,
   maxLengthVaidator,
   minLengthVaidator,
   isRequiredValidator,
   ResponsiveContainer,
+  Form,
+  FormControlValidators,
 } from '../../../components';
 import { ProductFormModel } from '../../../shared';
 
@@ -25,76 +25,25 @@ enum FormFields {
   Submit = 'submit',
 }
 
-const formDescription: FormDescription<ProductFormModel> = {
-  [FormFields.ProductName]: {
-    validatorItems: [
-      {
-        errorMessage: 'Name is too long',
-        isValid: maxLengthVaidator(20),
-      },
-      {
-        errorMessage: 'Name is too short',
-        isValid: minLengthVaidator(3),
-      },
-    ],
-    renderControl: (control): JSX.Element => {
-      const { value, handleChange, errorMessage } = control;
-      return (
-        <Input
-          title="Name"
-          name={FormFields.ProductName}
-          placeholder="Name"
-          value={value}
-          onChange={handleChange}
-          errorMessage={errorMessage}
-        />
-      );
+const formControlValidators: FormControlValidators<ProductFormModel> = {
+  [FormFields.ProductName]: [
+    {
+      errorMessage: 'Name is too long',
+      isValid: maxLengthVaidator(20),
     },
-  },
-  [FormFields.Price]: {
-    validatorItems: [],
-    renderControl: (control): JSX.Element => {
-      const { value, handleChange, errorMessage } = control;
-      return (
-        <Input
-          title="Price"
-          name={FormFields.Price}
-          value={value}
-          onChange={handleChange}
-          errorMessage={errorMessage}
-        />
-      );
+    {
+      errorMessage: 'Name is too short',
+      isValid: minLengthVaidator(3),
     },
-  },
-  [FormFields.Image]: {
-    validatorItems: [
-      {
-        errorMessage: 'Image is required',
-        isValid: isRequiredValidator(),
-      },
-    ],
-    renderControl: (control) => {
-      const { value, handleChange, errorMessage } = control;
-      return (
-        <ImageUploader
-          name={FormFields.Image}
-          value={value}
-          onChange={handleChange}
-          errorMessage={errorMessage}
-        />
-      );
-    },
-  },
-  [FormFields.Submit]: {
-    renderControl: (_, form) => {
-      const { isFormValid } = form;
-      return (
-        <Button type="submit" disabled={!isFormValid}>
-          Submit
-        </Button>
-      );
-    },
-  },
+  ],
+  [FormFields.Price]: [],
+  [FormFields.Image]: [
+    // {
+    //   errorMessage: 'Image is required',
+    //   isValid: isRequiredValidator(),
+    // },
+  ],
+  [FormFields.Submit]: [],
 };
 
 interface Props {
@@ -109,10 +58,38 @@ export const ProductForm = (props: Props): JSX.Element => {
     <MainContainer>
       <ResponsiveContainer>
         <Form
-          formDescription={formDescription}
+          formControlValidators={formControlValidators}
           onSubmit={onSubmit}
           title={title}
           initValue={initValue}
+          renderFormInner={(form, errors, handleChange, isFormValid) => (
+            <Fragment>
+              <Input
+                title="Name"
+                name={FormFields.ProductName}
+                placeholder="Name"
+                value={form[FormFields.ProductName]}
+                onChange={value => handleChange(FormFields.ProductName, value)}
+                errorMessage={errors[FormFields.ProductName]}
+              />
+              <Input
+                title="Price"
+                name={FormFields.Price}
+                value={form[FormFields.Price] as any}
+                onChange={value => handleChange(FormFields.Price, value)}
+                errorMessage={errors[FormFields.Price]}
+              />
+              <ImageUploader
+                name={FormFields.Image}
+                value={form[FormFields.Image]}
+                onChange={value => handleChange(FormFields.Image, value)}
+                errorMessage={errors[FormFields.Image]}
+              />
+              <Button type="submit" disabled={!isFormValid}>
+                Submit
+              </Button>
+            </Fragment>
+          )}
         />
       </ResponsiveContainer>
     </MainContainer>

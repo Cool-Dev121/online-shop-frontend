@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
-  Form, FormDescription, Input, Button,
+  Input, Button, Form, FormControlValidators,
 } from '../../components';
 import { requestSignInActionCreator, AppDispatch } from '../../store';
 import { SignInFormModel } from '../../shared';
@@ -12,45 +12,10 @@ enum FormFields {
   Submit = 'submit',
 }
 
-const formDescription: FormDescription<SignInFormModel> = {
-  [FormFields.Email]: {
-    renderControl: (control): JSX.Element => {
-      const { errorMessage, handleChange, value } = control;
-      return (
-        <Input
-          title="Email"
-          name={FormFields.Email}
-          value={value}
-          onChange={handleChange}
-          errorMessage={errorMessage}
-        />
-      );
-    },
-  },
-  [FormFields.Password]: {
-    renderControl: (control): JSX.Element => {
-      const { errorMessage, handleChange, value } = control;
-      return (
-        <Input
-          title="Password"
-          name={FormFields.Email}
-          value={value}
-          onChange={handleChange}
-          errorMessage={errorMessage}
-        />
-      );
-    },
-  },
-  [FormFields.Submit]: {
-    renderControl: (_, form) => {
-      const { isFormValid } = form;
-      return (
-        <Button type="submit" disabled={!isFormValid}>
-          Sign In
-        </Button>
-      );
-    },
-  },
+const formControlValidators: FormControlValidators<SignInFormModel> = {
+  [FormFields.Email]: [],
+  [FormFields.Password]: [],
+  [FormFields.Submit]: [],
 };
 
 interface DispatchProps {
@@ -60,7 +25,34 @@ type Props = DispatchProps;
 
 export const SignInFormInner = (props: Props): JSX.Element => {
   const { signIn } = props;
-  return <Form formDescription={formDescription} onSubmit={signIn} title="Sign In" />;
+  return (
+    <Form
+      formControlValidators={formControlValidators}
+      onSubmit={signIn}
+      title="Sign In"
+      renderFormInner={(form, errors, handleChange, isFormValid) => (
+        <Fragment>
+          <Input
+            title="Email"
+            name={FormFields.Email}
+            value={form[FormFields.Email]}
+            onChange={value => handleChange(FormFields.Email, value)}
+            errorMessage={errors[FormFields.Email]}
+          />
+          <Input
+            title="Password"
+            name={FormFields.Password}
+            value={form[FormFields.Password]}
+            onChange={value => handleChange(FormFields.Password, value)}
+            errorMessage={errors[FormFields.Password]}
+          />
+          <Button type="submit" disabled={!isFormValid}>
+            Sign In
+          </Button>
+        </Fragment>
+      )}
+    />
+  );
 };
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
