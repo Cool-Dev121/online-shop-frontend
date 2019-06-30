@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ProductForm } from '../ProductForm';
-import { AppState, ProductsDispatch, requestProductByIdActionCreator } from '../../../../store';
+import {
+  AppState,
+  ProductsDispatch,
+  requestProductByIdActionCreator,
+  requestUpdateProductActionCreator,
+} from '../../../../store';
 import { ProductFormModel } from '../../../../shared';
-
-const handleSubmit = (productForm: ProductFormModel) => {
-  console.log('PROD FORM', productForm);
-};
 
 interface OwnProps {
   id: string;
@@ -17,11 +17,14 @@ interface StateProps {
 }
 interface DispatchProps {
   loadProduct: (id: string) => void;
+  updateProduct: (form: ProductFormModel) => void;
 }
 type Props = OwnProps & StateProps & DispatchProps;
 
 export const ProductEditFormInner = (props: Props): JSX.Element => {
-  const { id, loadProduct, selectedProduct } = props;
+  const {
+    id, loadProduct, selectedProduct, updateProduct,
+  } = props;
 
   useEffect(() => {
     loadProduct(id);
@@ -29,7 +32,7 @@ export const ProductEditFormInner = (props: Props): JSX.Element => {
 
   return (
     <ProductForm
-      onSubmit={handleSubmit}
+      onSubmit={updateProduct}
       initValue={selectedProduct}
       title={`Edit product (id: ${id})`}
     />
@@ -44,6 +47,9 @@ const mapStateToProps = (state: AppState) => {
 const mapDispatchToProps = (dispatch: ProductsDispatch) => ({
   loadProduct: (id: string) => {
     dispatch(requestProductByIdActionCreator(id));
+  },
+  updateProduct: (form: ProductFormModel) => {
+    dispatch(requestUpdateProductActionCreator(form));
   },
 });
 

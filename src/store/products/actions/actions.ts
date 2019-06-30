@@ -94,3 +94,19 @@ export const requestCreateProductActionCreator: ActionCreator = (form: ProductFo
     dispatch(apiCallEnded());
   }
 };
+
+export const requestUpdateProductActionCreator: ActionCreator = (form: ProductFormModel) => async (
+  dispatch: Dispatch,
+  _,
+  { api },
+): Promise<ActionTypes | void> => {
+  dispatch(startApiCall());
+  try {
+    await api.products.updateProduct(form);
+  } catch (e) {
+    dispatch(apiCallFailed(e));
+    return; // eslint-disable-line
+  } finally {
+    dispatch(apiCallEnded());
+  }
+};

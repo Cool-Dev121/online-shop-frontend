@@ -14,6 +14,8 @@ export {
   requestTableProductsActionCreator,
   requestTableProductsSuccess,
   requestProductByIdActionCreator,
+  requestCreateProductActionCreator,
+  requestUpdateProductActionCreator,
   getIsNoProductItems,
 } from './products';
 export {

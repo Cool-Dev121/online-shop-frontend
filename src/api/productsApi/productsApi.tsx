@@ -15,7 +15,15 @@ export const productsApi: ProductsApiConcrete = {
     formData.append('image', form.image);
     formData.append('name', form.productName);
     formData.append('price', form.price.toString());
-
-    return http.upload<any, any>(Url.createProduct, formData);
+    return http.upload<FormData, any>(Url.createProduct, formData);
+  },
+  updateProduct(form: ProductFormModel) {
+    const formData = new FormData();
+    if (form.image) {
+      formData.append('image', form.image);
+    }
+    formData.append('name', form.productName);
+    formData.append('price', form.price.toString());
+    return http.upload<FormData, any>(`${Url.updateProduct}/${form.id}`, formData);
   },
 };

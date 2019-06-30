@@ -1,5 +1,5 @@
 export interface ProductFormModel {
-  id: string;
+  id?: string;
   image: string | File;
   productName: string;
   price: number;

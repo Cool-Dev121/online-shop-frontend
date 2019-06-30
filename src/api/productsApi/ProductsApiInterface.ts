@@ -1,5 +1,11 @@
-export interface ProductsApiInterface<TProductsPage, TProduct, TCreateProduct> {
+export interface ProductsApiInterface<
+  TProductsPage,
+  TProduct,
+  TCreateProductRequest,
+  TUpdateProductRequest
+> {
   getProducts: (start: number, count: number) => Promise<TProductsPage>;
   getProduct: (id: string) => Promise<TProduct>;
-  createProduct: (form: TCreateProduct) => Promise<void>;
+  createProduct: (form: TCreateProductRequest) => Promise<void>;
+  updateProduct: (form: TUpdateProductRequest) => Promise<void>;
 }

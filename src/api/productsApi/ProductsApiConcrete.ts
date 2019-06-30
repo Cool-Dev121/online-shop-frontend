@@ -5,5 +5,6 @@ import { ProductFormModel } from '../../shared';
 export type ProductsApiConcrete = ProductsApiInterface<
   PagedModel<ProductsProductResponseModel>,
   ProductResponseModel,
+  ProductFormModel,
   ProductFormModel
 >;

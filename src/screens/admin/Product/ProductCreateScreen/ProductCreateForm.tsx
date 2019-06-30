@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ProductForm } from '../ProductForm';
-import { ProductsDispatch } from '../../../../store';
+import { ProductsDispatch, requestCreateProductActionCreator } from '../../../../store';
 import { ProductFormModel } from '../../../../shared';
-import { requestCreateProductActionCreator } from '../../../../store/products';
+
 
 interface DispatchProps {
   submitProduct: (form: ProductFormModel) => void;

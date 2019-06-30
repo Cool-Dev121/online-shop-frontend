@@ -57,4 +57,11 @@ export const productsApiMock: ProductsApiConcrete = {
       });
     });
   },
+  updateProduct(form: ProductFormModel): Promise<void> {
+    return new Promise((res) => {
+      withDelay(() => {
+        res();
+      });
+    });
+  },
 };
