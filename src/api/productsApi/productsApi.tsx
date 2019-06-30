@@ -12,7 +12,7 @@ export const productsApi: ProductsApiConcrete = {
   },
   createProduct(form: ProductFormModel) {
     const formData = new FormData();
-    formData.append('image', form.image as any, (form.image as any).name);
+    formData.append('image', form.image);
     formData.append('name', form.productName);
     formData.append('price', form.price.toString());
 

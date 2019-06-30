@@ -4,7 +4,7 @@ import { getKeys } from './object';
 const defaultErrorMessage = 'Value is not valid';
 
 export function validate<TForm>(
-  value: string,
+  value: any,
   form: TForm,
   validatorItems?: ValidatorItem<TForm>[],
 ): { isValid: boolean; errors: string[] } {

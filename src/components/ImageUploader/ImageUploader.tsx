@@ -8,7 +8,7 @@ import { FormControl } from '../shared';
 import { Icon, IconName } from '../Icon';
 import { ImagePreview } from '../ImagePreview';
 
-interface Props extends FormControl, Themable {}
+interface Props extends FormControl<File>, Themable {}
 
 const InputContainer = styled.div`
   display: flex;
@@ -29,29 +29,28 @@ export const ImageUploader = withTheme(
 
     const imageRef: RefObject<HTMLInputElement> = React.createRef();
 
-    const [image, setImage] = useState(value);
-    const [imageName, setImageName] = useState();
+    const [imagePath, setImagePath] = useState(value);
+    const [localImageBuffer, setLocalImageBuffer] = useState();
+    const [localImageName, setLocalImageName] = useState('');
 
     useEffect(() => {
-      setImage(value);
+      setImagePath(value);
     }, [value]);
 
     const onFilePicked = (e: any) => {
       const { files } = e.target;
       const file = files[0];
       if (file !== undefined) {
-        const imgName = file.name;
-        if (imgName.lastIndexOf('.') <= 0) {
+        const localImageNameInner = file.name;
+        if (localImageNameInner.lastIndexOf('.') <= 0) {
           return;
         }
         const fr = new FileReader();
         fr.readAsDataURL(file);
         fr.addEventListener('load', () => {
-          const imageNameInner = file.name;
-          setImageName(imageNameInner);
+          setLocalImageName(localImageNameInner);
+          setLocalImageBuffer(fr.result as ArrayBuffer);
           if (onChange) {
-            const imageBuffer = fr.result as ArrayBuffer;
-            // onChange(imageBuffer);
             onChange(file);
           }
         });
@@ -60,19 +59,20 @@ export const ImageUploader = withTheme(
 
     return (
       <Fragment>
-        <ImagePreview imagePath={image} />
+        <ImagePreview imagePath={localImageBuffer || imagePath} />
         <InputContainer
           onClick={() => {
-            if (!image && onChange) {
-              onChange('');
-            }
             (imageRef.current as any).click();
           }}
         >
           <IconContainer>
             <Icon name={IconName.faPaperclip} color={theme.imageUploader.iconColor} />
           </IconContainer>
-          <Input title="Select image" value={imageName || image} errorMessage={errorMessage} />
+          <Input
+            title="Select image"
+            value={localImageName || imagePath}
+            errorMessage={errorMessage}
+          />
         </InputContainer>
         <input
           style={{ display: 'none' }}

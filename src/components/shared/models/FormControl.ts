@@ -1,6 +1,6 @@
-export interface FormControl {
+export interface FormControl<TOutputValue> {
   value: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: TOutputValue) => void;
   errorMessage?: string;
   name?: string;
 }

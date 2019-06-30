@@ -81,8 +81,8 @@ export const ProductForm = (props: Props): JSX.Element => {
               />
               <ImageUploader
                 name={FormFields.Image}
-                value={form[FormFields.Image]}
-                onChange={value => handleChange(FormFields.Image, value)}
+                value={form[FormFields.Image] as string}
+                onChange={(value: File) => handleChange(FormFields.Image, value)}
                 errorMessage={errors[FormFields.Image]}
               />
               <Button type="submit" disabled={!isFormValid}>
