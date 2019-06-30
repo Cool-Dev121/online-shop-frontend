@@ -2,19 +2,23 @@ import { Validator } from '../models';
 
 export function maxLengthVaidator<TForm extends any>(maxLength: number): Validator<TForm> {
   return (value: string, form: TForm) => {
-    const isValid = value === undefined || value === null ? false : !(value.length > maxLength);
-    return isValid;
+    if (value === undefined || value === null) {
+      return;
+    }
+    return !(value.length > maxLength);
   };
 }
 
 export function minLengthVaidator<TForm extends any>(minLength: number): Validator<TForm> {
   return (value: string, form: TForm) => {
-    const isValid = value === undefined || value === null ? false : !(value.length < minLength);
-    return isValid;
+    if (value === undefined || value === null) {
+      return;
+    }
+    return !(value.length < minLength);
   };
 }
 export function isRequiredValidator<TForm extends any>(): Validator<TForm> {
-  return (value: string, form: TForm) => !!value;
+  return (value: string, form: TForm) => !(value === undefined || value === null || value === '');
 }
 
 export function areEqual<TForm extends any>(control: string): Validator<TForm> {

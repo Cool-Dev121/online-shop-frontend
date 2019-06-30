@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from '../themes';
 import {
   removeKey,
@@ -92,6 +92,22 @@ export function Form<TForm extends any>(props: Props<TForm>): JSX.Element {
       >
         {renderFormInner({ formValue: form, errors, isValid: isFormValid }, handleChange)}
       </FormInner>
+    </MainContainer>
+  );
+}
+
+interface Props2 {
+  title: string;
+  children: React.ReactNode;
+}
+
+export function FormV2(props: Props2): JSX.Element {
+  const { title, children } = props;
+
+  return (
+    <MainContainer>
+      {title && <FormTitleContainer>{title}</FormTitleContainer>}
+      {children}
     </MainContainer>
   );
 }

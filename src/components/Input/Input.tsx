@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { styled } from '../themes';
 import {
   bordered, shadowed, FormControl, withBottomPadding,
@@ -39,17 +39,15 @@ export const Input = (props: Props) => {
     title, placeholder = '', value = '', onChange, errorMessage,
   } = props;
 
-  const [valueInner, setValueInner] = useState(value);
   return (
     <MainContainer>
       <TitleContainer>{title}</TitleContainer>
       <InputComponent
         autoComplete="off"
         placeholder={placeholder}
-        value={valueInner}
+        value={value}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           const { value: targetValue } = event.target;
-          setValueInner(targetValue);
           if (onChange) {
             onChange(targetValue);
           }

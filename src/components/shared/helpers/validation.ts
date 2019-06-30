@@ -12,7 +12,8 @@ export function validate<TForm>(
   if (validatorItems) {
     for (let i = 0; i < validatorItems.length; i++) {
       const { isValid, errorMessage } = validatorItems[i];
-      if (!isValid(value, form)) {
+      const isValidValue = isValid(value, form);
+      if (isValidValue !== undefined && !isValidValue) {
         errors.push(errorMessage || defaultErrorMessage);
       }
     }
@@ -28,4 +29,18 @@ export function validateForm<TForm extends any>(
     .map(k => validate(form[k], form, validators[k]))
     .map(validationResult => validationResult.isValid)
     .reduce((prev, curr) => prev && curr, true);
+}
+
+export function validateFormV2<TForm extends any>(
+  validators: FormControlValidators<TForm>,
+  form: TForm,
+): { isValid: boolean; errors: { [key: string]: string[] } } {
+  const errors: { [key: string]: string[] } = {};
+  let isValid = true;
+  getKeys(validators).forEach((key) => {
+    const validationResult = validate(form[key], form, validators[key]);
+    isValid = isValid && validationResult.isValid;
+    errors[key] = validationResult.errors;
+  });
+  return { isValid, errors };
 }

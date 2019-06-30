@@ -5,6 +5,7 @@ import { Image } from '../Image';
 
 const PaddingContainer = styled.div`
   ${props => withBottomPadding(props.theme)}
+  width: 100%;
 `;
 
 const ImagePreviewContainer = styled.div`

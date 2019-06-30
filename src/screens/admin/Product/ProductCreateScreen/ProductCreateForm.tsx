@@ -4,7 +4,6 @@ import { ProductForm } from '../ProductForm';
 import { ProductsDispatch, requestCreateProductActionCreator } from '../../../../store';
 import { ProductFormModel } from '../../../../shared';
 
-
 interface DispatchProps {
   submitProduct: (form: ProductFormModel) => void;
 }

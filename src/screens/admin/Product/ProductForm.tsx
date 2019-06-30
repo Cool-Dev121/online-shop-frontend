@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import styled from 'styled-components';
 import {
   Input,
@@ -10,6 +10,8 @@ import {
   ResponsiveContainer,
   Form,
   FormControlValidators,
+  useForm,
+  FormV2,
 } from '../../../components';
 import { ProductFormModel } from '../../../shared';
 
@@ -27,6 +29,10 @@ enum FormFields {
 
 const formControlValidators: FormControlValidators<ProductFormModel> = {
   [FormFields.ProductName]: [
+    {
+      errorMessage: 'Name is required',
+      isValid: isRequiredValidator(),
+    },
     {
       errorMessage: 'Name is too long',
       isValid: maxLengthVaidator(20),
@@ -54,43 +60,43 @@ interface Props {
 
 export const ProductForm = (props: Props): JSX.Element => {
   const { onSubmit, initValue, title } = props;
+
+  const {
+    formValues, handleChange, isFormValid, handleSubmit, getCurrentError,
+  } = useForm(
+    onSubmit,
+    formControlValidators,
+    initValue || ({} as ProductFormModel),
+  );
+
   return (
     <MainContainer>
       <ResponsiveContainer>
-        <Form
-          formControlValidators={formControlValidators}
-          onSubmit={onSubmit}
-          title={title}
-          initValue={initValue}
-          renderFormInner={(form, handleChange) => {
-            const { formValue, errors, isValid } = form;
-            return (
-              <Fragment>
-                <Input
-                  title="Name"
-                  placeholder="Name"
-                  value={initValue ? initValue[FormFields.ProductName] : ''}
-                  onChange={value => handleChange(FormFields.ProductName, value)}
-                  errorMessage={errors[FormFields.ProductName]}
-                />
-                <Input
-                  title="Price"
-                  value={initValue ? initValue[FormFields.Price] : ''}
-                  onChange={value => handleChange(FormFields.Price, value)}
-                  errorMessage={errors[FormFields.Price]}
-                />
-                <ImageUploader
-                  value={initValue ? (initValue[FormFields.Image] as string) : ''}
-                  onChange={(value: File) => handleChange(FormFields.Image, value)}
-                  errorMessage={errors[FormFields.Image]}
-                />
-                <Button type="submit" disabled={!isValid}>
-                  Submit
-                </Button>
-              </Fragment>
-            );
-          }}
-        />
+        <FormV2 title={title}>
+          <Fragment>
+            <Input
+              title="Name"
+              placeholder="Name"
+              value={formValues[FormFields.ProductName]}
+              onChange={value => handleChange(FormFields.ProductName, value)}
+              errorMessage={getCurrentError(FormFields.ProductName)}
+            />
+            <Input
+              title="Price"
+              value={formValues[FormFields.Price]}
+              onChange={value => handleChange(FormFields.Price, value)}
+              errorMessage={getCurrentError(FormFields.Price)}
+            />
+            <ImageUploader
+              value={formValues[FormFields.Image] as string}
+              onChange={(value: File) => handleChange(FormFields.Image, value)}
+              errorMessage={getCurrentError(FormFields.Image)}
+            />
+            <Button disabled={!isFormValid} onClick={handleSubmit}>
+              Submit
+            </Button>
+          </Fragment>
+        </FormV2>
       </ResponsiveContainer>
     </MainContainer>
   );
