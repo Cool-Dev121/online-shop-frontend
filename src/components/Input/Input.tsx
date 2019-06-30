@@ -29,7 +29,7 @@ const InputComponent = styled.input`
   ${shadowed}
 `;
 
-interface Props extends FormControl<string> {
+interface Props extends FormControl<string | number, string> {
   title: string;
   placeholder?: string;
 }

@@ -32,10 +32,12 @@ interface Props<TForm extends any> {
   title?: string;
   initValue?: TForm;
   renderFormInner: (
-    form: TForm,
-    errors: { [key: string]: string },
+    form: {
+    formValue: TForm;
+    errors: { [key: string]: string };
+    isValid: boolean;
+    },
     handleChange: (key: string, value: any) => void,
-    isFormValid: boolean,
   ) => JSX.Element;
 }
 
@@ -88,7 +90,7 @@ export function Form<TForm extends any>(props: Props<TForm>): JSX.Element {
           onSubmit(form);
         }}
       >
-        {renderFormInner(form, errors, handleChange, isFormValid)}
+        {renderFormInner({ formValue: form, errors, isValid: isFormValid }, handleChange)}
       </FormInner>
     </MainContainer>
   );

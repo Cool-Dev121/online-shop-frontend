@@ -37,34 +37,37 @@ export const SignUpFormInner = (props: Props): JSX.Element => {
       formControlValidators={formControlValidators}
       onSubmit={signUp}
       title="Sign Up"
-      renderFormInner={(form, errors, handleChange, isFormValid) => (
-        <Fragment>
-          <Input
-            title="Email"
-            name={FormFields.Email}
-            value={form[FormFields.Email]}
-            onChange={value => handleChange(FormFields.Email, value)}
-            errorMessage={errors[FormFields.Email]}
-          />
-          <Input
-            title="Password"
-            name={FormFields.Password}
-            value={form[FormFields.Password]}
-            onChange={value => handleChange(FormFields.Password, value)}
-            errorMessage={errors[FormFields.Password]}
-          />
-          <Input
-            title="Confirm password"
-            name={FormFields.ConfirmPassword}
-            value={form[FormFields.ConfirmPassword]}
-            onChange={value => handleChange(FormFields.ConfirmPassword, value)}
-            errorMessage={errors[FormFields.ConfirmPassword]}
-          />
-          <Button type="submit" disabled={!isFormValid}>
-            Sign In
-          </Button>
-        </Fragment>
-      )}
+      renderFormInner={(form, handleChange) => {
+        const { formValue, errors, isValid } = form;
+        return (
+          <Fragment>
+            <Input
+              title="Email"
+              name={FormFields.Email}
+              value={formValue[FormFields.Email]}
+              onChange={value => handleChange(FormFields.Email, value)}
+              errorMessage={errors[FormFields.Email]}
+            />
+            <Input
+              title="Password"
+              name={FormFields.Password}
+              value={formValue[FormFields.Password]}
+              onChange={value => handleChange(FormFields.Password, value)}
+              errorMessage={errors[FormFields.Password]}
+            />
+            <Input
+              title="Confirm password"
+              name={FormFields.ConfirmPassword}
+              value={formValue[FormFields.ConfirmPassword]}
+              onChange={value => handleChange(FormFields.ConfirmPassword, value)}
+              errorMessage={errors[FormFields.ConfirmPassword]}
+            />
+            <Button type="submit" disabled={!isValid}>
+              Sign In
+            </Button>
+          </Fragment>
+        );
+      }}
     />
   );
 };

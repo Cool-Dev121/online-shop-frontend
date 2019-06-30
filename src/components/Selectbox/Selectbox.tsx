@@ -29,7 +29,7 @@ const SelectComponent = styled.select`
   ${shadowed}
 `;
 
-interface Props extends FormControl<string> {
+interface Props extends FormControl<string, string> {
   collection: { id: string | number; text: string }[];
   placeholder?: string;
   title?: string;

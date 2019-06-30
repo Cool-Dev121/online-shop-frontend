@@ -62,34 +62,37 @@ export const ProductForm = (props: Props): JSX.Element => {
           onSubmit={onSubmit}
           title={title}
           initValue={initValue}
-          renderFormInner={(form, errors, handleChange, isFormValid) => (
-            <Fragment>
-              <Input
-                title="Name"
-                name={FormFields.ProductName}
-                placeholder="Name"
-                value={form[FormFields.ProductName]}
-                onChange={value => handleChange(FormFields.ProductName, value)}
-                errorMessage={errors[FormFields.ProductName]}
-              />
-              <Input
-                title="Price"
-                name={FormFields.Price}
-                value={form[FormFields.Price] as any}
-                onChange={value => handleChange(FormFields.Price, value)}
-                errorMessage={errors[FormFields.Price]}
-              />
-              <ImageUploader
-                name={FormFields.Image}
-                value={form[FormFields.Image] as string}
-                onChange={(value: File) => handleChange(FormFields.Image, value)}
-                errorMessage={errors[FormFields.Image]}
-              />
-              <Button type="submit" disabled={!isFormValid}>
-                Submit
-              </Button>
-            </Fragment>
-          )}
+          renderFormInner={(form, handleChange) => {
+            const { formValue, errors, isValid } = form;
+            return (
+              <Fragment>
+                <Input
+                  title="Name"
+                  name={FormFields.ProductName}
+                  placeholder="Name"
+                  value={formValue[FormFields.ProductName]}
+                  onChange={value => handleChange(FormFields.ProductName, value)}
+                  errorMessage={errors[FormFields.ProductName]}
+                />
+                <Input
+                  title="Price"
+                  name={FormFields.Price}
+                  value={formValue[FormFields.Price]}
+                  onChange={value => handleChange(FormFields.Price, value)}
+                  errorMessage={errors[FormFields.Price]}
+                />
+                <ImageUploader
+                  name={FormFields.Image}
+                  value={formValue[FormFields.Image] as string}
+                  onChange={(value: File) => handleChange(FormFields.Image, value)}
+                  errorMessage={errors[FormFields.Image]}
+                />
+                <Button type="submit" disabled={!isValid}>
+                  Submit
+                </Button>
+              </Fragment>
+            );
+          }}
         />
       </ResponsiveContainer>
     </MainContainer>

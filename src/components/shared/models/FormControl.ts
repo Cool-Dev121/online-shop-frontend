@@ -1,6 +1,6 @@
-export interface FormControl<TOutputValue> {
-  value: string;
+export interface FormControl<TInputValue, TOutputValue> {
+  value: TInputValue;
   onChange?: (value: TOutputValue) => void;
   errorMessage?: string;
-  name?: string;
+  name?: string; // TODO: is it necessary ?
 }

@@ -8,7 +8,7 @@ import { FormControl } from '../shared';
 import { Icon, IconName } from '../Icon';
 import { ImagePreview } from '../ImagePreview';
 
-interface Props extends FormControl<File>, Themable {}
+interface Props extends FormControl<string, File>, Themable {}
 
 const InputContainer = styled.div`
   display: flex;
