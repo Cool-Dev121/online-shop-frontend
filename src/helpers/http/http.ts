@@ -19,6 +19,6 @@ const getHeadersFormDataContent = () => {
 
 export const http = new HttpClass(
   process.env.REACT_APP_SERVER_URL!,
-  getHeaders(),
-  getHeadersFormDataContent(),
+  getHeaders,
+  getHeadersFormDataContent,
 );
