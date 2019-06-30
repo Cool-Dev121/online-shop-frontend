@@ -28,7 +28,7 @@ export function useForm<TForm extends object>(
 
   useEffect(() => {
     setFormValues(initFormValues);
-  }, [getKeys(initValue).length]);
+  }, [getKeys(initFormValues).length]);
 
   useEffect(() => {
     const validationResult = validateFormV2(formControlValidators, formValues);

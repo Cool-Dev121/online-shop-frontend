@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
-  Input, Button, areEqual, FormControlValidators, Form,
+  Input, Button, areEqual, FormControlValidators, Form, useForm,
 } from '../../components';
 import { SignUpFormModel } from '../../shared';
 import { AppDispatch, requestSignUpActionCreator } from '../../store';
@@ -32,40 +32,38 @@ type Props = DispatchProps;
 
 export const SignUpFormInner = (props: Props): JSX.Element => {
   const { signUp } = props;
+  const {
+    formValues, handleChange, isFormValid, handleSubmit, getCurrentError,
+  } = useForm(
+    signUp,
+    formControlValidators,
+  );
   return (
-    <Form
-      formControlValidators={formControlValidators}
-      onSubmit={signUp}
-      title="Sign Up"
-      renderFormInner={(form, handleChange) => {
-        const { formValue, errors, isValid } = form;
-        return (
-          <Fragment>
-            <Input
-              title="Email"
-              value={formValue[FormFields.Email]}
-              onChange={value => handleChange(FormFields.Email, value)}
-              errorMessage={errors[FormFields.Email]}
-            />
-            <Input
-              title="Password"
-              value={formValue[FormFields.Password]}
-              onChange={value => handleChange(FormFields.Password, value)}
-              errorMessage={errors[FormFields.Password]}
-            />
-            <Input
-              title="Confirm password"
-              value={formValue[FormFields.ConfirmPassword]}
-              onChange={value => handleChange(FormFields.ConfirmPassword, value)}
-              errorMessage={errors[FormFields.ConfirmPassword]}
-            />
-            <Button type="submit" disabled={!isValid}>
-              Sign In
-            </Button>
-          </Fragment>
-        );
-      }}
-    />
+    <Form title="Sign Up">
+      <Fragment>
+        <Input
+          title="Email"
+          value={formValues[FormFields.Email]}
+          onChange={value => handleChange(FormFields.Email, value)}
+          errorMessage={getCurrentError(FormFields.Email)}
+        />
+        <Input
+          title="Password"
+          value={formValues[FormFields.Password]}
+          onChange={value => handleChange(FormFields.Password, value)}
+          errorMessage={getCurrentError(FormFields.Password)}
+        />
+        <Input
+          title="Confirm password"
+          value={formValues[FormFields.ConfirmPassword]}
+          onChange={value => handleChange(FormFields.ConfirmPassword, value)}
+          errorMessage={getCurrentError(FormFields.ConfirmPassword)}
+        />
+        <Button type="submit" disabled={!isFormValid} onClick={handleSubmit}>
+          Sign In
+        </Button>
+      </Fragment>
+    </Form>
   );
 };
 

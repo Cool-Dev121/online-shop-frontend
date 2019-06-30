@@ -1,8 +1,10 @@
 import { Validator } from '../models';
 
+const isNoValue = (value: string) => value === undefined || value === null;
+
 export function maxLengthVaidator<TForm extends any>(maxLength: number): Validator<TForm> {
   return (value: string, form: TForm) => {
-    if (value === undefined || value === null) {
+    if (isNoValue(value)) {
       return;
     }
     return !(value.length > maxLength);
@@ -11,12 +13,13 @@ export function maxLengthVaidator<TForm extends any>(maxLength: number): Validat
 
 export function minLengthVaidator<TForm extends any>(minLength: number): Validator<TForm> {
   return (value: string, form: TForm) => {
-    if (value === undefined || value === null) {
+    if (isNoValue(value)) {
       return;
     }
     return !(value.length < minLength);
   };
 }
+
 export function isRequiredValidator<TForm extends any>(): Validator<TForm> {
   return (value: string, form: TForm) => !(value === undefined || value === null || value === '');
 }

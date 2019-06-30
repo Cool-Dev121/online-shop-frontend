@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
-  Input, Button, Form, FormControlValidators,
+  Input, Button, Form, FormControlValidators, useForm,
 } from '../../components';
 import { requestSignInActionCreator, AppDispatch } from '../../store';
 import { SignInFormModel } from '../../shared';
@@ -25,34 +25,33 @@ type Props = DispatchProps;
 
 export const SignInFormInner = (props: Props): JSX.Element => {
   const { signIn } = props;
+  const {
+    formValues, handleChange, isFormValid, handleSubmit, getCurrentError,
+  } = useForm(
+    signIn,
+    formControlValidators,
+  );
+
   return (
-    <Form
-      formControlValidators={formControlValidators}
-      onSubmit={signIn}
-      title="Sign In"
-      renderFormInner={(form, handleChange) => {
-        const { formValue, errors, isValid } = form;
-        return (
-          <Fragment>
-            <Input
-              title="Email"
-              value={formValue[FormFields.Email]}
-              onChange={value => handleChange(FormFields.Email, value)}
-              errorMessage={errors[FormFields.Email]}
-            />
-            <Input
-              title="Password"
-              value={formValue[FormFields.Password]}
-              onChange={value => handleChange(FormFields.Password, value)}
-              errorMessage={errors[FormFields.Password]}
-            />
-            <Button type="submit" disabled={!isValid}>
-              Sign In
-            </Button>
-          </Fragment>
-        );
-      }}
-    />
+    <Form title="Sign In">
+      <Fragment>
+        <Input
+          title="Email"
+          value={formValues[FormFields.Email]}
+          onChange={value => handleChange(FormFields.Email, value)}
+          errorMessage={getCurrentError(FormFields.Email)}
+        />
+        <Input
+          title="Password"
+          value={formValues[FormFields.Password]}
+          onChange={value => handleChange(FormFields.Password, value)}
+          errorMessage={getCurrentError(FormFields.Password)}
+        />
+        <Button type="submit" disabled={!isFormValid} onClick={handleSubmit}>
+          Sign In
+        </Button>
+      </Fragment>
+    </Form>
   );
 };
 

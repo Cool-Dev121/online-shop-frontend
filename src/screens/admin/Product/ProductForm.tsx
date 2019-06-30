@@ -11,7 +11,6 @@ import {
   Form,
   FormControlValidators,
   useForm,
-  FormV2,
 } from '../../../components';
 import { ProductFormModel } from '../../../shared';
 
@@ -72,7 +71,7 @@ export const ProductForm = (props: Props): JSX.Element => {
   return (
     <MainContainer>
       <ResponsiveContainer>
-        <FormV2 title={title}>
+        <Form title={title}>
           <Fragment>
             <Input
               title="Name"
@@ -96,7 +95,7 @@ export const ProductForm = (props: Props): JSX.Element => {
               Submit
             </Button>
           </Fragment>
-        </FormV2>
+        </Form>
       </ResponsiveContainer>
     </MainContainer>
   );
