@@ -36,7 +36,7 @@ interface Props extends FormControl<string | number, string> {
 
 export const Input = (props: Props) => {
   const {
-    title, name, placeholder = '', value = '', onChange, errorMessage,
+    title, placeholder = '', value = '', onChange, errorMessage,
   } = props;
 
   return (
@@ -44,7 +44,6 @@ export const Input = (props: Props) => {
       <TitleContainer>{title}</TitleContainer>
       <InputComponent
         autoComplete="off"
-        name={name}
         placeholder={placeholder}
         value={value}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {

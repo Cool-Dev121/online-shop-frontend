@@ -68,7 +68,6 @@ export const ProductForm = (props: Props): JSX.Element => {
               <Fragment>
                 <Input
                   title="Name"
-                  name={FormFields.ProductName}
                   placeholder="Name"
                   value={formValue[FormFields.ProductName]}
                   onChange={value => handleChange(FormFields.ProductName, value)}
@@ -76,13 +75,11 @@ export const ProductForm = (props: Props): JSX.Element => {
                 />
                 <Input
                   title="Price"
-                  name={FormFields.Price}
                   value={formValue[FormFields.Price]}
                   onChange={value => handleChange(FormFields.Price, value)}
                   errorMessage={errors[FormFields.Price]}
                 />
                 <ImageUploader
-                  name={FormFields.Image}
                   value={formValue[FormFields.Image] as string}
                   onChange={(value: File) => handleChange(FormFields.Image, value)}
                   errorMessage={errors[FormFields.Image]}

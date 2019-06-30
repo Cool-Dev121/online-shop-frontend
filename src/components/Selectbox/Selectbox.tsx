@@ -37,7 +37,7 @@ interface Props extends FormControl<string, string> {
 
 export const Selectbox = (props: Props) => {
   const {
-    title = '', name, placeholder = '', value, onChange, errorMessage, collection,
+    title = '', placeholder = '', value, onChange, errorMessage, collection,
   } = props;
 
   const [valueInner, setValueInner] = useState(value);
@@ -51,7 +51,6 @@ export const Selectbox = (props: Props) => {
       <TitleContainer>{title}</TitleContainer>
       <SelectComponent
         autoComplete="off"
-        name={name}
         placeholder={placeholder}
         value={valueInner}
         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
