@@ -5,6 +5,7 @@ export const API_CALL_ENDED = '[APP] API_CALL_ENDED';
 export const API_CALL_FAILED = '[APP] API_CALL_FAILED';
 export const REQUEST_SIGN_IN_SUCCESS = '[APP] REQUEST_SIGN_IN_SUCCESS';
 export const REQUEST_SIGN_UP_SUCCESS = '[APP] REQUEST_SIGN_UP_SUCCESS';
+export const LOG_OUT = '[APP] LOG_OUT';
 
 interface StartApiCallAction {
   type: typeof START_API_CALL;
@@ -41,8 +42,13 @@ interface RequestSignUpSuccessAction {
   };
 }
 
+interface LogOutAction {
+  type: typeof LOG_OUT;
+}
+
 export type ActionTypes = | StartApiCallAction
   | ApiCallEndedAction
   | ApiCallFailedAction
   | RequestSignInSuccessAction
-  | RequestSignUpSuccessAction;
+  | RequestSignUpSuccessAction
+  | LogOutAction;

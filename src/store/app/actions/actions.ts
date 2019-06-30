@@ -5,10 +5,11 @@ import {
   API_CALL_FAILED,
   ActionTypes,
   REQUEST_SIGN_IN_SUCCESS,
+  LOG_OUT,
 } from './types';
 import { ApiCallError, SignInFormModel } from '../../../shared';
 import { ThunkDispatch, ActionCreator } from '../models';
-import { setValueToLocalStorage } from '../../../helpers';
+import { setValueToLocalStorage, removeValueFromLocalStorage } from '../../../helpers';
 
 export function startApiCall(): ActionTypes {
   return {
@@ -43,6 +44,12 @@ export function requestSignInSuccess(token: string): ActionTypes {
     payload: {
       token,
     },
+  };
+}
+
+export function logOut(): ActionTypes {
+  return {
+    type: LOG_OUT,
   };
 }
 
@@ -85,4 +92,13 @@ export const requestSignUpActionCreator: ActionCreator = (form: SignInFormModel)
   } finally {
     dispatch(apiCallEnded());
   }
+};
+
+export const logOutActionCreator: ActionCreator = () => async (
+  dispatch: ThunkDispatch,
+  _,
+  { api },
+): Promise<ActionTypes | void> => {
+  dispatch(logOut());
+  removeValueFromLocalStorage(LOCAL_STORAGE_KEY_TOKEN);
 };

@@ -23,6 +23,7 @@ export {
   ThunkDispatch as AppDispatch,
   requestSignInActionCreator,
   requestSignUpActionCreator,
+  logOutActionCreator,
 } from './app';
 export {
   // @ts-ignore

@@ -1,3 +1,4 @@
+import { LOG_OUT } from './actions/types';
 import {
   START_API_CALL,
   API_CALL_ENDED,
@@ -35,6 +36,12 @@ export function reducer(state = initialState, action: ActionTypes): State {
         ...state,
         token: action.payload.token,
         isSignedIn: true,
+      };
+    case LOG_OUT:
+      return {
+        ...state,
+        token: null,
+        isSignedIn: false,
       };
     default:
       return state;
