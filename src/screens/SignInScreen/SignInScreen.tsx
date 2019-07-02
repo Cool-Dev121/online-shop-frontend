@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { RouteComponentProps, Redirect } from 'react-router-dom';
 import { styled, Card, ResponsiveContainer } from '../../components';
 import { SignInForm } from './SignInForm';
-import { AppState } from '../../store';
+import { AppState, getIsSignedIn } from '../../store';
 import { SignUpButton } from './SignUpButton';
 
 const MainContainer = styled.div`
@@ -55,9 +55,6 @@ export const SignInScreenInner = (props: Props): JSX.Element => {
   );
 };
 
-const mapStateToProps = (state: AppState) => {
-  const { app } = state;
-  return { isSignedIn: app.isSignedIn };
-};
+const mapStateToProps = (state: AppState) => ({ isSignedIn: getIsSignedIn(state) });
 
 export const SignInScreen = connect(mapStateToProps)(SignInScreenInner);

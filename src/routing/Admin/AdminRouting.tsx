@@ -13,10 +13,9 @@ import { AdminLayoutWrapper } from './AdminLayoutWrapper';
 import { PanelLayoutWrapper, CommonRoutes, FullscreenLayoutWrapper } from '../Common';
 import { AdminRoutes } from './AdminRoutes';
 
-interface StateProps {
+interface Props {
   checkIsAllowed: () => boolean;
 }
-type Props = StateProps;
 
 const AdminRouting = (props: Props): JSX.Element => {
   const { checkIsAllowed } = props;

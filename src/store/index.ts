@@ -24,6 +24,8 @@ export {
   requestSignInActionCreator,
   requestSignUpActionCreator,
   logOutActionCreator,
+  getUserType,
+  getIsSignedIn,
 } from './app';
 export {
   // @ts-ignore

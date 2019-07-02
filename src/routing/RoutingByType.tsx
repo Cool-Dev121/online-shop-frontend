@@ -14,6 +14,6 @@ checkIsAllowed: () => boolean;
       return <AdminRouting checkIsAllowed={checkIsAllowed} />;
     default:
     case UserType.Customer:
-      return <CustomerRouting />;
+      return <CustomerRouting checkIsAllowed={checkIsAllowed} />;
   }
 };

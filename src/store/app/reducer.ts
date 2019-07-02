@@ -1,18 +1,13 @@
-import { LOG_OUT } from './actions/types';
+import { LOG_OUT, SET_USER_DATA } from './actions/types';
 import {
-  START_API_CALL,
-  API_CALL_ENDED,
-  API_CALL_FAILED,
-  ActionTypes,
-  REQUEST_SIGN_IN_SUCCESS,
+  START_API_CALL, API_CALL_ENDED, API_CALL_FAILED, ActionTypes,
 } from './actions';
 
 import { State } from './models';
 
 const initialState: State = {
   isLoadingShown: false,
-  token: null,
-  isSignedIn: false,
+  userData: null,
 };
 
 export function reducer(state = initialState, action: ActionTypes): State {
@@ -31,17 +26,15 @@ export function reducer(state = initialState, action: ActionTypes): State {
       return {
         ...state,
       };
-    case REQUEST_SIGN_IN_SUCCESS:
-      return {
-        ...state,
-        token: action.payload.token,
-        isSignedIn: true,
-      };
     case LOG_OUT:
       return {
         ...state,
-        token: null,
-        isSignedIn: false,
+        userData: null,
+      };
+    case SET_USER_DATA:
+      return {
+        ...state,
+        userData: action.payload.userData,
       };
     default:
       return state;

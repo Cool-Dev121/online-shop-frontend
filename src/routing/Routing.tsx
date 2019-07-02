@@ -2,11 +2,7 @@ import React, { Suspense } from 'react';
 import { connect } from 'react-redux';
 import { UserType, FullscreenLoadingSign } from '../shared';
 import { RoutingByType } from './RoutingByType';
-import { AppState } from '../store';
-
-function getUserType(): UserType {
-  return UserType.Admin;
-}
+import { AppState, getUserType } from '../store';
 
 // function checkIsAllowed(): boolean {
 //   // 1. token should be presented
@@ -16,19 +12,22 @@ function getUserType(): UserType {
 
 interface StateProps {
   isSignedIn: boolean;
+  userType: UserType;
 }
 type Props = StateProps;
 
 export const RoutingInner = (props: Props): JSX.Element => {
-  const { isSignedIn } = props;
-  const type = getUserType();
+  const { isSignedIn, userType } = props;
   return (
     <Suspense fallback={<FullscreenLoadingSign />}>
-      <RoutingByType type={type} checkIsAllowed={() => isSignedIn} />
+      <RoutingByType type={userType} checkIsAllowed={() => isSignedIn} />
     </Suspense>
   );
 };
 
-const mapStateToProps = (state: AppState) => ({ isSignedIn: state.app.isSignedIn });
+const mapStateToProps = (state: AppState) => ({
+  isSignedIn: !!state.app.userData,
+  userType: getUserType(state),
+});
 
 export const Routing = connect(mapStateToProps)(RoutingInner);

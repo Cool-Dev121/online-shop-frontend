@@ -4,12 +4,14 @@ import {
   API_CALL_ENDED,
   API_CALL_FAILED,
   ActionTypes,
-  REQUEST_SIGN_IN_SUCCESS,
   LOG_OUT,
+  SET_USER_DATA,
 } from './types';
-import { ApiCallError, SignInFormModel } from '../../../shared';
+import { ApiCallError, SignInFormModel, UserDataModel } from '../../../shared';
 import { ThunkDispatch, ActionCreator } from '../models';
 import { setValueToLocalStorage, removeValueFromLocalStorage } from '../../../helpers';
+import { AppState } from '../../store';
+import { decodeToken } from '../../../helpers/token';
 
 export function startApiCall(): ActionTypes {
   return {
@@ -38,24 +40,36 @@ export function apiCallFailed(error: ApiCallError): ActionTypes {
   };
 }
 
-export function requestSignInSuccess(token: string): ActionTypes {
-  return {
-    type: REQUEST_SIGN_IN_SUCCESS,
-    payload: {
-      token,
-    },
-  };
-}
-
 export function logOut(): ActionTypes {
   return {
     type: LOG_OUT,
   };
 }
 
+export function setUser(userData: UserDataModel): ActionTypes {
+  return {
+    type: SET_USER_DATA,
+    payload: {
+      userData,
+    },
+  };
+}
+
+const makeApiCall = (dispatch: ThunkDispatch, fn: () => void) => {
+  dispatch(startApiCall());
+  try {
+    fn();
+  } catch (e) {
+    dispatch(apiCallFailed(e));
+    return; // eslint-disable-line
+  } finally {
+    dispatch(apiCallEnded());
+  }
+};
+
 export const requestSignInActionCreator: ActionCreator = (form: SignInFormModel) => async (
   dispatch: ThunkDispatch,
-  _,
+  getState: () => AppState,
   { api },
 ): Promise<ActionTypes | void> => {
   dispatch(startApiCall());
@@ -65,7 +79,7 @@ export const requestSignInActionCreator: ActionCreator = (form: SignInFormModel)
       password: form.password,
     });
     setValueToLocalStorage(LOCAL_STORAGE_KEY_TOKEN, result.token);
-    return dispatch(requestSignInSuccess(result.token));
+    return dispatch(setUser(decodeToken(result.token)));
   } catch (e) {
     dispatch(apiCallFailed(e));
     return; // eslint-disable-line

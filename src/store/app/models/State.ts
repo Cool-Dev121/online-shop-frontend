@@ -1,5 +1,6 @@
+import { UserDataModel } from '../../../shared';
+
 export interface State {
   isLoadingShown: boolean;
-  token: string | null;
-  isSignedIn: boolean;
+  userData: UserDataModel | null;
 }

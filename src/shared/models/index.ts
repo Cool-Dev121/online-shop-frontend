@@ -7,3 +7,4 @@ export * from './ProductFormModel';
 export * from './SignInFormModel';
 export * from './SignUpFormModel';
 export * from './OrderStatus';
+export * from './UserDataModel';

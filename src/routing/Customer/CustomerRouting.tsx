@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
 import {
   SignInScreen,
   SignUpScreen,
@@ -9,18 +8,16 @@ import {
   CartScreen,
 } from '../../screens';
 import { RouteWithLayout, ProtectedRouteWithLayout } from '../Routes';
-import { AppState } from '../../store';
 import { CustomerLayoutWrapper } from './CustomerLayoutWrapper';
 import { PanelLayoutWrapper, CommonRoutes, FullscreenLayoutWrapper } from '../Common';
 import { CustomerRoutes } from './CustomerRoutes';
 
-interface StateProps {
-  isSignedIn: boolean;
+interface Props {
+  checkIsAllowed: () => boolean;
 }
-type Props = StateProps;
 
-const CustomerRoutingInner = (props: Props): JSX.Element => {
-  const { isSignedIn } = props;
+const CustomerRouting = (props: Props): JSX.Element => {
+  const { checkIsAllowed } = props;
   return (
     <Router>
       <Switch>
@@ -39,7 +36,7 @@ const CustomerRoutingInner = (props: Props): JSX.Element => {
           layout={CustomerLayoutWrapper}
           content={CustomerOrdersScreen}
           pathIfNotAllowed={CommonRoutes.SignIn}
-          checkIsAllowed={() => isSignedIn}
+          checkIsAllowed={checkIsAllowed}
         />
         <ProtectedRouteWithLayout
           path={CustomerRoutes.Products}
@@ -47,7 +44,7 @@ const CustomerRoutingInner = (props: Props): JSX.Element => {
           layout={CustomerLayoutWrapper}
           content={CustomerProductsScreen}
           pathIfNotAllowed={CommonRoutes.SignIn}
-          checkIsAllowed={() => isSignedIn}
+          checkIsAllowed={checkIsAllowed}
         />
         <ProtectedRouteWithLayout
           path={CustomerRoutes.Cart}
@@ -55,7 +52,7 @@ const CustomerRoutingInner = (props: Props): JSX.Element => {
           layout={CustomerLayoutWrapper}
           content={CartScreen}
           pathIfNotAllowed={CommonRoutes.SignIn}
-          checkIsAllowed={() => isSignedIn}
+          checkIsAllowed={checkIsAllowed}
         />
         <RouteWithLayout
           exact
@@ -67,12 +64,5 @@ const CustomerRoutingInner = (props: Props): JSX.Element => {
     </Router>
   );
 };
-
-const mapStateToProps = (state: AppState) => {
-  const { app } = state;
-  return { isSignedIn: app.isSignedIn };
-};
-
-export const CustomerRouting = connect(mapStateToProps)(CustomerRoutingInner);
 
 export default CustomerRouting;
