@@ -1,21 +1,53 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import {
-  Input, Button, Form, FormControlValidators, useForm,
+  Input,
+  Button,
+  Form,
+  FormControlValidators,
+  useForm,
+  isRequiredValidator,
+  minLengthVaidator,
+  maxLengthVaidator,
 } from '../../components';
 import { requestSignInActionCreator, AppDispatch } from '../../store';
 import { SignInFormModel } from '../../shared';
 
 enum FormFields {
-  Email = 'email',
+  Login = 'login',
   Password = 'password',
   Submit = 'submit',
 }
 
 const formControlValidators: FormControlValidators<SignInFormModel> = {
-  [FormFields.Email]: [],
-  [FormFields.Password]: [],
-  [FormFields.Submit]: [],
+  [FormFields.Login]: [
+    {
+      isValid: isRequiredValidator(),
+      errorMessage: 'Login is required',
+    },
+    {
+      isValid: minLengthVaidator(3),
+      errorMessage: 'Login is too short',
+    },
+    {
+      isValid: maxLengthVaidator(20),
+      errorMessage: 'Login is too long',
+    },
+  ],
+  [FormFields.Password]: [
+    {
+      isValid: isRequiredValidator(),
+      errorMessage: 'Password is required',
+    },
+    {
+      isValid: minLengthVaidator(3),
+      errorMessage: 'Password is too short',
+    },
+    {
+      isValid: maxLengthVaidator(20),
+      errorMessage: 'Password is too long',
+    },
+  ],
 };
 
 interface DispatchProps {
@@ -36,16 +68,17 @@ export const SignInFormInner = (props: Props): JSX.Element => {
     <Form title="Sign In">
       <Fragment>
         <Input
-          title="Email"
-          value={formValues[FormFields.Email]}
-          onChange={value => handleChange(FormFields.Email, value)}
-          errorMessage={getCurrentError(FormFields.Email)}
+          title="Login"
+          value={formValues[FormFields.Login]}
+          onChange={value => handleChange(FormFields.Login, value)}
+          errorMessage={getCurrentError(FormFields.Login)}
         />
         <Input
           title="Password"
           value={formValues[FormFields.Password]}
           onChange={value => handleChange(FormFields.Password, value)}
           errorMessage={getCurrentError(FormFields.Password)}
+          type="password"
         />
         <Button type="submit" disabled={!isFormValid} onClick={handleSubmit}>
           Sign In

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import {
   Input,
@@ -11,6 +11,7 @@ import {
   Form,
   FormControlValidators,
   useForm,
+  isPriceValidator,
 } from '../../../components';
 import { ProductFormModel } from '../../../shared';
 
@@ -41,12 +42,25 @@ const formControlValidators: FormControlValidators<ProductFormModel> = {
       isValid: minLengthVaidator(3),
     },
   ],
-  [FormFields.Price]: [],
+  [FormFields.Price]: [
+    {
+      errorMessage: 'Price is required',
+      isValid: isRequiredValidator(),
+    },
+    {
+      errorMessage: 'Price is not valid',
+      isValid: isPriceValidator(),
+    },
+    {
+      errorMessage: 'Price is too large',
+      isValid: maxLengthVaidator(10),
+    },
+  ],
   [FormFields.Image]: [
-    // {
-    //   errorMessage: 'Image is required',
-    //   isValid: isRequiredValidator(),
-    // },
+    {
+      errorMessage: 'Image is required',
+      isValid: isRequiredValidator(),
+    },
   ],
   [FormFields.Submit]: [],
 };

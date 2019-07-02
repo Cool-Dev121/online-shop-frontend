@@ -75,7 +75,7 @@ export const requestSignInActionCreator: ActionCreator = (form: SignInFormModel)
   dispatch(startApiCall());
   try {
     const result = await api.auth.signIn({
-      login: form.email,
+      login: form.login,
       password: form.password,
     });
     setValueToLocalStorage(LOCAL_STORAGE_KEY_TOKEN, result.token);
@@ -96,7 +96,7 @@ export const requestSignUpActionCreator: ActionCreator = (form: SignInFormModel)
   dispatch(startApiCall());
   try {
     await api.auth.signUp({
-      login: form.email,
+      login: form.login,
       password: form.password,
     });
     // TODO: should be redirected to sign in page

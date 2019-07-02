@@ -1,5 +1,5 @@
 export interface SignUpFormModel {
-  email: string;
+  login: string;
   password: string;
   confirmPassword: string;
 }

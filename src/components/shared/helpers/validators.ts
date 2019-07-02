@@ -24,6 +24,15 @@ export function isRequiredValidator<TForm extends any>(): Validator<TForm> {
   return (value: string, form: TForm) => !(value === undefined || value === null || value === '');
 }
 
+export function isPriceValidator<TForm extends any>(): Validator<TForm> {
+  return (value: string, form: TForm) => {
+    if (isNoValue(value)) {
+      return;
+    }
+    return !!value.match(/^\d+(\.\d+)?$/);
+  };
+}
+
 export function areEqual<TForm extends any>(control: string): Validator<TForm> {
   return (value1: string, form: TForm) => value1 === form[control];
 }

@@ -32,11 +32,12 @@ const InputComponent = styled.input`
 interface Props extends FormControl<string | number, string> {
   title: string;
   placeholder?: string;
+  type?: string;
 }
 
 export const Input = (props: Props) => {
   const {
-    title, placeholder = '', value = '', onChange, errorMessage,
+    title, placeholder = '', value = '', onChange, errorMessage, type = 'text',
   } = props;
 
   return (
@@ -52,6 +53,7 @@ export const Input = (props: Props) => {
             onChange(targetValue);
           }
         }}
+        type={type}
       />
       <ControlErrorMessage>{errorMessage || ''}</ControlErrorMessage>
     </MainContainer>

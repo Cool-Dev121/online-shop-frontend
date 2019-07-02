@@ -18,7 +18,7 @@ const links: LinkItemModel[] = [
   {
     id: 'product-create',
     link: AdminRoutes.Product,
-    title: 'Product create (temp)',
+    title: 'Create Product',
   },
 ];
 
