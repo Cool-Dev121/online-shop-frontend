@@ -110,3 +110,19 @@ export const requestUpdateProductActionCreator: ActionCreator = (form: ProductFo
     dispatch(apiCallEnded());
   }
 };
+
+export const requestRemoveProductActionCreator: ActionCreator = (id: string) => async (
+  dispatch: Dispatch,
+  _,
+  { api },
+): Promise<ActionTypes | void> => {
+  dispatch(startApiCall());
+  try {
+    await api.products.removeProduct(id);
+  } catch (e) {
+    dispatch(apiCallFailed(e));
+    return; // eslint-disable-line
+  } finally {
+    dispatch(apiCallEnded());
+  }
+};

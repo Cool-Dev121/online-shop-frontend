@@ -47,6 +47,10 @@ export class HttpClass {
     return buildCall('POST', this._serverUrl, url, this._getHeaders, body);
   }
 
+  delete<TResponse>(url: string): Promise<TResponse> {
+    return buildCall('DELETE', this._serverUrl, url, this._getHeaders);
+  }
+
   upload<TBody, TResponse>(url: string, body?: TBody): Promise<TResponse> {
     return buildCall('POST', this._serverUrl, url, this._getHeadersFormDataContent, body);
   }

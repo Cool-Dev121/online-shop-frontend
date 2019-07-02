@@ -26,4 +26,7 @@ export const productsApi: ProductsApiConcrete = {
     formData.append('price', form.price.toString());
     return http.upload<FormData, any>(`${Url.updateProduct}/${form.id}`, formData);
   },
+  removeProduct(id: string) {
+    return http.delete(`${Url.removeProduct}/${id}`);
+  },
 };

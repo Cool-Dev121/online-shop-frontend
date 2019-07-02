@@ -64,4 +64,11 @@ export const productsApiMock: ProductsApiConcrete = {
       });
     });
   },
+  removeProduct(id: string): Promise<void> {
+    return new Promise((res) => {
+      withDelay(() => {
+        res();
+      });
+    });
+  },
 };
