@@ -6,3 +6,4 @@ export * from './SignInRequestModel';
 export * from './SignInResponseModel';
 export * from './SignUpRequestModel';
 export * from './SignUpResponseModel';
+export * from './OrderResponseModel';

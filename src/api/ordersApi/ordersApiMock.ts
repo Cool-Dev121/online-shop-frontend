@@ -3,6 +3,7 @@ import {
   PagedModel,
   AdminOrdersOrderResponseModel,
   CustomerOrdersOrderResponseModel,
+  OrderResponseModel,
 } from '../models';
 import { OrdersApiConcrete } from './OrdersApiConcrete';
 import { OrderStatus } from '../../shared';
@@ -132,6 +133,27 @@ export const ordersApiMock: OrdersApiConcrete = {
     return new Promise((res) => {
       setTimeout(() => {
         res();
+      }, 300);
+    });
+  },
+  getOrder(id: string): Promise<OrderResponseModel> {
+    return new Promise((res) => {
+      setTimeout(() => {
+        res({
+          id: '1',
+          status: OrderStatus.Created,
+          items: [
+            {
+              product: {
+                id: '1',
+                img: '',
+                name: 'Product 1',
+                price: 5,
+              },
+              count: 5,
+            },
+          ],
+        });
       }, 300);
     });
   },

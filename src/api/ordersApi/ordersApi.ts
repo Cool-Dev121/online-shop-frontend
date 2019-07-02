@@ -3,9 +3,10 @@ import {
   AdminOrdersOrderResponseModel,
   CustomerOrdersOrderResponseModel,
   ChangeOrderStatusRequestModel,
+  OrderResponseModel,
 } from '../models';
 import { http } from '../../helpers';
-import { Url, OrderStatus } from '../../shared';
+import { Url } from '../../shared';
 import { OrdersApiConcrete } from './OrdersApiConcrete';
 
 export const ordersApi: OrdersApiConcrete = {
@@ -27,5 +28,8 @@ export const ordersApi: OrdersApiConcrete = {
       `${Url.changeOrderStatus}/${orderId}`,
       changeOrderStatusRequestModel,
     );
+  },
+  getOrder(id: string): Promise<OrderResponseModel> {
+    return http.get<OrderResponseModel>(`${Url.getOrders}/${id}`);
   },
 };
