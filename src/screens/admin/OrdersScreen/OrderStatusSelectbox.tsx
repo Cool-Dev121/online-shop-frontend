@@ -25,7 +25,7 @@ const OrderStatusSelectboxInner = (props: Props) => {
       value={value}
       collection={orderStatuses}
       onChange={(status) => {
-        onStatusChange(orderId, (status as any).toString());
+        onStatusChange(orderId, status as OrderStatus);
       }}
     />
   );
@@ -33,7 +33,6 @@ const OrderStatusSelectboxInner = (props: Props) => {
 
 const mapDispatchToProps = (dispatch: OrdersDispatch) => ({
   onStatusChange: (id: string, status: OrderStatus) => {
-    console.log(status);
     dispatch(requestOrderStatusChangeActionCreator(id, status));
   },
 });

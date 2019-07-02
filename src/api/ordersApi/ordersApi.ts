@@ -2,6 +2,7 @@ import {
   PagedModel,
   AdminOrdersOrderResponseModel,
   CustomerOrdersOrderResponseModel,
+  ChangeOrderStatusRequestModel,
 } from '../models';
 import { http } from '../../helpers';
 import { Url, OrderStatus } from '../../shared';
@@ -20,7 +21,11 @@ export const ordersApi: OrdersApiConcrete = {
       count,
     });
   },
-  changeOrderStatus(orderId: string, status: OrderStatus) {
-    return http.post<any, any>(`${Url.changeOrderStatus}/${orderId}`, { status });
+  changeOrderStatus(orderId: string, changeOrderStatusRequestModel: ChangeOrderStatusRequestModel) {
+    debugger;
+    return http.post<ChangeOrderStatusRequestModel, null>(
+      `${Url.changeOrderStatus}/${orderId}`,
+      changeOrderStatusRequestModel,
+    );
   },
 };

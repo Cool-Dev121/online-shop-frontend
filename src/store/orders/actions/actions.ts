@@ -9,13 +9,21 @@ import {
   AdminOrdersTableOrderItemModel,
   CustomerOrdersTableOrderModel,
   OrderStatus,
+  CustomerOrdersTableOrderItemModel,
 } from '../../../shared';
 import {
   AdminOrdersOrderItemResponseModel,
   AdminOrdersOrderResponseModel,
   CustomerOrdersOrderResponseModel,
+  ChangeOrderStatusRequestModel,
+  CustomerOrdersOrderItemResponseModel,
 } from '../../../api';
-import { getOrderItemSum, getOrderSum, getFullImageUrl } from '../../../helpers';
+import {
+  getOrderItemSum,
+  getOrderSum,
+  getFullImageUrl,
+  mapOrderStatusIdToTitle,
+} from '../../../helpers';
 import { startApiCall, apiCallFailed, apiCallEnded } from '../../app';
 import { ActionCreator } from '../models';
 
@@ -92,18 +100,18 @@ export const requestTableCustomerOrdersActionCreator: ActionCreator = (
         id: order.id,
         createdAt: order.createdAt,
         items: order.items.map(
-          (orderItem: AdminOrdersOrderItemResponseModel) => ({
+          (orderItem: CustomerOrdersOrderItemResponseModel) => ({
             product: {
               ...orderItem.product,
               img: getFullImageUrl(orderItem.product.img),
             },
             count: orderItem.count,
             orderItemSum: getOrderItemSum(orderItem),
-          } as AdminOrdersTableOrderItemModel),
+          } as CustomerOrdersTableOrderItemModel),
         ),
-        status: order.status,
+        status: mapOrderStatusIdToTitle(parseInt(order.status.toString())),
         orderSum: getOrderSum(order.items),
-      } as AdminOrdersTableOrderModel),
+      } as CustomerOrdersTableOrderModel),
     );
     return dispatch(requestTableCustomerOrdersSuccess(mappedResult, result.totalItemsCount));
   } catch (e) {
@@ -120,8 +128,12 @@ export const requestOrderStatusChangeActionCreator: ActionCreator = (
 ) => async (dispatch: Dispatch, _, { api }): Promise<ActionTypes | void> => {
   dispatch(startApiCall());
   try {
-    const result = await api.orders.changeOrderStatus(id, status);
+    const requestModel: ChangeOrderStatusRequestModel = {
+      status,
+    };
+    await api.orders.changeOrderStatus(id, requestModel);
   } catch (e) {
+    console.log('ERROR', e);
     dispatch(apiCallFailed(e));
     return; // eslint-disable-line
   } finally {

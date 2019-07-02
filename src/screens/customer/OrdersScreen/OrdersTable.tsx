@@ -60,7 +60,7 @@ const ordersColumnsDefenition: TableColumnsDefinition<CustomerOrdersTableOrderMo
     width: 2,
     title: 'Status',
     renderCellItem: (item: CustomerOrdersTableOrderModel): JSX.Element => (
-      <Fragment>{mapOrderStatusIdToTitle(item.status)}</Fragment>
+      <Fragment>{item.status}</Fragment>
     ),
   },
   [OrdersColumnKey.Sum]: {

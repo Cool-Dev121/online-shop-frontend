@@ -1,3 +1,4 @@
+import { ChangeOrderStatusRequestModel } from '../models/admin/ChangeOrderStatusRequestModel';
 import {
   PagedModel,
   AdminOrdersOrderResponseModel,
@@ -124,7 +125,10 @@ export const ordersApiMock: OrdersApiConcrete = {
       }, 300);
     });
   },
-  changeOrderStatus(id: string, status: OrderStatus): Promise<null> {
+  changeOrderStatus(
+    id: string,
+    changeOrderStatusRequestModel: ChangeOrderStatusRequestModel,
+  ): Promise<null> {
     return new Promise((res) => {
       setTimeout(() => {
         res();

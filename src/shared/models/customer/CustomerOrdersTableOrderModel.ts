@@ -17,6 +17,6 @@ export interface CustomerOrdersTableOrderModel {
   id: string;
   createdAt: string;
   items: CustomerOrdersTableOrderItemModel[];
-  status: OrderStatus;
+  status: string;
   orderSum: number;
 }
