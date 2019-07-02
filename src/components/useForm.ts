@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FormControlValidators, validateFormV2, getKeys } from './shared';
+import { FormControlValidators, validateForm, getKeys } from './shared';
 
 type FormDescription<TDescription> = { [key: string]: TDescription };
 
@@ -31,7 +31,7 @@ export function useForm<TForm extends object>(
   }, [getKeys(initFormValues).length]);
 
   useEffect(() => {
-    const validationResult = validateFormV2(formControlValidators, formValues);
+    const validationResult = validateForm(formControlValidators, formValues);
     setIsFormValid(validationResult.isValid);
     setErrors(validationResult.errors);
   }, [formValues]);

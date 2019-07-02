@@ -40,23 +40,25 @@ const AdminRouting = (props: Props): JSX.Element => {
           checkIsAllowed={checkIsAllowed}
         />
         <ProtectedRouteWithLayout
+          path={AdminRoutes.Product}
+          layout={AdminLayoutWrapper}
+          content={ProductCreateScreen}
+          pathIfNotAllowed={CommonRoutes.SignIn}
+          checkIsAllowed={checkIsAllowed}
+        />
+        <ProtectedRouteWithLayout
+          path={`${AdminRoutes.Product}/:id`}
+          layout={AdminLayoutWrapper}
+          content={ProductEditScreen}
+          pathIfNotAllowed={CommonRoutes.SignIn}
+          checkIsAllowed={checkIsAllowed}
+        />
+        <ProtectedRouteWithLayout
           path={AdminRoutes.Products}
-          exact
           layout={AdminLayoutWrapper}
           content={AdminProductsScreen}
           pathIfNotAllowed={CommonRoutes.SignIn}
           checkIsAllowed={checkIsAllowed}
-        />
-        <RouteWithLayout
-          path={AdminRoutes.Product}
-          layout={AdminLayoutWrapper}
-          exact
-          content={ProductCreateScreen}
-        />
-        <RouteWithLayout
-          path={`${AdminRoutes.Product}/:id`}
-          layout={AdminLayoutWrapper}
-          content={ProductEditScreen}
         />
         <RouteWithLayout
           exact

@@ -24,16 +24,6 @@ export function validate<TForm>(
 export function validateForm<TForm extends any>(
   validators: FormControlValidators<TForm>,
   form: TForm,
-): boolean {
-  return getKeys(validators)
-    .map(k => validate(form[k], form, validators[k]))
-    .map(validationResult => validationResult.isValid)
-    .reduce((prev, curr) => prev && curr, true);
-}
-
-export function validateFormV2<TForm extends any>(
-  validators: FormControlValidators<TForm>,
-  form: TForm,
 ): { isValid: boolean; errors: { [key: string]: string[] } } {
   const errors: { [key: string]: string[] } = {};
   let isValid = true;

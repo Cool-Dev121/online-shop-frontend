@@ -40,7 +40,6 @@ const CustomerRouting = (props: Props): JSX.Element => {
         />
         <ProtectedRouteWithLayout
           path={CustomerRoutes.Products}
-          exact
           layout={CustomerLayoutWrapper}
           content={CustomerProductsScreen}
           pathIfNotAllowed={CommonRoutes.SignIn}
@@ -48,7 +47,6 @@ const CustomerRouting = (props: Props): JSX.Element => {
         />
         <ProtectedRouteWithLayout
           path={CustomerRoutes.Cart}
-          exact
           layout={CustomerLayoutWrapper}
           content={CartScreen}
           pathIfNotAllowed={CommonRoutes.SignIn}

@@ -5,9 +5,16 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { Routing } from './routing';
 import { getTheme, ThemeType } from './components';
-import { rootReducer, logMiddleware } from './store';
+import { rootReducer, logMiddleware, setUser } from './store';
 import { apiHub } from './api';
-import { ThunkExtraArgument, FullscreenLoadingSignContainer } from './shared';
+import {
+  ThunkExtraArgument,
+  FullscreenLoadingSignContainer,
+  LOCAL_STORAGE_KEY_TOKEN,
+} from './shared';
+
+import { getValueFromLocalStorage } from './helpers';
+import { decodeToken } from './helpers/token';
 
 const theme = ThemeType.Default;
 
@@ -20,7 +27,13 @@ const store = createStore(
   applyMiddleware(thunk.withExtraArgument(thunkExtraArgument), logMiddleware),
 );
 
-const App: React.FC = (): JSX.Element => (
+const initUser = () => {
+  const token = getValueFromLocalStorage(LOCAL_STORAGE_KEY_TOKEN);
+  token && store.dispatch(setUser(decodeToken(token)));
+};
+initUser();
+
+const App = (): JSX.Element => (
   <ThemeProvider theme={getTheme(theme)}>
     <Provider store={store}>
       <Routing />
