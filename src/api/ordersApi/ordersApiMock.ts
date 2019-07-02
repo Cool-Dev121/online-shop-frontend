@@ -1,12 +1,14 @@
-import { ChangeOrderStatusRequestModel } from '../models/admin/ChangeOrderStatusRequestModel';
 import {
   PagedModel,
   AdminOrdersOrderResponseModel,
   CustomerOrdersOrderResponseModel,
   OrderResponseModel,
+  ChangeOrderStatusRequestModel,
+  CreateOrderRequestModel,
 } from '../models';
 import { OrdersApiConcrete } from './OrdersApiConcrete';
 import { OrderStatus } from '../../shared';
+import { withDelay } from '../../helpers';
 
 const generateOrders = (start: number, count: number): AdminOrdersOrderResponseModel[] => {
   const generated: AdminOrdersOrderResponseModel[] = [];
@@ -97,7 +99,7 @@ const generateOrdersOfCustomer = (
 export const ordersApiMock: OrdersApiConcrete = {
   getOrders(start: number, count: number): Promise<PagedModel<AdminOrdersOrderResponseModel>> {
     return new Promise((res) => {
-      setTimeout(() => {
+      withDelay(() => {
         const totalItemsCount = 12;
         res({
           items: generateOrders(
@@ -106,7 +108,7 @@ export const ordersApiMock: OrdersApiConcrete = {
           ),
           totalItemsCount,
         });
-      }, 300);
+      });
     });
   },
   getOrdersOfUser(
@@ -114,7 +116,7 @@ export const ordersApiMock: OrdersApiConcrete = {
     count: number,
   ): Promise<PagedModel<CustomerOrdersOrderResponseModel>> {
     return new Promise((res) => {
-      setTimeout(() => {
+      withDelay(() => {
         const totalItemsCount = 12;
         res({
           items: generateOrdersOfCustomer(
@@ -123,7 +125,7 @@ export const ordersApiMock: OrdersApiConcrete = {
           ),
           totalItemsCount,
         });
-      }, 300);
+      });
     });
   },
   changeOrderStatus(
@@ -131,14 +133,14 @@ export const ordersApiMock: OrdersApiConcrete = {
     changeOrderStatusRequestModel: ChangeOrderStatusRequestModel,
   ): Promise<null> {
     return new Promise((res) => {
-      setTimeout(() => {
+      withDelay(() => {
         res();
-      }, 300);
+      });
     });
   },
   getOrder(id: string): Promise<OrderResponseModel> {
     return new Promise((res) => {
-      setTimeout(() => {
+      withDelay(() => {
         res({
           id: '1',
           status: OrderStatus.Created,
@@ -154,7 +156,14 @@ export const ordersApiMock: OrdersApiConcrete = {
             },
           ],
         });
-      }, 300);
+      });
+    });
+  },
+  createOrder(order: CreateOrderRequestModel): Promise<null> {
+    return new Promise((res) => {
+      withDelay(() => {
+        res();
+      });
     });
   },
 };

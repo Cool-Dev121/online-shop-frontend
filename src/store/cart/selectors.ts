@@ -4,7 +4,7 @@ import { CartItemModel } from '../../shared';
 import { getKeys, asArray } from '../../components';
 import { getCartSum } from '../../helpers';
 
-const cartItemsSelector = (state: AppState): { [id: string]: CartItemModel } => state.cart.items;
+export const cartItemsSelector = (state: AppState): { [id: string]: CartItemModel } => state.cart.items;
 
 export const getIsNoCartItems = createSelector(
   [cartItemsSelector],

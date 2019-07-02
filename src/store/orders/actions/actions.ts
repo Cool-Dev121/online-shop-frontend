@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+import { AppState } from '../../store';
 import {
   REQUEST_TABLE_ADMIN_ORDERS_SUCCESS,
   ActionTypes,
@@ -10,6 +11,7 @@ import {
   CustomerOrdersTableOrderModel,
   OrderStatus,
   CustomerOrdersTableOrderItemModel,
+  CartItemModel,
 } from '../../../shared';
 import {
   AdminOrdersOrderItemResponseModel,
@@ -17,6 +19,7 @@ import {
   CustomerOrdersOrderResponseModel,
   ChangeOrderStatusRequestModel,
   CustomerOrdersOrderItemResponseModel,
+  CreateOrderRequestModel,
 } from '../../../api';
 import {
   getOrderItemSum,
@@ -26,6 +29,8 @@ import {
 } from '../../../helpers';
 import { startApiCall, apiCallFailed, apiCallEnded } from '../../app';
 import { ActionCreator } from '../models';
+import { cartItemsSelector, clearCart } from '../../cart';
+import { getKeys } from '../../../components';
 
 function requestTableAdminOrdersSuccess(
   items: AdminOrdersTableOrderModel[],
@@ -133,7 +138,33 @@ export const requestOrderStatusChangeActionCreator: ActionCreator = (
     };
     await api.orders.changeOrderStatus(id, requestModel);
   } catch (e) {
-    console.log('ERROR', e);
+    dispatch(apiCallFailed(e));
+    return; // eslint-disable-line
+  } finally {
+    dispatch(apiCallEnded());
+  }
+};
+
+export const requestCreateOrderActionCreator: ActionCreator = () => async (
+  dispatch: Dispatch,
+  getState: () => AppState,
+  { api },
+): Promise<ActionTypes | void> => {
+  dispatch(startApiCall());
+  try {
+    const cartItems: { [id: string]: CartItemModel } = cartItemsSelector(getState());
+    const createOrderRequestModel: CreateOrderRequestModel = {
+      items: getKeys(cartItems).map((cartItemId) => {
+        const cartItem = cartItems[cartItemId];
+        return {
+          productId: cartItem.id,
+          count: cartItem.count,
+        };
+      }),
+    };
+    await api.orders.createOrder(createOrderRequestModel);
+    dispatch(clearCart());
+  } catch (e) {
     dispatch(apiCallFailed(e));
     return; // eslint-disable-line
   } finally {

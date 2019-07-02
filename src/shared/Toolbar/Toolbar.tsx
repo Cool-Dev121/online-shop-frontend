@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { styled, Button } from '../../components';
+import {
+  styled, Button, Text, TextSize,
+} from '../../components';
 import { AppDispatch, logOutActionCreator } from '../../store';
 
 const MainContainer = styled.div`
@@ -24,7 +26,9 @@ export const ToolbarInner = (props: Props): JSX.Element => {
   const { logOut } = props;
   return (
     <MainContainer>
-      <ContentContainer>Toolbar</ContentContainer>
+      <ContentContainer>
+        <Text text="Online Store" size={TextSize.xl} />
+      </ContentContainer>
       <ControlsContainer>
         <Button
           onClick={() => {

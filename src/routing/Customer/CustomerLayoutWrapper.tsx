@@ -6,14 +6,14 @@ import { CustomerRoutes } from './CustomerRoutes';
 
 const links: LinkItemModel[] = [
   {
-    id: 'orders',
-    link: CustomerRoutes.Orders,
-    title: 'Orders',
-  },
-  {
     id: 'products',
     link: CustomerRoutes.Products,
     title: 'Products',
+  },
+  {
+    id: 'orders',
+    link: CustomerRoutes.Orders,
+    title: 'Orders',
   },
   {
     id: 'cart',

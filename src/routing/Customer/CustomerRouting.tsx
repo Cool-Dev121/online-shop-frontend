@@ -39,16 +39,16 @@ const CustomerRouting = (props: Props): JSX.Element => {
           checkIsAllowed={checkIsAllowed}
         />
         <ProtectedRouteWithLayout
-          path={CustomerRoutes.Products}
+          path={CustomerRoutes.Cart}
           layout={CustomerLayoutWrapper}
-          content={CustomerProductsScreen}
+          content={CartScreen}
           pathIfNotAllowed={CommonRoutes.SignIn}
           checkIsAllowed={checkIsAllowed}
         />
         <ProtectedRouteWithLayout
-          path={CustomerRoutes.Cart}
+          path={CustomerRoutes.Products}
           layout={CustomerLayoutWrapper}
-          content={CartScreen}
+          content={CustomerProductsScreen}
           pathIfNotAllowed={CommonRoutes.SignIn}
           checkIsAllowed={checkIsAllowed}
         />

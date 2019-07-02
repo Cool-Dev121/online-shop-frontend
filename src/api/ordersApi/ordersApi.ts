@@ -4,6 +4,7 @@ import {
   CustomerOrdersOrderResponseModel,
   ChangeOrderStatusRequestModel,
   OrderResponseModel,
+  CreateOrderRequestModel,
 } from '../models';
 import { http } from '../../helpers';
 import { Url } from '../../shared';
@@ -23,13 +24,15 @@ export const ordersApi: OrdersApiConcrete = {
     });
   },
   changeOrderStatus(orderId: string, changeOrderStatusRequestModel: ChangeOrderStatusRequestModel) {
-    debugger;
     return http.post<ChangeOrderStatusRequestModel, null>(
       `${Url.changeOrderStatus}/${orderId}`,
       changeOrderStatusRequestModel,
     );
   },
   getOrder(id: string): Promise<OrderResponseModel> {
-    return http.get<OrderResponseModel>(`${Url.getOrders}/${id}`);
+    return http.get<OrderResponseModel>(`${Url.getOrder}/${id}`);
+  },
+  createOrder(order: CreateOrderRequestModel): Promise<null> {
+    return http.post<CreateOrderRequestModel, null>(Url.createOrder, order);
   },
 };

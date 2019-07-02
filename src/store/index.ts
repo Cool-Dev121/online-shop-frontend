@@ -5,6 +5,7 @@ export {
   requestTableAdminOrdersActionCreator,
   requestTableCustomerOrdersActionCreator,
   requestOrderStatusChangeActionCreator,
+  requestCreateOrderActionCreator,
   getIsNoAdminOrderItems,
   getIsNoCustomerOrderItems,
 } from './orders';

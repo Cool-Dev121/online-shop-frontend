@@ -5,7 +5,11 @@ import {
 } from '../../../components';
 import { CartItemModel } from '../../../shared';
 import {
-  AppState, CartDispatch, getCartItemsArray, getCartItemsSum,
+  AppState,
+  CartDispatch,
+  getCartItemsArray,
+  getCartItemsSum,
+  requestCreateOrderActionCreator,
 } from '../../../store';
 import { CartItem } from './CartItem';
 
@@ -22,12 +26,12 @@ interface StateProps {
   cartSum: number;
 }
 interface DispatchProps {
-  // onPageChange: (start: number, count: number) => void;
+  makeOrder: () => void;
 }
 type Props = OwnProps & StateProps & DispatchProps;
 
 const CartItemsListInner = (props: Props): JSX.Element => {
-  const { items, cartSum } = props;
+  const { items, cartSum, makeOrder } = props;
   return (
     <MainContainer>
       <ResponsiveContainer
@@ -52,7 +56,7 @@ const CartItemsListInner = (props: Props): JSX.Element => {
         />
         <ControlsContainer>
           <Text size={TextSize.xxl} text={`Total: $${cartSum}`} />
-          <Button>Make an order</Button>
+          <Button onClick={makeOrder}>Make an order</Button>
         </ControlsContainer>
       </ResponsiveContainer>
     </MainContainer>
@@ -65,9 +69,9 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = (dispatch: CartDispatch) => ({
-  // onPageChange: (start: number, count: number) => {
-  //   dispatch(requestTableProductsActionCreator(start, count));
-  // },
+  makeOrder: () => {
+    dispatch(requestCreateOrderActionCreator());
+  },
 });
 
 export const CartItemsList = connect(

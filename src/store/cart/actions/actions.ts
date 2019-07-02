@@ -38,7 +38,7 @@ function setCartItemCount(id: string, count: number): ActionTypes {
   };
 }
 
-function clearCart(): ActionTypes {
+export function clearCart(): ActionTypes {
   return {
     type: CLEAR_CART,
   };
