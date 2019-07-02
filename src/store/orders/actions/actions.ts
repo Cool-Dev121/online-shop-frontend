@@ -15,7 +15,7 @@ import {
   AdminOrdersOrderResponseModel,
   CustomerOrdersOrderResponseModel,
 } from '../../../api';
-import { getOrderItemSum, getOrderSum } from '../../../helpers';
+import { getOrderItemSum, getOrderSum, getFullImageUrl } from '../../../helpers';
 import { startApiCall, apiCallFailed, apiCallEnded } from '../../app';
 import { ActionCreator } from '../models';
 
@@ -59,7 +59,10 @@ export const requestTableAdminOrdersActionCreator: ActionCreator = (
         createdAt: order.createdAt,
         items: order.items.map(
           (orderItem: AdminOrdersOrderItemResponseModel) => ({
-            product: orderItem.product,
+            product: {
+              ...orderItem.product,
+              img: getFullImageUrl(orderItem.product.img),
+            },
             count: orderItem.count,
             orderItemSum: getOrderItemSum(orderItem),
           } as AdminOrdersTableOrderItemModel),
@@ -90,7 +93,10 @@ export const requestTableCustomerOrdersActionCreator: ActionCreator = (
         createdAt: order.createdAt,
         items: order.items.map(
           (orderItem: AdminOrdersOrderItemResponseModel) => ({
-            product: orderItem.product,
+            product: {
+              ...orderItem.product,
+              img: getFullImageUrl(orderItem.product.img),
+            },
             count: orderItem.count,
             orderItemSum: getOrderItemSum(orderItem),
           } as AdminOrdersTableOrderItemModel),

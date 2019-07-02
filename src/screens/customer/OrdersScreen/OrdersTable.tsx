@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { TableColumnsDefinition, styled, PaginatedTable } from '../../../components';
 import { AppState, OrdersDispatch, requestTableCustomerOrdersActionCreator } from '../../../store';
@@ -9,6 +9,7 @@ import {
   CustomerOrdersTableOrderModel,
   CustomerOrdersTableOrderItemModel,
 } from '../../../shared';
+import { mapOrderStatusIdToTitle } from '../../../helpers';
 
 enum OrdersColumnKey {
   Id,
@@ -58,7 +59,9 @@ const ordersColumnsDefenition: TableColumnsDefinition<CustomerOrdersTableOrderMo
   [OrdersColumnKey.Status]: {
     width: 2,
     title: 'Status',
-    renderCellItem: (item: CustomerOrdersTableOrderModel): JSX.Element => <div>{item.status}</div>,
+    renderCellItem: (item: CustomerOrdersTableOrderModel): JSX.Element => (
+      <Fragment>{mapOrderStatusIdToTitle(item.status)}</Fragment>
+    ),
   },
   [OrdersColumnKey.Sum]: {
     width: 1,
